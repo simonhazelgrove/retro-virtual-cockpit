@@ -1,0 +1,417 @@
+﻿html {
+    background-color: #272b30;
+    vertical-align: top;
+}
+
+html.night {
+    background-color: #000;
+}
+
+body {
+    width: 100%;
+    padding-top: 50px;
+    padding-bottom: 20px;
+    vertical-align: top;
+}
+
+.night body {
+    background: #080808;
+    color: #599;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.error {
+    color: #CC3333;
+    display: block !important;
+}
+
+.large-icon {
+    font-size: 200%;
+}
+
+.menu-item {
+    font-size: 150%;
+}
+
+.menu-item span.glyphicon {
+    font-size: 80%;
+    margin-right: 1em;
+}
+
+.not-hidden {
+    display: block !important;
+}
+
+/* Virtual cockpit controls */
+
+#virtual-cockpit {
+    -webkit-user-select: none;
+    -moz-user-select: none;   
+    -ms-user-select: none;
+    user-select: none;
+    transform: scale(1, 1);
+    transform-origin: center top;
+    color: #c8c8c8;
+    cursor: pointer;
+}
+
+.night #virtual-cockpit  {
+    color: #448888;
+    text-shadow: #448888 0 0 5px;
+    background-color: black;
+}
+
+.night h1 {
+    color: #144;
+}
+
+.control-panel-row {
+    text-align: center;
+}
+
+.control-panel {
+    position: relative;
+    text-transform: uppercase;
+    background: black;
+    margin: 10px;
+    padding: 20px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.control-panel.vertical>.control-panel {
+    padding: 0;
+    margin: 0;
+    margin-top: -20px;
+}
+
+.control-panel.bottom {
+    vertical-align: bottom;
+}
+
+.control-panel.right {
+    float: right;
+}
+
+.control-panel.left {
+    float: left;
+}
+
+.control-panel .screw {
+  content: url('../Content/Images/screw.png');
+  position: absolute;
+}
+
+.night .control-panel .screw {
+  opacity: 0.15;
+}
+
+.control-panel .screw.top-left {
+  top: 0px;
+  left: 0px;
+  transform: rotate(40deg); 
+}
+
+.control-panel .screw.bottom-left {
+  bottom: 0px;
+  left: 0px;
+  transform: rotate(17deg); 
+}
+
+.control-panel .screw.top-right {
+  top: 0px;
+  right: 0px;
+  transform: rotate(8deg); 
+}
+
+.control-panel .screw.bottom-right {
+  bottom: 0px;
+  right: 0px;
+  transform: rotate(30deg); 
+}
+
+.control-panel h1 {
+    font-size: 20px;
+    position: relative;
+    top: -30px;
+    text-align: center;
+    margin-bottom: 0;
+}
+
+.control-slot {
+    text-align: center;
+    display: inline-block;
+    vertical-align: top;
+    min-width: 60px;
+    margin-top: -20px;
+    position: relative;
+}
+
+.control-panel.vertical>.control-slot {
+    display: block;
+}
+
+.control-panel.horizontal>.control-slot {
+    display: inline-block;
+}
+
+.control {
+    position: relative;
+    cursor: pointer;
+    cursor: hand;
+    cursor: grab;
+    cursor: -webkit-grab;
+}
+
+.control img {
+    -webkit-user-drag: none;
+}
+
+.control-slot p {
+    position: relative;
+    bottom: -10px;
+    margin: 0;
+}
+
+.control-panel.vertical .control-slot {
+    margin-top: 10px;
+}
+
+.control-panel.vertical .control-slot p {
+    bottom: 0px;
+    margin-bottom: 10px;
+}
+
+.control-slot.centered {
+    vertical-align: middle;
+    margin: 0;
+    padding: 10px;
+}
+
+.control-slot.large {
+    font-size: 150%;
+}
+
+.control-slot.hazard {
+  background: repeating-linear-gradient(
+    -45deg,
+    black,
+    black 10px,
+    #FFCC00 10px,
+    #FFCC00 20px
+  );
+}
+
+.night .control-slot.hazard {
+  background: repeating-linear-gradient(
+    -45deg,
+    black,
+    black 10px,
+    #110C00 10px,
+    #110C00 20px
+  );
+}
+
+.control-slot.hazard p {
+    background: black;
+    position: relative;
+
+}
+
+.control-slot.hazard.large p {
+    background: black;
+    padding: 5px 10px;
+    position: relative;
+    bottom: 0;
+}
+
+.control-panel hr {
+    border-top-color: white;
+}
+
+.control.button {
+    background-image: Url('../Content/Images/button.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    width: 100%;
+    min-width: 40px;
+    height: 50px;
+}
+
+.night .control.button {
+    background-image: Url('../Content/Images/button-night.png');
+}
+
+.control.button-red {
+    background-image: Url('../Content/Images/button-red.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    width: 100%;
+    min-width: 41px;
+    height: 50px;
+}
+
+.night .control.button-red {
+    background-image: Url('../Content/Images/button-red-night.png');
+}
+
+.control.button-h {
+    background-image: Url('../Content/Images/button-h.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    width: 100%;
+    min-width: 96px;
+    height: 50px;
+}
+
+.night .control.button-h {
+    background-image: Url('../Content/Images/button-h-night.png');
+}
+
+.control.button-dpad {
+    background-image: Url('../Content/Images/button-dpad.png');
+    background-repeat: no-repeat;
+    background-position: center top;
+    width: 100%;
+    min-width: 109px;
+    height: 109px;
+}
+
+.night .control.button-dpad {
+    background-image: Url('../Content/Images/button-dpad-night.png');
+}
+
+.control.switch, .control.switch.off {
+    background-image: Url('../Content/Images/switch-off.png');
+    background-repeat: no-repeat;
+    background-position: center top;
+    width: 100%;
+    min-width: 50px;
+    height: 50px;
+}
+
+.night .control.switch, .control.switch.off {
+    background-image: Url('../Content/Images/switch-off-night.png');
+}
+
+.control.switch.on {
+    background-image: Url('../Content/Images/switch-on.png');
+}
+
+.night .control.switch.on {
+    background-image: Url('../Content/Images/switch-on-night.png');
+}
+
+.control.wheel-h {
+    background-image: Url('../Content/Images/wheel-h.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    width: 100%;
+    min-width: 111px;
+    height: 50px;
+}
+
+.night .control.wheel-h {
+    background-image: Url('../Content/Images/wheel-h-night.png');
+}
+
+.control.wheel-v {
+    background-image: Url('../Content/Images/wheel-v.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    width: 100%;
+    min-width: 111px;
+    height: 50px;
+}
+
+.night .control.wheel-v {
+    background-image: Url('../Content/Images/wheel-v-night.png');
+}
+
+.control.knob {
+    background-image: Url('../Content/Images/knob.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    width: 46px;
+    height: 50px;
+    margin-left: 10px;
+    transform-origin: 23px 23px;
+}
+
+.night .control.knob {
+    background-image: Url('../Content/Images/knob-night.png');
+}
+
+.control.throttle {
+    width: 210px;
+    height: 322px;
+}
+
+.control.throttle .throttle-base {
+    background-image: Url('../Content/Images/throttle-base.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    width: 100px;
+    height: 322px;
+    z-index: 1;
+}
+
+.night .control.throttle .throttle-base {
+    background-image: Url('../Content/Images/throttle-base-night.png');
+}
+
+.control.throttle .throttle-handle {
+    background-image: Url('../Content/Images/throttle-handle.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    width: 210px;
+    height: 266px;
+    position: absolute;
+    left: -30px;
+    top: 0px;
+    z-index: 10;
+}
+
+.night .control.throttle .throttle-handle {
+    background-image: Url('../Content/Images/throttle-handle-night.png');
+}
+
+/* Bootstrap overrides */
+
+.container.body-content {
+    width: 100%;
+}
+
+.container {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.night .navbar, .night .navbar-brand {
+    background: #1c1e22;
+    color: #555 !important;
+}
+
+.night .well {
+    background: #0c0e0f;
+}
+
+.night .form-control, .night .form-control:focus {
+    background-color: #599;
+}
+
+.night .btn {
+    color: #599;
+}
