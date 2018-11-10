@@ -11,6 +11,7 @@ using System.Threading;
 using RetroVirtualCockpit.Client.Data;
 using WindowsInput;
 using WindowsInput.Native;
+using RetroVirtualCockpit.Client.Helpers;
 
 // https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API/Writing_WebSocket_server
 
@@ -141,6 +142,10 @@ namespace RetroVirtualCockpit.Client
             server.Start();
 
             Console.WriteLine($"Server has started on {ipAddress}:{PortNo}.");
+
+            var code = IpAddressEncoder.Encode(ipAddress);
+            Console.WriteLine($"Enter this connection key at Retro Virtual Cockpit website: '{code}'.");
+
             Console.WriteLine("Waiting for a connection...");
 
             while (true) // Add your exit flag here

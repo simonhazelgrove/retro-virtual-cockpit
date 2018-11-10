@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RetroVirtualCockpit.Client"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RetroVirtualCockpit.Web", "RetroVirtualCockpit.Web\RetroVirtualCockpit.Web.csproj", "{41A4B6B8-F4AE-4A02-BF88-86B5E04FBB91}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RetroVirtualCockpit.Client.Test.Unit", "RetroVirtualCockpit.Client.Test.Unit\RetroVirtualCockpit.Client.Test.Unit.csproj", "{BDF3B183-0EC4-407A-859E-16C63E40CD00}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{41A4B6B8-F4AE-4A02-BF88-86B5E04FBB91}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{41A4B6B8-F4AE-4A02-BF88-86B5E04FBB91}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{41A4B6B8-F4AE-4A02-BF88-86B5E04FBB91}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BDF3B183-0EC4-407A-859E-16C63E40CD00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDF3B183-0EC4-407A-859E-16C63E40CD00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDF3B183-0EC4-407A-859E-16C63E40CD00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDF3B183-0EC4-407A-859E-16C63E40CD00}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
