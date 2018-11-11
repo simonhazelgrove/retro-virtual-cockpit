@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Retro Virtual Cockpit - My ASP.NET Application</title>
+    <link href="Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="Content/Site.css" rel="stylesheet" type="text/css" />
+    <script src="Scripts/jquery-1.11.2.min.js"></script>
+    <script language="javascript">
+        jQuery(document).on("mobileinit", function () {
+            jQuery.mobile.autoInitializePage = false;
+        });
+    </script>
+    <script src="Scripts/jquery.mobile-1.4.5.min.js"></script>
+    <script src="Scripts/jquery.mobile.swipeupdown.js"></script>
+    <link href="Content/bootstrap-toggle.css" rel="stylesheet" />
+    <script src="Scripts/bootstrap-toggle.js"></script>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">Retro Virtual Cockpit</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container body-content">
+
+<br />
+
+<div id="connect-panel" class="row">
+    <div class="col-md-12 centered">
+        <div class="well">
+            <p>Run the Retro Virtual Cockpit client on your computer, and enter the connection key here to connect:</p>
+            <form id="connect-form" class="form-inline">
+                <div class="form-group">
+                    <label for="connect-key">Connection Key:</label>
+                    <input name="connect-key" id="connect-key" type="text" class="form-control" required placeholder="XXXXXXXX" style="text-transform: uppercase;">
+                </div>
+                <button id="connect-button" type="submit" class="btn btn-default">Connect</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 centered">
+        <div class="well">
+            <div class="pull-left">
+                <span id="connected-icon" class="glyphicon glyphicon-flash text-muted large-icon"></span>
+            </div>
+            <div class="pull-right">
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="menu-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        <span id="menu-icon" class="glyphicon glyphicon-cog large-icon text-muted"></span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="menu-dropdown">
+                        <li id="fullscreen" class="menu-item"><a href="#"><span class="glyphicon glyphicon-fullscreen"></span>Fullscreen</a></li>
+                        <li id="debug" class="menu-item"><a href="#"><span class="glyphicon glyphicon-info-sign"></span>Show Commands</a></li>
+                        <li class="menu-item"><a href="#"><span class="glyphicon glyphicon-adjust"></span>Night Mode <input id="nightmode" type="checkbox" data-toggle="toggle"></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="text-center">
+                <div class="btn-group">
+                    <button class="btn btn-default btn-lg dropdown-toggle text-muted" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="text-muted"><span id="configName">Select configuration...</span> <span class="caret"></span></span>
+                    </button>
+                    <ul id="configMenu" class="dropdown-menu">
+                    </ul>
+                </div>
+            </div>
+            <span id="error-text" class="error"></span>
+            <span id="messageCode" class="hidden"></span>
+        </div>
+    </div>
+</div>
+
+<div id="virtual-cockpit"></div>
+
+<audio id="switch-sound">
+    <source src="Content/Sounds/switch.wav" type="audio/mpeg">
+</audio>
+
+<audio id="bump-sound">
+    <source src="Content/Sounds/bump.wav" type="audio/mpeg">
+</audio>
+
+<footer></footer>
+</div>
+
+<script src="Scripts/bootstrap.min.js"></script>
+<script src="dist/main.js"></script>
+
+</body>
+</html>

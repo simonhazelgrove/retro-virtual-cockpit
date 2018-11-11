@@ -1,0 +1,11 @@
+NPM Installs
+------------
+
+npm init -y
+npm install webpack webpack-cli --save-dev
+npm install jquery webpack-cli --save-dev
+npm install popper webpack-cli --save-dev
+
+npm run build
+
+npx webpack --config webpack.config.js
