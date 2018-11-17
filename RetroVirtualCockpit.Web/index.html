@@ -13,86 +13,78 @@
     <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
     <meta name="msapplication-TileColor" content="#9f00a7">
     <meta name="theme-color" content="#9f00a7">
-    <script src="Scripts/jquery-1.11.2.min.js"></script>
-    <script language="javascript">
-        jQuery(document).on("mobileinit", function () {
-            jQuery.mobile.autoInitializePage = false;
-        });
-    </script>
-    <script src="Scripts/jquery.mobile-1.4.5.min.js"></script>
-    <script src="Scripts/jquery.mobile.swipeupdown.js"></script>
     <link href="Content/bootstrap-toggle.css" rel="stylesheet" />
     <script src="Scripts/bootstrap-toggle.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 </head>
-<body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="/">Retro Virtual Cockpit</a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                </ul>
-            </div>
+<body class="text-white-50">
+
+<nav class="navbar navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="/">Retro Virtual Cockpit</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <!--
+            <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link" href="#">Features</a>
+            <a class="nav-item nav-link" href="#">Pricing</a>
+            <a class="nav-item nav-link disabled" href="#">Disabled</a>
+            -->
         </div>
     </div>
+</nav>
 
-    <div class="container body-content">
+<div class="container-fluid body-content">
 
 <br />
 
-<div id="connect-panel" class="row">
-    <div class="col-md-12 centered">
-        <div class="well">
-            <p>Run the Retro Virtual Cockpit client on your computer, and enter the connection key here to connect:</p>
-            <form id="connect-form" class="form-inline">
-                <div class="form-group">
-                    <label for="connect-key">Connection Key:</label>
-                    <input name="connect-key" id="connect-key" type="text" class="form-control" required placeholder="XXXXXXXX" style="text-transform: uppercase;">
-                </div>
-                <button id="connect-button" type="submit" class="btn btn-default">Connect</button>
-            </form>
+    <div id="connect-panel" class="row">
+        <div class="col-md-12 centered">
+            <div class="dark-well">
+                <p>Run the Retro Virtual Cockpit client on your computer, and enter the connection key here to connect:</p>
+                <form id="connect-form" class="form-inline">
+                    <label class="sr-only" for="connect-key">Connection Key:</label>
+                    <input name="connect-key" id="connect-key" type="text" class="form-control form-control-lg mb-2 mr-sm-2" required placeholder="XXXXXXXX" style="text-transform: uppercase;">
+                    <button id="connect-button" type="submit" class="btn btn-dark btn-lg mb-2">Connect</button>
+                </form>
+            </div>
         </div>
     </div>
-</div>
 
-<div class="row">
-    <div class="col-md-12 centered">
-        <div class="well">
-            <div class="pull-left">
-                <span id="connected-icon" class="glyphicon glyphicon-flash text-muted large-icon"></span>
-            </div>
-            <div class="pull-right">
-                <div class="dropdown">
-                    <button class="btn btn-default dropdown-toggle" type="button" id="menu-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                        <span id="menu-icon" class="glyphicon glyphicon-cog large-icon text-muted"></span>
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="menu-dropdown">
-                        <li id="fullscreen" class="menu-item"><a href="#"><span class="glyphicon glyphicon-fullscreen"></span>Fullscreen</a></li>
-                        <li id="debug" class="menu-item"><a href="#"><span class="glyphicon glyphicon-info-sign"></span>Show Commands</a></li>
-                        <li class="menu-item"><a href="#"><span class="glyphicon glyphicon-adjust"></span>Night Mode <input id="nightmode" type="checkbox" data-toggle="toggle"></a></li>
-                    </ul>
+    <div class="row">
+        <div class="col-md-12 centered">
+            <div class="dark-well">
+                <div class="float-left">
+                    <span id="connected-icon" class="fas fa-bolt text-muted large-icon"></span> 
                 </div>
-            </div>
-            <div class="text-center">
-                <div class="btn-group">
-                    <button class="btn btn-default btn-lg dropdown-toggle text-muted" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="text-muted"><span id="configName">Select configuration...</span> <span class="caret"></span></span>
-                    </button>
-                    <ul id="configMenu" class="dropdown-menu">
-                    </ul>
+                <div class="float-right">
+                    <div id="cockpit-settings" class="dropdown">
+                        <button class="btn btn-dark dropdown-toggle" type="button" id="menu-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            <span id="menu-icon" class="fas fa-cog large-icon text-muted"></span>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="menu-dropdown">
+                            <a href="#" id="fullscreen" class="dropdown-item"><span class="fas fa-expand"></span>Fullscreen</a>
+                            <a href="#" id="debug" class="dropdown-item"><span class="fas fa-info-circle"></span>Show Commands</a>
+                            <a href="#" class="dropdown-item"><span class="fas fa-adjust"></span>Night Mode <input id="nightmode" type="checkbox" data-toggle="toggle"></a>
+                        </div>
+                    </div>
                 </div>
+                <div class="text-center">
+                    <div class="btn-group">
+                        <button class="btn btn-dark btn-lg dropdown-toggle text-muted" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="text-muted"><span id="configName">Select configuration...</span> <span class="caret"></span></span>
+                        </button>
+                        <div id="configMenu" class="dropdown-menu">
+                        </div>
+                    </div>
+                </div>
+                <span id="error-text" class="error"></span>
+                <span id="messageCode" class="hidden"></span>
             </div>
-            <span id="error-text" class="error"></span>
-            <span id="messageCode" class="hidden"></span>
         </div>
     </div>
-</div>
 
 <div id="virtual-cockpit"></div>
 
@@ -105,10 +97,13 @@
 </audio>
 
 <footer></footer>
+
 </div>
 
 <script src="Scripts/bootstrap.min.js"></script>
 <script src="dist/main.js"></script>
+<script src="Scripts/jquery.mobile-1.4.5.min.js"></script>
+<script src="Scripts/jquery.mobile.swipeupdown.js"></script>
 
 </body>
 </html>

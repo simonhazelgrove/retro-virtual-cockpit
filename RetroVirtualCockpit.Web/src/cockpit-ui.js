@@ -281,7 +281,7 @@ export default function cockpit_ui() {
             var configMenu = $("#configMenu");
             var me = this;
             configs.forEach(function(config) {
-                var link = $("<li class='menu-item'><a href='#'>" + config.title + "</a></li>");
+                var link = $("<a href='#' class='dropdown-item'>" + config.title + "</a>");
                 link.click(function () {
                     me.setupCockpit(config);
                     $("#configName").text(config.title);

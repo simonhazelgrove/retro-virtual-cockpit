@@ -1,14 +1,20 @@
-import $ from 'jquery';
+
+window.$ = window.jQuery = require('jquery')
+window.Popper = require('popper.js')
+require('bootstrap')
+
 import cookies from './cookie';
 import websockets_ from './websockets';
 import device from './device';
 import cockpit_ui from './cockpit-ui';
 import cockpit_configs from './cockpit-configs'
 
+$(document).on("mobileinit", function () {
+    $.mobile.autoInitializePage = false;
+});
+
+/* Connect UI & Menu */
 $(function () {
-
-    /* Connect UI & Menu */
-
     $("#connect-form").submit(function (event) {
         event.preventDefault();
         cookies().setCookie("connect-key", $("#connect-key").val(), 365 * 10);
