@@ -17708,8 +17708,8 @@ $(function () {
         $(this).removeClass("text-info");
     });
 
-    $("#debug").click(function () {
-        $("#messageCode").toggleClass("not-hidden");
+    $("#debug").change(function () {
+        $("#messageCode").toggleClass("invisible");
     });
 
     $("#nightmode").change(function () {
@@ -17754,6 +17754,9 @@ function log() {
             document.getElementById("error-text").textContent = errorText;
         },
         logMessage: function (message) {
+            if (this.logElement.hasClass("invisible")) {
+                return;
+            }
             if (this.logFade != null) {
                 clearTimeout(this.logFade);
             }

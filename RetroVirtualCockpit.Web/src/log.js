@@ -9,6 +9,9 @@ export default function log() {
             document.getElementById("error-text").textContent = errorText;
         },
         logMessage: function (message) {
+            if (this.logElement.hasClass("invisible")) {
+                return;
+            }
             if (this.logFade != null) {
                 clearTimeout(this.logFade);
             }

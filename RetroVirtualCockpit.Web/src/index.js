@@ -33,8 +33,8 @@ $(function () {
         $(this).removeClass("text-info");
     });
 
-    $("#debug").click(function () {
-        $("#messageCode").toggleClass("not-hidden");
+    $("#debug").change(function () {
+        $("#messageCode").toggleClass("invisible");
     });
 
     $("#nightmode").change(function () {

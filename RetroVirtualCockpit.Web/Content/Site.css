@@ -68,14 +68,6 @@ textarea {
     margin-right: 1em;
 }
 
-.not-hidden {
-    display: block !important;
-}
-
-svg.yellow use {
-    fill: yellow;
-}
-
 /* Virtual cockpit controls */
 
 #virtual-cockpit {
