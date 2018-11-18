@@ -42,7 +42,7 @@
   }
   .switch input + label::before {
     right: 0;
-    background-color: #dee2e6;
+    background-color: #444;
     border-radius: calc(2.375rem * .7);
     transition: 0.2s all;
   }
@@ -52,11 +52,11 @@
     width: calc(calc(2.375rem * .7) - calc(2px * 2));
     height: calc(calc(2.375rem * .7) - calc(2px * 2));
     border-radius: 50%;
-    background-color: white;
+    background-color: #bbb;
     transition: 0.2s all;
   }
   .switch input:checked + label::before {
-    background-color: #555;
+    background-color: #888;
   }
   .switch input:checked + label::after {
     margin-left: calc(2.375rem * .7);
@@ -70,7 +70,7 @@
     cursor: not-allowed;
   }
   .switch input:disabled + label::before {
-    background-color: #e9ecef;
+    background-color: #444;
   }
   .switch.switch-sm {
     font-size: 0.875rem;

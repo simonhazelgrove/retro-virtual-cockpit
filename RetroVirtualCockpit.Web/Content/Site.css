@@ -443,3 +443,16 @@ svg.yellow use {
 #cockpit-settings .dropdown-toggle::after {
     display:none;
 }
+
+.dropdown-menu {
+    color: #bbb;
+    background-color: #222;
+}
+.dropdown-menu a:hover
+{
+    color: #fff;
+    background-color: #333;
+}
+.night .switch input:checked + label::before {
+    background-color: #599;
+}
