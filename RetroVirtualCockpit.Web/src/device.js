@@ -17,6 +17,15 @@ export default function device() {
             } else {
                 log().logError("Fullscreen not supported in this browser");
             }
-        }    
+        },
+        exitFullScreen: function () {
+            if(document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if(document.mozCancelFullScreen) {
+                document.mozCancelFullScreen();
+            } else if(document.webkitExitFullscreen) {
+                document.webkitExitFullscreen();
+            }
+        }       
     }
 }

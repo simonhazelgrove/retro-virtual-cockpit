@@ -10,6 +10,8 @@ npm install --save-dev style-loader css-loader
 npm install --save-dev file-loader
 
 
+D:\Users\Simon\OneDrive\Projects\RetroVirtualCockpit\RetroVirtualCockpit.Web>
+
 npm run build
 
 npx webpack --config webpack.config.js  <-- build using the webpack config file

@@ -1,18 +1,22 @@
-﻿html body {
+﻿body {
     background-color: #272b30 !important;
     vertical-align: top;
+    width: 100%;
+    padding-top: 50px;
+    padding-bottom: 20px;
 }
 
-html.night body {
+.night body {
     background-color: #000 !important;
     color: #599;
 }
 
-body {
-    width: 100%;
-    padding-top: 50px;
-    padding-bottom: 20px;
-    vertical-align: top;
+.fullscreen body {
+    padding: 0px;
+}
+
+.fullscreen .navbar {
+    display: none;
 }
 
 /* Set padding to keep content from hitting the edges */

@@ -17643,7 +17643,16 @@ function device() {
             } else {
                 Object(_log__WEBPACK_IMPORTED_MODULE_0__["default"])().logError("Fullscreen not supported in this browser");
             }
-        }    
+        },
+        exitFullScreen: function () {
+            if(document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if(document.mozCancelFullScreen) {
+                document.mozCancelFullScreen();
+            } else if(document.webkitExitFullscreen) {
+                document.webkitExitFullscreen();
+            }
+        }       
     }
 }
 
@@ -17707,8 +17716,13 @@ $(function () {
         $("html").toggleClass("night");
     });
 
-    $("#fullscreen").click(function () {
-        Object(_device__WEBPACK_IMPORTED_MODULE_2__["default"])().requestFullScreen();
+    $("#fullscreen").change(function () {
+        if (this.checked) {
+            Object(_device__WEBPACK_IMPORTED_MODULE_2__["default"])().requestFullScreen();
+        } else {
+            Object(_device__WEBPACK_IMPORTED_MODULE_2__["default"])().exitFullScreen();
+        }
+        $("html").toggleClass("fullscreen");
     });
 
     Object(_cockpit_ui__WEBPACK_IMPORTED_MODULE_3__["default"])().setupConfigMenu(Object(_cockpit_configs__WEBPACK_IMPORTED_MODULE_4__["default"])());

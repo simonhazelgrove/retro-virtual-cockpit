@@ -41,8 +41,13 @@ $(function () {
         $("html").toggleClass("night");
     });
 
-    $("#fullscreen").click(function () {
-        device().requestFullScreen();
+    $("#fullscreen").change(function () {
+        if (this.checked) {
+            device().requestFullScreen();
+        } else {
+            device().exitFullScreen();
+        }
+        $("html").toggleClass("fullscreen");
     });
 
     cockpit_ui().setupConfigMenu(cockpit_configs());
