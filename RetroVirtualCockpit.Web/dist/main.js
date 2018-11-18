@@ -17363,7 +17363,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return f16cp_st_am; });
 function f16cp_st_am() {
     return {
-        title: "[ST/Amiga] F-16 Combat Pilot",
+        title: "F-16 Combat Pilot [ST/Amiga]",
         panelRows: [
             {
                 panels: [
@@ -17422,7 +17422,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return f19sf_st_am; });
 function f19sf_st_am() {
     return {
-        title: "[ST/Amiga] F-19 Stealth Fighter",
+        title: "F-19 Stealth Fighter [ST/Amiga]",
         panelRows: [
             {
                 panels: [

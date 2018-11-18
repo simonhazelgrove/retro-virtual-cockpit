@@ -1,6 +1,6 @@
 export default function f19sf_st_am() {
     return {
-        title: "[ST/Amiga] F-19 Stealth Fighter",
+        title: "F-19 Stealth Fighter [ST/Amiga]",
         panelRows: [
             {
                 panels: [

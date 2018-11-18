@@ -37,48 +37,42 @@
 
 <div class="container-fluid body-content">
 
-    <div id="connect-panel" class="row">
+    <div id="connect-panel" class="row dark-well">
         <div class="col-md-12 centered">
-            <div class="dark-well">
-                <p>Run the Retro Virtual Cockpit client on your computer, and enter the connection key here to connect:</p>
-                <form id="connect-form" class="form-inline">
-                    <label class="sr-only" for="connect-key">Connection Key:</label>
-                    <input name="connect-key" id="connect-key" type="text" class="form-control form-control-lg mb-2 mr-sm-2" required placeholder="XXXXXXXX" style="text-transform: uppercase;">
-                    <button id="connect-button" type="submit" class="btn btn-dark btn-lg mb-2">Connect</button>
-                </form>
-            </div>
+            <p>Run the Retro Virtual Cockpit client on your computer, and enter the connection key here to connect:</p>
+            <form id="connect-form" class="form-inline">
+                <label class="sr-only" for="connect-key">Connection Key:</label>
+                <input name="connect-key" id="connect-key" type="text" class="form-control form-control-lg mb-2 mr-sm-2" required placeholder="XXXXXXXX" style="text-transform: uppercase;">
+                <button id="connect-button" type="submit" class="btn btn-dark btn-lg mb-2">Connect</button>
+            </form>
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-md-12 centered">
-            <div class="dark-well">
-                <div class="float-left">
-                    <span id="connected-icon" class="fas fa-bolt text-muted large-icon"></span> 
+    <div class="row dark-well">
+        <div class="col-1">
+            <span id="connected-icon" class="float-left fas fa-bolt text-muted large-icon"></span> 
+        </div>
+        <div class="col-10 text-center">
+            <div class="btn-group">
+                <button class="btn btn-dark btn-lg dropdown-toggle text-muted" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="text-muted"><span id="configName">Select configuration...</span> <span class="caret"></span></span>
+                </button>
+                <div id="configMenu" class="dropdown-menu">
                 </div>
-                <div class="float-right">
-                    <div id="cockpit-settings" class="dropdown">
-                        <button class="btn btn-dark dropdown-toggle" type="button" id="menu-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                            <span id="menu-icon" class="fas fa-cog large-icon text-muted"></span>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-dark" aria-labelledby="menu-dropdown">
-                            <a href="#" class="dropdown-item"><span class="fas fa-expand"></span>Fullscreen<span class="switch"><input id="fullscreen" type="checkbox" class="switch"><label for="fullscreen" class="sr-only">Fullscreen</label></span></a>
-                            <a href="#" class="dropdown-item"><span class="fas fa-info-circle"></span>Show Commands<span class="switch"><input id="debug" type="checkbox" class="switch"><label for="debug" class="sr-only">Show Commands</label></span></a>
-                            <a href="#" class="dropdown-item"><span class="fas fa-adjust"></span>Night Mode<span class="switch"><input id="nightmode" type="checkbox" class="switch"><label for="nightmode" class="sr-only">Night mode</label></span></a>
-                        </div>
-                    </div>
+            </div>
+            <span id="error-text" class="error"></span>
+            <span id="messageCode" class="invisible"></span>
+        </div>
+        <div class="col-1">
+            <div id="cockpit-settings" class="dropdown float-right">
+                <button class="btn btn-dark dropdown-toggle" type="button" id="menu-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    <span id="menu-icon" class="fas fa-cog large-icon text-muted"></span>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right dropdown-menu-dark" aria-labelledby="menu-dropdown">
+                    <a href="#" class="dropdown-item"><span class="fas fa-expand"></span>Fullscreen<span class="switch"><input id="fullscreen" type="checkbox" class="switch"><label for="fullscreen" class="sr-only">Fullscreen</label></span></a>
+                    <a href="#" class="dropdown-item"><span class="fas fa-info-circle"></span>Show Commands<span class="switch"><input id="debug" type="checkbox" class="switch"><label for="debug" class="sr-only">Show Commands</label></span></a>
+                    <a href="#" class="dropdown-item"><span class="fas fa-adjust"></span>Night Mode<span class="switch"><input id="nightmode" type="checkbox" class="switch"><label for="nightmode" class="sr-only">Night mode</label></span></a>
                 </div>
-                <div class="text-center">
-                    <div class="btn-group">
-                        <button class="btn btn-dark btn-lg dropdown-toggle text-muted" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="text-muted"><span id="configName">Select configuration...</span> <span class="caret"></span></span>
-                        </button>
-                        <div id="configMenu" class="dropdown-menu">
-                        </div>
-                    </div>
-                </div>
-                <span id="error-text" class="error"></span>
-                <span id="messageCode" class="invisible"></span>
             </div>
         </div>
     </div>

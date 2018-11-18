@@ -1,6 +1,6 @@
 export default function f16cp_st_am() {
     return {
-        title: "[ST/Amiga] F-16 Combat Pilot",
+        title: "F-16 Combat Pilot [ST/Amiga]",
         panelRows: [
             {
                 panels: [
