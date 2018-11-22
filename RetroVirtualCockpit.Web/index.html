@@ -18,83 +18,85 @@
 </head>
 <body class="text-white-50">
 
-<nav class="navbar navbar-dark bg-dark fixed-top">
-    <a class="navbar-brand" href="/">Retro Virtual Cockpit</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-            <!--
-            <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
-            <a class="nav-item nav-link" href="#">Features</a>
-            <a class="nav-item nav-link" href="#">Pricing</a>
-            <a class="nav-item nav-link disabled" href="#">Disabled</a>
-            -->
-        </div>
-    </div>
-</nav>
-
-<div class="container-fluid body-content">
-
-    <div id="connect-panel" class="row dark-well">
-        <div class="col-md-12 centered">
-            <p>Run the Retro Virtual Cockpit client on your computer, and enter the connection key here to connect:</p>
-            <form id="connect-form" class="form-inline">
-                <label class="sr-only" for="connect-key">Connection Key:</label>
-                <input name="connect-key" id="connect-key" type="text" class="form-control form-control-lg mb-2 mr-sm-2" required placeholder="XXXXXXXX" style="text-transform: uppercase;">
-                <button id="connect-button" type="submit" class="btn btn-dark btn-lg mb-2">Connect</button>
-            </form>
-        </div>
-    </div>
-
-    <div class="row dark-well">
-        <div class="col-1">
-            <span id="connected-icon" class="float-left fas fa-bolt text-muted large-icon"></span> 
-        </div>
-        <div class="col-10 text-center">
-            <div class="btn-group">
-                <button class="btn btn-dark btn-lg dropdown-toggle text-muted" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="text-muted"><span id="configName">Select configuration...</span> <span class="caret"></span></span>
-                </button>
-                <div id="configMenu" class="dropdown-menu">
-                </div>
-            </div>
-            <span id="error-text" class="error"></span>
-            <span id="messageCode" class="invisible"></span>
-        </div>
-        <div class="col-1">
-            <div id="cockpit-settings" class="dropdown float-right">
-                <button class="btn btn-dark dropdown-toggle" type="button" id="menu-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    <span id="menu-icon" class="fas fa-cog large-icon text-muted"></span>
-                </button>
-                <div class="dropdown-menu dropdown-menu-right dropdown-menu-dark" aria-labelledby="menu-dropdown">
-                    <a href="#" class="dropdown-item"><span class="fas fa-expand"></span>Fullscreen<span class="switch"><input id="fullscreen" type="checkbox" class="switch"><label for="fullscreen" class="sr-only">Fullscreen</label></span></a>
-                    <a href="#" class="dropdown-item"><span class="fas fa-info-circle"></span>Show Commands<span class="switch"><input id="debug" type="checkbox" class="switch"><label for="debug" class="sr-only">Show Commands</label></span></a>
-                    <a href="#" class="dropdown-item"><span class="fas fa-adjust"></span>Night Mode<span class="switch"><input id="nightmode" type="checkbox" class="switch"><label for="nightmode" class="sr-only">Night mode</label></span></a>
-                </div>
+    <nav class="navbar navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand" href="/">Retro Virtual Cockpit</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <!--
+                <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link" href="#">Features</a>
+                <a class="nav-item nav-link" href="#">Pricing</a>
+                <a class="nav-item nav-link disabled" href="#">Disabled</a>
+                -->
             </div>
         </div>
+    </nav>
+
+    <div class="container-fluid body-content">
+
+        <div id="connect-panel" class="row dark-well">
+            <div class="col-md-12 centered">
+                <p>Run the Retro Virtual Cockpit client on your computer, and enter the connection key here to connect:</p>
+                <form id="connect-form" class="form-inline">
+                    <label class="sr-only" for="connect-key">Connection Key:</label>
+                    <input name="connect-key" id="connect-key" type="text" class="form-control form-control-lg mb-2 mr-sm-2" required placeholder="XXXXXXXX" style="text-transform: uppercase;">
+                    <button id="connect-button" type="submit" class="btn btn-dark btn-lg mb-2">Connect</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="row dark-well">
+            <div class="col-1">
+                <span id="connected-icon" class="float-left fas fa-bolt text-muted large-icon"></span> 
+            </div>
+            <div class="col-10 text-center">
+                <div class="btn-group">
+                    <button class="btn btn-dark btn-lg dropdown-toggle text-muted" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="text-muted"><span id="configName">Select configuration...</span> <span class="caret"></span></span>
+                    </button>
+                    <div id="configMenu" class="dropdown-menu">
+                    </div>
+                </div>
+                <span id="error-text" class="error"></span>
+                <span id="messageCode" class="invisible"></span>
+            </div>
+            <div class="col-1">
+                <div id="cockpit-settings" class="dropdown float-right">
+                    <button class="btn btn-dark dropdown-toggle" type="button" id="menu-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        <span id="menu-icon" class="fas fa-cog large-icon text-muted"></span>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-dark" aria-labelledby="menu-dropdown">
+                        <a href="#" class="dropdown-item"><span class="fas fa-expand"></span><span class="switch"><input id="fullscreen" type="checkbox" class="switch"><label for="fullscreen">Fullscreen</label></span></a>
+                        <a href="#" class="dropdown-item"><span class="fas fa-info-circle"></span><span class="switch"><input id="debug" type="checkbox" class="switch"><label for="debug">Show Commands</label></span></a>
+                        <a href="#" class="dropdown-item"><span class="fas fa-adjust"></span><span class="switch"><input id="nightmode" type="checkbox" class="switch"><label for="nightmode">Night mode</label></span></a>
+                        <a href="#" class="dropdown-item"><span class="fas fa-grip-horizontal"></span><span class="switch"><input id="displaymode" type="checkbox" class="switch"><label for="displaymode">Small screen mode</label></span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <span id="back-button" class="fas fa-caret-square-left text-muted float-left"></span>
+    <div id="virtual-cockpit"></div>
+
+    <audio id="switch-sound">
+        <source src="Content/Sounds/switch.wav" type="audio/mpeg">
+    </audio>
+
+    <audio id="bump-sound">
+        <source src="Content/Sounds/bump.wav" type="audio/mpeg">
+    </audio>
+
+    <footer></footer>
+
     </div>
 
-<div id="virtual-cockpit"></div>
-
-<audio id="switch-sound">
-    <source src="Content/Sounds/switch.wav" type="audio/mpeg">
-</audio>
-
-<audio id="bump-sound">
-    <source src="Content/Sounds/bump.wav" type="audio/mpeg">
-</audio>
-
-<footer></footer>
-
-</div>
-
-<script src="Scripts/bootstrap.min.js"></script>
-<script src="dist/main.js"></script>
-<script src="Scripts/jquery.mobile-1.4.5.min.js"></script>
-<script src="Scripts/jquery.mobile.swipeupdown.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+    <script src="dist/main.js"></script>
+    <script src="Scripts/jquery.mobile-1.4.5.min.js"></script>
+    <script src="Scripts/jquery.mobile.swipeupdown.js"></script>
 
 </body>
 </html>

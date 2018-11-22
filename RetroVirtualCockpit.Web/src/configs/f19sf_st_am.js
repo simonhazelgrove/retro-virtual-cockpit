@@ -5,6 +5,7 @@ export default function f19sf_st_am() {
             {
                 panels: [
                     {
+                        id: "hud",
                         title: "HUD",
                         controls: [
                             { type: "knob", label: "Mode", turn: "HUD.Mode" },
@@ -12,6 +13,7 @@ export default function f19sf_st_am() {
                         ]
                     },
                     {
+                        id: "left-mfd",
                         title: "Left MFD",
                         controls: [
                             { type: "button", label: "Mode", press: "MFD.L.Change" },
@@ -19,6 +21,7 @@ export default function f19sf_st_am() {
                         ]
                     },
                     {
+                        id: "right-mfd",
                         title: "Right MFD",
                         controls: [
                             { type: "button", label: "Data", press: "MFD.R.Data" },
@@ -29,6 +32,7 @@ export default function f19sf_st_am() {
                         ]
                     },
                     {
+                        id: "countermeasures",
                         title: "Countermeasures",
                         controls: [
                             { type: "button", label: "Flare", press: "Defence.Flare" },
@@ -43,12 +47,14 @@ export default function f19sf_st_am() {
             {
                 panels: [
                     {
+                        id: "throttle",
                         align: "left",
                         controls: [
                             { type: "throttle", up: "Controls.Throttle.Up", down: "Controls.Throttle.Down", max: "Controls.Throttle.Max", min: "Controls.Throttle.Min" }
                         ]
                     },
                     {
+                        id: "control",
                         title: "Control",
                         controls: [
                             { type: "switch", label: "Gear", flip: "Controls.Gear" },
@@ -59,6 +65,7 @@ export default function f19sf_st_am() {
                         ]
                     },
                     {
+                        id: "target",
                         title: "Target",
                         controls: [
                             { type: "button", label: "Select", press: "Target.Select" },
@@ -66,6 +73,7 @@ export default function f19sf_st_am() {
                         ]
                     },
                     {
+                        id: "weapons",
                         title: "Weapons",
                         controls: [
                             { type: "knob", label: "Select", turn: "Weapon.Select" },
@@ -75,12 +83,14 @@ export default function f19sf_st_am() {
                         ]
                     },
                     {
+                        id: "camera",
                         title: "Camera",
                         controls: [
                             { type: "button-dpad", up: "Camera.Front", down: "Camera.Rear", left: "Camera.Left", right: "Camera.Right" },
                         ]
                     },
                     {
+                        id: "waypoints",
                         title: "Waypoint Edit",
                         align: "right",
                         orientation: "vertical",
@@ -101,6 +111,7 @@ export default function f19sf_st_am() {
             {
                 panels: [
                     {
+                        id: "eject",
                         decoration: "none",
                         controls: [
                             { type: "handle", label: "Pull to eject", pull: "Controls.Eject", decoration: "hazard" },
@@ -111,6 +122,7 @@ export default function f19sf_st_am() {
             {
                 panels: [
                     {
+                        id: "game",
                         title: "Game",
                         controls: [
                             { type: "button", label: "Quit", press: "Game.Quit" },
@@ -120,6 +132,7 @@ export default function f19sf_st_am() {
                         ]
                     },
                     {
+                        id: "view",
                         title: "View",
                         controls: [
                             { type: "button", label: "Cockpit", press: "View.Cockpit" },
@@ -133,6 +146,7 @@ export default function f19sf_st_am() {
                         ]
                     },
                     {
+                        id: "head",
                         title: "Head",
                         controls: [
                             { type: "button-dpad", label: "Head", up: "View.Head.Front", down: "View.Head.Rear", left: "View.Head.Left", right: "View.Head.Right" }

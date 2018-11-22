@@ -243,7 +243,11 @@ export default function cockpit_ui() {
             }
         },
         setupPanel: function (config, container) {
-            var panel = $("<div>", { class: "control-panel" });
+            var panel = $("<div>", { id: "panel-" + config.id, class: "control-panel" })
+                        .click(function(event) {
+                            // Stop the click on the virtual-cockpit container being processed by child controls
+                            event.stopPropagation();
+                        });
             if (config.orientation) {
                 panel.addClass(config.orientation);
             }
@@ -255,7 +259,18 @@ export default function cockpit_ui() {
                 panel.append("<span class='screw bottom-left'></span>");
             }
             if (config.title) {
-                panel.append("<h1>" + config.title + "</h1>");
+                var title = $("<h1>")
+                    .text(config.title)
+                    .click(function() {
+                        var body = $("body");
+                        if (body.hasClass("minimised")) {
+                            body.removeClass("minimised")
+                            body.addClass("single-panel")
+                            // Hide all panels except this one
+                            $(".control-panel:not(#panel-" + config.id + ")").hide();
+                        }
+                    });
+                panel.append(title);
             }
             var me = this;
             config.controls.forEach(function (controlConfig) { me.setupControl(controlConfig, panel) });

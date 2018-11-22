@@ -50,5 +50,25 @@ $(function () {
         $("html").toggleClass("fullscreen");
     });
 
+    $("#displaymode").change(function () {
+        var body = $("body");
+        if (body.hasClass("minimised") || body.hasClass("single-panel")) {
+            body.removeClass("minimised");
+            body.removeClass("single-panel");
+            $(".control-panel").show();
+        } else {
+            body.addClass("minimised");
+        }
+    });
+
+    $("#back-button").click(function() {
+        var body = $("body");
+        if (body.hasClass("single-panel")) {
+            body.removeClass("single-panel");
+            body.addClass("minimised");
+            $(".control-panel").show();
+        }
+    });
+
     cockpit_ui().setupConfigMenu(cockpit_configs());
 });

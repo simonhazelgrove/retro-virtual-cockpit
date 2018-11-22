@@ -4,7 +4,6 @@
     font-size: 1rem;
     position: relative;
     margin-left: 1em;
-    top: -0.25em; 
   }
   .switch input {
     position: absolute;
@@ -110,10 +109,7 @@
   .switch.switch-lg input:checked + label::after {
     margin-left: calc(3rem * .7);
   }
-  .switch + .switch {
-    margin-left: 1rem;
-  }
   
   .dropdown-menu {
-    margin-top: .75rem;
+    margin-top: 1rem;
   }

@@ -5,6 +5,7 @@ export default function f16cp_st_am() {
             {
                 panels: [
                     {
+                        id: "control",
                         title: "Control",
                         controls: [
                             { type: "button", label: "Dogfight", press: "MFD.DogfightMode" },
@@ -13,6 +14,7 @@ export default function f16cp_st_am() {
                         ]
                     },
                     {
+                        id: "ufcp",
                         title: "UFCP",
                         controls: [
                             { type: "knob", label: "Mode", turn: "UFCP.Mode" },
@@ -22,6 +24,7 @@ export default function f16cp_st_am() {
                         ]
                     },
                     {
+                        id: "radio",
                         title: "Radio",
                         controls: [
                             { type: "button", label: "Callsign", press: "Radio.Callsign" },
@@ -29,6 +32,7 @@ export default function f16cp_st_am() {
                         ]
                     },
                     {
+                        id: "eject",
                         decoration: "none",
                         controls: [
                             { type: "handle", label: "Pull to eject", pull: "Controls.Eject", decoration: "hazard" }

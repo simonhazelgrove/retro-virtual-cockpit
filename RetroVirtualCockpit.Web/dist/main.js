@@ -17299,7 +17299,11 @@ function cockpit_ui() {
             }
         },
         setupPanel: function (config, container) {
-            var panel = jquery__WEBPACK_IMPORTED_MODULE_0___default()("<div>", { class: "control-panel" });
+            var panel = jquery__WEBPACK_IMPORTED_MODULE_0___default()("<div>", { id: "panel-" + config.id, class: "control-panel" })
+                        .click(function(event) {
+                            // Stop the click on the virtual-cockpit container being processed by child controls
+                            event.stopPropagation();
+                        });
             if (config.orientation) {
                 panel.addClass(config.orientation);
             }
@@ -17311,7 +17315,18 @@ function cockpit_ui() {
                 panel.append("<span class='screw bottom-left'></span>");
             }
             if (config.title) {
-                panel.append("<h1>" + config.title + "</h1>");
+                var title = jquery__WEBPACK_IMPORTED_MODULE_0___default()("<h1>")
+                    .text(config.title)
+                    .click(function() {
+                        var body = jquery__WEBPACK_IMPORTED_MODULE_0___default()("body");
+                        if (body.hasClass("minimised")) {
+                            body.removeClass("minimised")
+                            body.addClass("single-panel")
+                            // Hide all panels except this one
+                            jquery__WEBPACK_IMPORTED_MODULE_0___default()(".control-panel:not(#panel-" + config.id + ")").hide();
+                        }
+                    });
+                panel.append(title);
             }
             var me = this;
             config.controls.forEach(function (controlConfig) { me.setupControl(controlConfig, panel) });
@@ -17368,6 +17383,7 @@ function f16cp_st_am() {
             {
                 panels: [
                     {
+                        id: "control",
                         title: "Control",
                         controls: [
                             { type: "button", label: "Dogfight", press: "MFD.DogfightMode" },
@@ -17376,6 +17392,7 @@ function f16cp_st_am() {
                         ]
                     },
                     {
+                        id: "ufcp",
                         title: "UFCP",
                         controls: [
                             { type: "knob", label: "Mode", turn: "UFCP.Mode" },
@@ -17385,6 +17402,7 @@ function f16cp_st_am() {
                         ]
                     },
                     {
+                        id: "radio",
                         title: "Radio",
                         controls: [
                             { type: "button", label: "Callsign", press: "Radio.Callsign" },
@@ -17392,6 +17410,7 @@ function f16cp_st_am() {
                         ]
                     },
                     {
+                        id: "eject",
                         decoration: "none",
                         controls: [
                             { type: "handle", label: "Pull to eject", pull: "Controls.Eject", decoration: "hazard" }
@@ -17427,6 +17446,7 @@ function f19sf_st_am() {
             {
                 panels: [
                     {
+                        id: "hud",
                         title: "HUD",
                         controls: [
                             { type: "knob", label: "Mode", turn: "HUD.Mode" },
@@ -17434,6 +17454,7 @@ function f19sf_st_am() {
                         ]
                     },
                     {
+                        id: "left-mfd",
                         title: "Left MFD",
                         controls: [
                             { type: "button", label: "Mode", press: "MFD.L.Change" },
@@ -17441,6 +17462,7 @@ function f19sf_st_am() {
                         ]
                     },
                     {
+                        id: "right-mfd",
                         title: "Right MFD",
                         controls: [
                             { type: "button", label: "Data", press: "MFD.R.Data" },
@@ -17451,6 +17473,7 @@ function f19sf_st_am() {
                         ]
                     },
                     {
+                        id: "countermeasures",
                         title: "Countermeasures",
                         controls: [
                             { type: "button", label: "Flare", press: "Defence.Flare" },
@@ -17465,12 +17488,14 @@ function f19sf_st_am() {
             {
                 panels: [
                     {
+                        id: "throttle",
                         align: "left",
                         controls: [
                             { type: "throttle", up: "Controls.Throttle.Up", down: "Controls.Throttle.Down", max: "Controls.Throttle.Max", min: "Controls.Throttle.Min" }
                         ]
                     },
                     {
+                        id: "control",
                         title: "Control",
                         controls: [
                             { type: "switch", label: "Gear", flip: "Controls.Gear" },
@@ -17481,6 +17506,7 @@ function f19sf_st_am() {
                         ]
                     },
                     {
+                        id: "target",
                         title: "Target",
                         controls: [
                             { type: "button", label: "Select", press: "Target.Select" },
@@ -17488,6 +17514,7 @@ function f19sf_st_am() {
                         ]
                     },
                     {
+                        id: "weapons",
                         title: "Weapons",
                         controls: [
                             { type: "knob", label: "Select", turn: "Weapon.Select" },
@@ -17497,12 +17524,14 @@ function f19sf_st_am() {
                         ]
                     },
                     {
+                        id: "camera",
                         title: "Camera",
                         controls: [
                             { type: "button-dpad", up: "Camera.Front", down: "Camera.Rear", left: "Camera.Left", right: "Camera.Right" },
                         ]
                     },
                     {
+                        id: "waypoints",
                         title: "Waypoint Edit",
                         align: "right",
                         orientation: "vertical",
@@ -17523,6 +17552,7 @@ function f19sf_st_am() {
             {
                 panels: [
                     {
+                        id: "eject",
                         decoration: "none",
                         controls: [
                             { type: "handle", label: "Pull to eject", pull: "Controls.Eject", decoration: "hazard" },
@@ -17533,6 +17563,7 @@ function f19sf_st_am() {
             {
                 panels: [
                     {
+                        id: "game",
                         title: "Game",
                         controls: [
                             { type: "button", label: "Quit", press: "Game.Quit" },
@@ -17542,6 +17573,7 @@ function f19sf_st_am() {
                         ]
                     },
                     {
+                        id: "view",
                         title: "View",
                         controls: [
                             { type: "button", label: "Cockpit", press: "View.Cockpit" },
@@ -17555,6 +17587,7 @@ function f19sf_st_am() {
                         ]
                     },
                     {
+                        id: "head",
                         title: "Head",
                         controls: [
                             { type: "button-dpad", label: "Head", up: "View.Head.Front", down: "View.Head.Rear", left: "View.Head.Left", right: "View.Head.Right" }
@@ -17723,6 +17756,26 @@ $(function () {
             Object(_device__WEBPACK_IMPORTED_MODULE_2__["default"])().exitFullScreen();
         }
         $("html").toggleClass("fullscreen");
+    });
+
+    $("#displaymode").change(function () {
+        var body = $("body");
+        if (body.hasClass("minimised") || body.hasClass("single-panel")) {
+            body.removeClass("minimised");
+            body.removeClass("single-panel");
+            $(".control-panel").show();
+        } else {
+            body.addClass("minimised");
+        }
+    });
+
+    $("#back-button").click(function() {
+        var body = $("body");
+        if (body.hasClass("single-panel")) {
+            body.removeClass("single-panel");
+            body.addClass("minimised");
+            $(".control-panel").show();
+        }
     });
 
     Object(_cockpit_ui__WEBPACK_IMPORTED_MODULE_3__["default"])().setupConfigMenu(Object(_cockpit_configs__WEBPACK_IMPORTED_MODULE_4__["default"])());

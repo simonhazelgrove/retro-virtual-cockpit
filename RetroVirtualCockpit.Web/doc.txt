@@ -10,7 +10,8 @@ npm install --save-dev style-loader css-loader
 npm install --save-dev file-loader
 
 
-D:\Users\Simon\OneDrive\Projects\RetroVirtualCockpit\RetroVirtualCockpit.Web>
+D:
+cd Users\Simon\OneDrive\Projects\RetroVirtualCockpit\RetroVirtualCockpit.Web
 
 npm run build
 
