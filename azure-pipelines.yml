@@ -11,7 +11,7 @@ pool:
 
 variables:
   solution: '**/*.sln'
-  project: 'RetroVirtualCockpit.Client/RetroVirtualCockpit.Client.csproj'
+  project: 'RetroVirtualCockpit.Client'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
 
