@@ -17348,14 +17348,18 @@ function cockpit_ui() {
             var me = this;
             config.panelRows.forEach(function (panelRowConfig) { me.setupPanelRow(panelRowConfig, container) });
         },
+        selectConfig: function (config) {
+            this.setupCockpit(config);
+            jquery__WEBPACK_IMPORTED_MODULE_0___default()("#configName").text(config.title);
+            _websockets__WEBPACK_IMPORTED_MODULE_2__["default"].sendMessage("SetConfig:" + config.title);
+        },
         setupConfigMenu: function (configs) {
             var configMenu = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#configMenu");
             var me = this;
             configs.forEach(function(config) {
                 var link = jquery__WEBPACK_IMPORTED_MODULE_0___default()("<a href='#' class='dropdown-item'>" + config.title + "</a>");
                 link.click(function () {
-                    me.setupCockpit(config);
-                    jquery__WEBPACK_IMPORTED_MODULE_0___default()("#configName").text(config.title);
+                    me.selectConfig(config);
                 });
                 configMenu.append(link);
             });

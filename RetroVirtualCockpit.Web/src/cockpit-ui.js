@@ -292,14 +292,18 @@ export default function cockpit_ui() {
             var me = this;
             config.panelRows.forEach(function (panelRowConfig) { me.setupPanelRow(panelRowConfig, container) });
         },
+        selectConfig: function (config) {
+            this.setupCockpit(config);
+            $("#configName").text(config.title);
+            websockets_.sendMessage("SetConfig:" + config.title);
+        },
         setupConfigMenu: function (configs) {
             var configMenu = $("#configMenu");
             var me = this;
             configs.forEach(function(config) {
                 var link = $("<a href='#' class='dropdown-item'>" + config.title + "</a>");
                 link.click(function () {
-                    me.setupCockpit(config);
-                    $("#configName").text(config.title);
+                    me.selectConfig(config);
                 });
                 configMenu.append(link);
             });
