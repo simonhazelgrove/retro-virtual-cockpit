@@ -4,11 +4,14 @@ using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
-using System.Threading;
 using RetroVirtualCockpit.Client.Data;
 using WindowsInput.Native;
 using RetroVirtualCockpit.Client.Helpers;
 using WindowsInput;
+using RetroVirtualCockpit.Client.Receivers;
+using RetroVirtualCockpit.Client.Messages;
+using RetroVirtualCockpit.Client.Receivers.Joystick;
+using SharpDX.DirectInput;
 
 // https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API/Writing_WebSocket_server
 
@@ -18,7 +21,13 @@ namespace RetroVirtualCockpit.Client
     {
         const int PortNo = 6437;
 
-        private static List<GameConfig> gameConfigs = new List<GameConfig>
+        private static List<IInputReceiver> _receivers;
+
+        private static MessageDispatcher _dispatcher;
+
+        private static DirectInput _directInput;
+
+        private static List<GameConfig> _gameConfigs = new List<GameConfig>
         {
             new GameConfig
             {
@@ -72,8 +81,8 @@ namespace RetroVirtualCockpit.Client
                     { "HUD.Mode", new KeyMapping(VirtualKeyCode.F2) },
                     { "HUD.ILS", new KeyMapping(VirtualKeyCode.F9) },
                     { "MFD.L.Change", new KeyMapping(VirtualKeyCode.F3) },
-                    { "MFD.L.Zoom.In", new KeyMapping(VirtualKeyCode.VK_X) },
-                    { "MFD.L.Zoom.Out", new KeyMapping(VirtualKeyCode.VK_Z) },
+                    { "MFD.L.Zoom.In", new KeyMapping(VirtualKeyCode.VK_Z) },
+                    { "MFD.L.Zoom.Out", new KeyMapping(VirtualKeyCode.VK_X) },
                     { "MFD.R.Data", new KeyMapping(VirtualKeyCode.F4) },
                     { "MFD.R.Ordnance", new KeyMapping(VirtualKeyCode.F5) },
                     { "MFD.R.Damage", new KeyMapping(VirtualKeyCode.F6) },
@@ -88,6 +97,10 @@ namespace RetroVirtualCockpit.Client
                     { "Controls.Throttle.Down", new KeyMapping(VirtualKeyCode.OEM_MINUS) },
                     { "Controls.Throttle.Min", new KeyMapping(VirtualKeyCode.SHIFT, VirtualKeyCode.OEM_MINUS) },
                     { "Controls.Eject", new KeyMapping(VirtualKeyCode.SHIFT, VirtualKeyCode.F10) },
+                    { "Controls.Stick.Forward", new KeyMapping(VirtualKeyCode.UP) },
+                    { "Controls.Stick.Back", new KeyMapping(VirtualKeyCode.DOWN) },
+                    { "Controls.Stick.Left", new KeyMapping(VirtualKeyCode.LEFT) },
+                    { "Controls.Stick.Right", new KeyMapping(VirtualKeyCode.RIGHT) },
                     { "Controls.StickSensitivity", new KeyMapping(VirtualKeyCode.INSERT) },
                     { "Defence.Flare", new KeyMapping(VirtualKeyCode.VK_1) },
                     { "Defence.Chaff", new KeyMapping(VirtualKeyCode.VK_2) },
@@ -129,13 +142,116 @@ namespace RetroVirtualCockpit.Client
                     { "Waypoint.Move.Down", new KeyMapping(VirtualKeyCode.NUMPAD2) },
                     { "Waypoint.Move.Left", new KeyMapping(VirtualKeyCode.NUMPAD4) },
                     { "Waypoint.Move.Right", new KeyMapping(VirtualKeyCode.NUMPAD6) }
+                },
+                JoystickMappings = new List<IJoystickEvent>
+                {
+                    new ButtonValueChangedEvent(8, true, "Controls.Gear"),
+                    new ButtonValueChangedEvent(9, true, "Controls.Gear"),
+                    new ButtonValueChangedEvent(10, true, "Controls.Flaps"),
+                    new ButtonValueChangedEvent(11, true, "Controls.Flaps"),
+                    new ButtonValueChangedEvent(12, true, "Controls.Brakes"),
+                    new ButtonValueChangedEvent(13, true, "Controls.Brakes"),
+                    new AxisStepChangedEvent(Axis.Z, 10, "Controls.Throttle.Down", "Controls.Throttle.Up"),
+                    new AxisValueChangedEvent(Axis.Z, ushort.MaxValue, "Controls.Throttle.Min"),
+                    new AxisValueChangedEvent(Axis.Z, ushort.MinValue, "Controls.Throttle.Max"),
+                    new ButtonValueChangedEvent(0, "Weapon.Bay"),
+                    new ButtonValueChangedEvent(14, true, "Weapon.Drop"),
+                    new ButtonValueChangedEvent(5, true, "Weapon.Select"),
+                    new ButtonValueChangedEvent(2, true, new KeyboardMessage { MessageText = "Weapon.FireGun", Direction = KeyDirection.Down, DelayUntilKeyUp = null }),
+                    new ButtonValueChangedEvent(2, false, new KeyboardMessage { MessageText = "Weapon.FireGun", Direction = KeyDirection.Up, DelayUntilKeyUp = null }),
+                    new ButtonValueChangedEvent(22, true, "Camera.Left"),
+                    new ButtonValueChangedEvent(20, true, "Camera.Right"),
+                    new ButtonValueChangedEvent(21, true, "Camera.Rear"),
+                    new ButtonValueChangedEvent(19, true, "Camera.Front"),
+                    new ButtonValueChangedEvent(4, true, "Target.Select"),
+                    new ButtonValueChangedEvent(3, true, "Target.Designate"),
+                    new PovValueChangedEvent(0, -1, "View.Cockpit"),
+                    new PovValueChangedEvent(0, 27000, "View.Head.Left"),
+                    new PovValueChangedEvent(0, 9000, "View.Head.Right"),
+                    new PovValueChangedEvent(0, 18000, "View.Head.Rear"),
+                    new PovValueChangedEvent(0, 0, "View.External.ChasePlane"),
+                    // TODO: Add more on the 45 degree angles?
+                    new ButtonValueChangedEvent(26, true, "MFD.L.Change"),
+                    new ButtonValueChangedEvent(24, true, new List<string> { "MFD.R.Data", "MFD.R.Ordnance", "MFD.R.Damage", "MFD.R.Waypoints", "MFD.R.Mission" }),
+                    new ButtonValueChangedEvent(23, true, "MFD.L.Zoom.Out"),
+                    new ButtonValueChangedEvent(25, true, "MFD.L.Zoom.In"),
                 }
             }
         };
 
-        private static MessageReceiver _messageReceiver;
-
         static void Main(string[] args)
+        {
+            _receivers = new List<IInputReceiver>();
+            _directInput = new DirectInput();
+
+            GetJoysticks();
+
+            var server = StartWebClientServer();
+            var messages = new List<Message>();
+
+            _dispatcher = new MessageDispatcher(_gameConfigs, new InputSimulator());
+
+            while (true)
+            {
+                // Check for web client connections
+                if (server.Pending())
+                {
+                    AcceptWebClientConnection(server);
+                }
+
+                messages.Clear();
+
+                // Read all inputs
+                foreach (var receiver in _receivers)
+                {
+                    receiver.ReceiveInput();
+                    messages.AddRange(receiver.CollectMessages());
+                }
+
+                // Process messages
+                messages.ForEach(m => _dispatcher.Dispatch(m, SetSelectedGameConfig));
+            }
+        }
+
+        private static void GetJoysticks()
+        {
+            var devices = GetAttachedDevices();
+
+            foreach (var deviceInstance in devices)
+            {
+                var _joystick = new Joystick(_directInput, deviceInstance.InstanceGuid);
+                Console.WriteLine($"Joystick detected: {deviceInstance.InstanceName}");
+                var receiver = new JoystickToKeyboardReceiver(_joystick);
+                _receivers.Add(receiver);
+            }
+        }
+
+        private static List<DeviceInstance> GetAttachedDevices()
+        {
+            var devices = new List<DeviceInstance>();
+
+            devices.AddRange(_directInput.GetDevices(DeviceType.ControlDevice, DeviceEnumerationFlags.AttachedOnly));
+            devices.AddRange(_directInput.GetDevices(DeviceType.Driving, DeviceEnumerationFlags.AttachedOnly));
+            devices.AddRange(_directInput.GetDevices(DeviceType.FirstPerson, DeviceEnumerationFlags.AttachedOnly));
+            devices.AddRange(_directInput.GetDevices(DeviceType.Flight, DeviceEnumerationFlags.AttachedOnly));
+            devices.AddRange(_directInput.GetDevices(DeviceType.Gamepad, DeviceEnumerationFlags.AttachedOnly));
+            devices.AddRange(_directInput.GetDevices(DeviceType.Joystick, DeviceEnumerationFlags.AttachedOnly));
+
+            return devices;
+        }
+
+        private static void SetSelectedGameConfig(GameConfig config)
+        {
+            foreach(var receiver in _receivers)
+            {
+                if (receiver is JoystickReceiver)
+                {
+                    (receiver as JoystickReceiver).SetEvents(config.JoystickMappings);
+                }
+            }
+        }
+
+        private static TcpListener StartWebClientServer()
         {
             var ipAddress = GetLocalIPv4(NetworkInterfaceType.Ethernet);
             var server = new TcpListener(IPAddress.Parse(ipAddress), PortNo);
@@ -148,18 +264,20 @@ namespace RetroVirtualCockpit.Client
             Console.WriteLine($"Enter this connection key at Retro Virtual Cockpit website: '{code}'.");
 
             Console.WriteLine("Waiting for a connection...");
-
-            _messageReceiver = new MessageReceiver(gameConfigs, new InputSimulator());
-
-            while (true) // Add your exit flag here
-            {
-                var client = server.AcceptTcpClient();
-                Console.WriteLine("A client connected.");
-                ThreadPool.QueueUserWorkItem(_messageReceiver.ThreadedClientListener, client);
-            }
+            return server;
         }
 
-        internal static string GetLocalIPv4(NetworkInterfaceType networkInterfaceType)
+        private static void AcceptWebClientConnection(TcpListener server)
+        {
+            var client = server.AcceptTcpClient();
+            Console.WriteLine("A client connected.");
+
+            var receiver = new WebClientReceiver(client);
+
+            _receivers.Add(receiver);
+        }
+
+        private static string GetLocalIPv4(NetworkInterfaceType networkInterfaceType)
         {
             var output = "";
             foreach (var item in NetworkInterface.GetAllNetworkInterfaces())

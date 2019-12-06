@@ -1,6 +1,7 @@
 ﻿using NSubstitute;
 using NUnit.Framework;
 using RetroVirtualCockpit.Client.Data;
+using RetroVirtualCockpit.Client.Messages;
 using System.Collections.Generic;
 using WindowsInput;
 using WindowsInput.Native;
@@ -10,7 +11,7 @@ namespace RetroVirtualCockpit.Client.Test.Unit
     [TestFixture]
     public class MessageReceiverTests
     {
-        public readonly MessageReceiver _messageReceiver;
+        public readonly MessageDispatcher _messagePlayer;
 
         private readonly InputSimulator _inputSimulator;
 
@@ -22,36 +23,37 @@ namespace RetroVirtualCockpit.Client.Test.Unit
 
             _inputSimulator = new InputSimulator(_mockKeyboardSimulator, null, null);
 
-            _messageReceiver = new MessageReceiver(GetTestConfigs(), _inputSimulator);
+            _messagePlayer = new MessageDispatcher(GetTestConfigs(), _inputSimulator);
         }
 
         [Test]
-        public void InterpretMessage_DoesntProcessKeysWhenNoGameConfigIsSelected()
+        public void Dispatch_DoesntProcessKeysWhenNoGameConfigIsSelected()
         {
-            _messageReceiver.InterpretMessage("Config1.Key1");
+            var message = new KeyboardMessage { MessageText = "Config1.Key1" };
+
+            _messagePlayer.Dispatch(message, (m) => { });
 
             _mockKeyboardSimulator.DidNotReceive().KeyDown(Arg.Any<VirtualKeyCode>());
         }
 
         [Test]
-        public void InterpretMessage_ShouldHandleSwitchConfigsMessage()
+        public void Dispatch_ShouldHandleSwitchConfigsMessage()
         {
-            _messageReceiver.InterpretMessage("SetConfig:Config1");
-
+            var message = new Message { MessageText = "SetConfig:Config1" };
+            _messagePlayer.Dispatch(message, (m) => { });
             _mockKeyboardSimulator.DidNotReceive().KeyDown(Arg.Any<VirtualKeyCode>());
 
-            _messageReceiver.InterpretMessage("Key1");
-
+            message = new KeyboardMessage { MessageText = "Key1" };
+            _messagePlayer.Dispatch(message, (m) => { });
             _mockKeyboardSimulator.Received().KeyDown(Arg.Is<VirtualKeyCode>(k => k == VirtualKeyCode.VK_1));
 
             _mockKeyboardSimulator.ClearReceivedCalls();
-
-            _messageReceiver.InterpretMessage("SetConfig:Config2");
-
+            message = new Message { MessageText = "SetConfig:Config2" };
+            _messagePlayer.Dispatch(message, (m) => { });
             _mockKeyboardSimulator.DidNotReceive().KeyDown(Arg.Any<VirtualKeyCode>());
-
-            _messageReceiver.InterpretMessage("Key1");
-
+            
+            message = new KeyboardMessage { MessageText = "Key1" };
+            _messagePlayer.Dispatch(message, (m) => { });
             _mockKeyboardSimulator.Received().KeyDown(Arg.Is<VirtualKeyCode>(k => k == VirtualKeyCode.VK_A));
         }
 

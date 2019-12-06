@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using RetroVirtualCockpit.Client.Receivers.Joystick;
+using System.Collections.Generic;
 
 namespace RetroVirtualCockpit.Client.Data
 {
@@ -7,5 +8,7 @@ namespace RetroVirtualCockpit.Client.Data
         public string Title { get; set; }
 
         public Dictionary<string, KeyMapping> KeyMappings { get; set; }
+
+        public List<IJoystickEvent> JoystickMappings { get; set; }
     }
 }
