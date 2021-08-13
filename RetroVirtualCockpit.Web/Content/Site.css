@@ -119,7 +119,7 @@ textarea {
 .control-panel.vertical>.control-panel {
     padding: 0;
     margin: 0;
-    margin-top: -20px;
+    display: block;
 }
 
 .control-panel.bottom {
@@ -281,6 +281,12 @@ textarea {
     border-top-color: white;
 }
 
+.control.label {
+    width: 100%;
+    min-width: 40px;
+    height: 50px;
+}
+
 .control.button {
     background-image: Url('../Content/Images/button.png');
     background-repeat: no-repeat;
@@ -336,7 +342,6 @@ textarea {
 .control.switch, .control.switch.off {
     background-image: Url('../Content/Images/switch-off.png');
     background-repeat: no-repeat;
-    background-position: center top;
     width: 100%;
     min-width: 50px;
     height: 50px;

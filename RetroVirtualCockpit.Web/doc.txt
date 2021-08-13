@@ -11,7 +11,7 @@ npm install --save-dev file-loader
 
 
 D:
-cd Users\Simon\OneDrive\Projects\RetroVirtualCockpit\RetroVirtualCockpit.Web
+cd Source\Repos\RetroVirtualCockpit\RetroVirtualCockpit.Web
 
 npm run build
 

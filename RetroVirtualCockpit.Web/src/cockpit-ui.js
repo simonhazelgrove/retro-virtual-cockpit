@@ -196,6 +196,7 @@ export default function cockpit_ui() {
                 case "button-h":
                 case "button-dpad":
                 case "switch":
+                case "label":
                 case "knob":
                     if (config.label) {
                         slot.append($("<p>" + config.label + "</p>"));
