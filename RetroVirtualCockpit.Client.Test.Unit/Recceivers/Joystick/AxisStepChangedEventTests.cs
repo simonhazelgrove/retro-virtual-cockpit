@@ -1,16 +1,15 @@
-﻿using NUnit.Framework;
-using RetroVirtualCockpit.Client.Receivers.Joystick;
+﻿using RetroVirtualCockpit.Client.Receivers.Joystick;
 using SharpDX.DirectInput;
 using Shouldly;
+using Xunit;
 
 namespace RetroVirtualCockpit.Client.Test.Unit.Recceivers.Joystick
 {
-    [TestFixture]
     public class AxisStepChangedEventTests
     {
         public AxisStepChangedEvent _event;
 
-        [Test]
+        [Fact]
         public void Evaluate_DoesntReturnsMessage_WhenAxisStateDoesntChange()
         {
             _event = new AxisStepChangedEvent(Axis.Z, 10, "AxisUp", "AxisDown");
@@ -23,7 +22,7 @@ namespace RetroVirtualCockpit.Client.Test.Unit.Recceivers.Joystick
             message.ShouldBeNull();
         }
 
-        [Test]
+        [Fact]
         public void Evaluate_DoesntReturnsMessage_WhenAxisStateChangesWithinAStep()
         {
             _event = new AxisStepChangedEvent(Axis.Z, 10, "AxisUp", "AxisDown");
@@ -36,7 +35,7 @@ namespace RetroVirtualCockpit.Client.Test.Unit.Recceivers.Joystick
             message.ShouldBeNull();
         }
 
-        [Test]
+        [Fact]
         public void Evaluate_ReturnsUpMessage_WhenAxisChangesAboveAStep()
         {
             _event = new AxisStepChangedEvent(Axis.Z, 10, "AxisUp", "AxisDown");
@@ -50,7 +49,7 @@ namespace RetroVirtualCockpit.Client.Test.Unit.Recceivers.Joystick
             message.MessageText.ShouldBe("AxisUp");
         }
 
-        [Test]
+        [Fact]
         public void Evaluate_ReturnsSingleUpMessage_WhenAxisChangesToMaxValue()
         {
             _event = new AxisStepChangedEvent(Axis.Z, 10, "AxisUp", "AxisDown");
@@ -64,7 +63,7 @@ namespace RetroVirtualCockpit.Client.Test.Unit.Recceivers.Joystick
             message.MessageText.ShouldBe("AxisUp");
         }
 
-        [Test]
+        [Fact]
         public void Evaluate_ReturnsDownMessage_WhenAxisChangesBelowAStep()
         {
             _event = new AxisStepChangedEvent(Axis.Z, 10, "AxisUp", "AxisDown");

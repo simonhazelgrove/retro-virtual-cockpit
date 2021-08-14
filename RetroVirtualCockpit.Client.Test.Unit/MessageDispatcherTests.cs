@@ -1,5 +1,5 @@
 ﻿using NSubstitute;
-using NUnit.Framework;
+using Xunit;
 using RetroVirtualCockpit.Client.Data;
 using RetroVirtualCockpit.Client.Messages;
 using System.Collections.Generic;
@@ -8,7 +8,6 @@ using WindowsInput.Native;
 
 namespace RetroVirtualCockpit.Client.Test.Unit
 {
-    [TestFixture]
     public class MessageReceiverTests
     {
         public readonly MessageDispatcher _messagePlayer;
@@ -26,7 +25,7 @@ namespace RetroVirtualCockpit.Client.Test.Unit
             _messagePlayer = new MessageDispatcher(GetTestConfigs(), _inputSimulator);
         }
 
-        [Test]
+        [Fact]
         public void Dispatch_DoesntProcessKeysWhenNoGameConfigIsSelected()
         {
             var message = new KeyboardMessage { MessageText = "Config1.Key1" };
@@ -36,7 +35,7 @@ namespace RetroVirtualCockpit.Client.Test.Unit
             _mockKeyboardSimulator.DidNotReceive().KeyDown(Arg.Any<VirtualKeyCode>());
         }
 
-        [Test]
+        [Fact]
         public void Dispatch_ShouldHandleSwitchConfigsMessage()
         {
             var message = new Message { MessageText = "SetConfig:Config1" };

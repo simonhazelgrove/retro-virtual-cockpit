@@ -1,5 +1,5 @@
 ﻿using NSubstitute;
-using NUnit.Framework;
+using Xunit;
 using RetroVirtualCockpit.Client.Data;
 using RetroVirtualCockpit.Client.Dispatchers;
 using RetroVirtualCockpit.Client.Messages;
@@ -11,7 +11,6 @@ using WindowsInput.Native;
 
 namespace RetroVirtualCockpit.Client.Test.Unit.Dispatchers
 {
-    [TestFixture]
     public class KeyboardDispatcherTests
     {
         private KeyboardDispatcher _dispatcher;
@@ -20,8 +19,7 @@ namespace RetroVirtualCockpit.Client.Test.Unit.Dispatchers
 
         private IKeyboardSimulator _mockKeyboardSimulator;
 
-        [SetUp]
-        public void Setup()
+        public KeyboardDispatcherTests()
         {
             _mockKeyboardSimulator = Substitute.For<IKeyboardSimulator>();
 
@@ -39,7 +37,7 @@ namespace RetroVirtualCockpit.Client.Test.Unit.Dispatchers
             };
         }
 
-        [Test]
+        [Fact]
         public void Dispatch_ShouldPressAKeyDown()
         {
             var message = new KeyboardMessage { MessageText = "space" };
@@ -49,7 +47,7 @@ namespace RetroVirtualCockpit.Client.Test.Unit.Dispatchers
             _mockKeyboardSimulator.Received(1).KeyDown(VirtualKeyCode.SPACE);
         }
 
-        [Test]
+        [Fact]
         public void Dispatch_ShouldPressAKeyDownWithModifierFirst()
         {
             var message = new KeyboardMessage { MessageText = "ctrl.return" };
@@ -64,7 +62,7 @@ namespace RetroVirtualCockpit.Client.Test.Unit.Dispatchers
             });
         }
 
-        [Test]
+        [Fact]
         public void Dispatch_ShouldPressAKeyUp()
         {
             var message = new KeyboardMessage { MessageText = "space", Direction = KeyDirection.Up };
@@ -74,7 +72,7 @@ namespace RetroVirtualCockpit.Client.Test.Unit.Dispatchers
             _mockKeyboardSimulator.Received(1).KeyUp(VirtualKeyCode.SPACE);
         }
 
-        [Test]
+        [Fact]
         public void Dispatch_ShouldPressAKeyUpWithModifierLast()
         {
             var message = new KeyboardMessage { MessageText = "ctrl.return", Direction = KeyDirection.Up };
@@ -89,7 +87,7 @@ namespace RetroVirtualCockpit.Client.Test.Unit.Dispatchers
             });
         }
 
-        [Test]
+        [Fact]
         public async Task Dispatch_ShouldPressAKeyUpAfterSomeTime()
         {
             var message = new KeyboardMessage { MessageText = "space", DelayUntilKeyUp = 100 };
@@ -107,7 +105,7 @@ namespace RetroVirtualCockpit.Client.Test.Unit.Dispatchers
             });
         }
 
-        [Test]
+        [Fact]
         public async Task Dispatch_ShouldNotPressAnyKeys_IfKeymappingNotFound()
         {
             var message = new KeyboardMessage { MessageText = "doesnt.exist", DelayUntilKeyUp = 100 };
@@ -120,7 +118,7 @@ namespace RetroVirtualCockpit.Client.Test.Unit.Dispatchers
             _mockKeyboardSimulator.Received(0).KeyUp(Arg.Any<VirtualKeyCode>());
         }
 
-        public Task AsyncWaitMilliseconds(int milliseconds)
+        private Task AsyncWaitMilliseconds(int milliseconds)
         {
             var endTime = DateTime.Now.AddMilliseconds(milliseconds);
 

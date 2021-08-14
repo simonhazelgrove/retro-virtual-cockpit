@@ -1,5 +1,4 @@
-﻿using NUnit.Framework;
-using RetroVirtualCockpit.Client.Messages;
+﻿using RetroVirtualCockpit.Client.Messages;
 using RetroVirtualCockpit.Client.Receivers.Joystick;
 using Shouldly;
 using System;
@@ -7,10 +6,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xunit;
 
 namespace RetroVirtualCockpit.Client.Test.Unit.Recceivers.Joystick
 {
-    [TestFixture]
     public class BaseJoystickEventTests
     {
         // This class will be used to test as BaseJoystickEvent is abstract
@@ -22,7 +21,7 @@ namespace RetroVirtualCockpit.Client.Test.Unit.Recceivers.Joystick
         {
         }
 
-        [Test]
+        [Fact]
         public void GetMessage_ReturnsMessageTextInMessageObject()
         {
             var testEvent = new TestJoystickEvent { MessageText = "MessageText" };
@@ -34,7 +33,7 @@ namespace RetroVirtualCockpit.Client.Test.Unit.Recceivers.Joystick
             message.MessageText.ShouldBe("MessageText");
         }
 
-        [Test]
+        [Fact]
         public void GetMessage_ReturnsMessageObject()
         {
             var testEvent = new TestJoystickEvent { Message = new TestMessage { MessageText = "MessageObject" } };

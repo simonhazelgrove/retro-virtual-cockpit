@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System.Drawing;
+using RetroVirtualCockpit.Client.Helpers;
 
 namespace RetroVirtualCockpit.Client.Receivers
 {
@@ -7,9 +8,7 @@ namespace RetroVirtualCockpit.Client.Receivers
     /// </summary>
     public class JoystickToMouseReceiver : JoystickReceiver
     {
-        private float _mouseX;
-
-        private float _mouseY;
+        private Point _mousePos;
 
         private float _mouseMoveX;
 
@@ -19,8 +18,9 @@ namespace RetroVirtualCockpit.Client.Receivers
 
         public JoystickToMouseReceiver(SharpDX.DirectInput.Joystick joystick) : base(joystick)
         {
-            _mouseX = Cursor.Position.X * 34;
-            _mouseY = Cursor.Position.Y * 61.2F;
+            Mouse.GetCursorPos(ref _mousePos);
+            _mousePos.X = _mousePos.X * 34;
+            _mousePos.Y = _mousePos.Y * 61;
         }
 
         public override void ReceiveInput()
@@ -48,8 +48,9 @@ namespace RetroVirtualCockpit.Client.Receivers
                 }
 
                 // No joystick movement - save current mouse position
-                _mouseX = Cursor.Position.X * 34.14f;
-                _mouseY = Cursor.Position.Y * 61.66f;
+                Mouse.GetCursorPos(ref _mousePos);
+                _mousePos.X = _mousePos.X * 34;
+                _mousePos.Y = _mousePos.Y * 61;
             }
         }
     }

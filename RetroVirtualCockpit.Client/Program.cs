@@ -5,13 +5,13 @@ using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using RetroVirtualCockpit.Client.Data;
-using WindowsInput.Native;
 using RetroVirtualCockpit.Client.Helpers;
-using WindowsInput;
-using RetroVirtualCockpit.Client.Receivers;
 using RetroVirtualCockpit.Client.Messages;
+using RetroVirtualCockpit.Client.Receivers;
 using RetroVirtualCockpit.Client.Receivers.Joystick;
 using SharpDX.DirectInput;
+using WindowsInput;
+using WindowsInput.Native;
 
 // https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API/Writing_WebSocket_server
 

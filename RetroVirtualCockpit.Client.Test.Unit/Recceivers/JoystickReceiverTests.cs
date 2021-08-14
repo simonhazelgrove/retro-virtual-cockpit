@@ -1,6 +1,6 @@
 ﻿using System;
+using Xunit;
 using System.Collections.Generic;
-using NUnit.Framework;
 using RetroVirtualCockpit.Client.Messages;
 using RetroVirtualCockpit.Client.Receivers;
 using RetroVirtualCockpit.Client.Receivers.Joystick;
@@ -9,7 +9,6 @@ using Shouldly;
 
 namespace RetroVirtualCockpit.Client.Test.Unit.Recceivers
 {
-    [TestFixture]
     public class JoystickReceiverTests
     {
         // This subclass is used in this test as JoystickReceiver is abstract
@@ -31,13 +30,12 @@ namespace RetroVirtualCockpit.Client.Test.Unit.Recceivers
 
         private TestJoystickReceiver _joystickReceiver;
 
-        [SetUp]
-        public void Setup()
+        public JoystickReceiverTests()
         {
             _joystickReceiver = new TestJoystickReceiver(null);
         }
 
-        [Test]
+        [Fact]
         public void ReceiveInputs_EvaluatesAllEvents()
         {
             _joystickReceiver.SetEvents(GetTestEvents());

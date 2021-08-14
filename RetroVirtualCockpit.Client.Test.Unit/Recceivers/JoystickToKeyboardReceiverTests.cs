@@ -1,5 +1,5 @@
 ﻿using System;
-using NUnit.Framework;
+using Xunit;
 using RetroVirtualCockpit.Client.Messages;
 using RetroVirtualCockpit.Client.Receivers;
 using SharpDX.DirectInput;
@@ -7,21 +7,20 @@ using Shouldly;
 
 namespace RetroVirtualCockpit.Client.Test.Unit.Recceivers
 {
-    [TestFixture]
     public class JoystickToKeyboardReceiverTests
     {
         private JoystickToKeyboardReceiver _joystickReceiver;
 
-        [SetUp]
-        public void SetUp()
+        public JoystickToKeyboardReceiverTests()
         {
             _joystickReceiver = new JoystickToKeyboardReceiver(null);
         }
 
-        [TestCase(0, 0.5, "Controls.Stick.Left")]
-        [TestCase(1, 0.5, "Controls.Stick.Right")]
-        [TestCase(0.5, 1, "Controls.Stick.Back")]
-        [TestCase(0.5, 0, "Controls.Stick.Forward")]
+        [Theory]
+        [InlineData(0, 0.5, "Controls.Stick.Left")]
+        [InlineData(1, 0.5, "Controls.Stick.Right")]
+        [InlineData(0.5, 1, "Controls.Stick.Back")]
+        [InlineData(0.5, 0, "Controls.Stick.Forward")]
         public void ReceiveInput_ShouldKeyDownWhenJoystickMoved_AndKeyUpWhenJoystickCenteredAgain(double x, double y, string messageText)
         {
             // Start position in center
@@ -52,10 +51,11 @@ namespace RetroVirtualCockpit.Client.Test.Unit.Recceivers
             (messages[0] as KeyboardMessage).Direction.ShouldBe(KeyDirection.Up);
         }
 
-        [TestCase(JoystickReceiver.DeadZoneStart, 0.5, JoystickReceiver.DeadZoneStart - 1, 0.5)]
-        [TestCase(JoystickReceiver.DeadZoneEnd, 0.5, JoystickReceiver.DeadZoneEnd + 1, 0.5)]
-        [TestCase(0.5, JoystickReceiver.DeadZoneStart, 0.5, JoystickReceiver.DeadZoneStart - 1)]
-        [TestCase(0.5, JoystickReceiver.DeadZoneEnd, 0.5, JoystickReceiver.DeadZoneEnd + 1)]
+        [Theory]
+        [InlineData(JoystickReceiver.DeadZoneStart, 0.5, JoystickReceiver.DeadZoneStart - 1, 0.5)]
+        [InlineData(JoystickReceiver.DeadZoneEnd, 0.5, JoystickReceiver.DeadZoneEnd + 1, 0.5)]
+        [InlineData(0.5, JoystickReceiver.DeadZoneStart, 0.5, JoystickReceiver.DeadZoneStart - 1)]
+        [InlineData(0.5, JoystickReceiver.DeadZoneEnd, 0.5, JoystickReceiver.DeadZoneEnd + 1)]
         public void ReceiveInput_ShouldNotKeyDown_WhenJoystickMovesWithinDeadzone(double x1, double y1, double x2, double y2)
         {
             // Start position in center
@@ -82,10 +82,11 @@ namespace RetroVirtualCockpit.Client.Test.Unit.Recceivers
             (messages[0] as KeyboardMessage).Direction.ShouldBe(KeyDirection.Down);
         }
 
-        [TestCase(-1, 0.5, 1, 0.5)]
-        [TestCase(1, 0.5, -1, 0.5)]
-        [TestCase(0.5, -1, 0.5, 1)]
-        [TestCase(0.5, 1, 0.5, -1)]
+        [Theory]
+        [InlineData(-1, 0.5, 1, 0.5)]
+        [InlineData(1, 0.5, -1, 0.5)]
+        [InlineData(0.5, -1, 0.5, 1)]
+        [InlineData(0.5, 1, 0.5, -1)]
         public void ReceiveInput_ShouldKeyUp_WhenJoystickMovesInAnotherDirection(double x1, double y1, double x2, double y2)
         {
             // Start position in center

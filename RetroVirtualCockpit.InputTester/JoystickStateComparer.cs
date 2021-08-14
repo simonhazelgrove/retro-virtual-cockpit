@@ -1,7 +1,7 @@
-﻿using SharpDX.DirectInput;
+using SharpDX.DirectInput;
 using System;
 
-namespace RetroVirtualCockput.Client.Config
+namespace RetroVirtualCockpit.InputTester
 {
     public class JoystickStateComparer
     {

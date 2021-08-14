@@ -1,18 +1,17 @@
-﻿using NUnit.Framework;
-using RetroVirtualCockpit.Client.Messages;
+﻿using RetroVirtualCockpit.Client.Messages;
 using RetroVirtualCockpit.Client.Receivers.Joystick;
 using SharpDX.DirectInput;
 using Shouldly;
 using System.Collections.Generic;
+using Xunit;
 
 namespace RetroVirtualCockpit.Client.Test.Unit.Recceivers.Joystick
 {
-    [TestFixture]
     public class ButtonValueChangedEventTests
     {
         public ButtonValueChangedEvent _event;
 
-        [Test]
+        [Fact]
         public void Evaluate_ReturnsNothing_WhenButtonStateDoesntChange()
         {
             var buttonIndex = 0;
@@ -35,7 +34,7 @@ namespace RetroVirtualCockpit.Client.Test.Unit.Recceivers.Joystick
             message.ShouldBeNull();
         }
 
-        [Test]
+        [Fact]
         public void Evaluate_ReturnsMessage_WhenButtonStateChanges()
         {
             var buttonIndex = 1;
@@ -60,7 +59,7 @@ namespace RetroVirtualCockpit.Client.Test.Unit.Recceivers.Joystick
             message.MessageText.ShouldBe("ChangeTest");
         }
 
-        [Test]
+        [Fact]
         public void Evaluate_ReturnsMessage_WhenButtonStateChangesToValue()
         {
             var buttonIndex = 2;
@@ -84,7 +83,7 @@ namespace RetroVirtualCockpit.Client.Test.Unit.Recceivers.Joystick
             message.ShouldBeNull();
         }
 
-        [Test]
+        [Fact]
         public void Evaluate_ReturnsMessagesFromList_WhenButtonStateChangesToValue()
         {
             var buttonIndex = 3;
@@ -113,7 +112,7 @@ namespace RetroVirtualCockpit.Client.Test.Unit.Recceivers.Joystick
             message.MessageText.ShouldBe("message1");
         }
 
-        [Test]
+        [Fact]
         public void Evaluate_ReturnsMessageObject_WhenButtonStateChangesToValue()
         {
             var buttonIndex = 4;

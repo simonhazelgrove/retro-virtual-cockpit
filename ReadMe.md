@@ -13,9 +13,12 @@ The different sources of input include:
 
 ### RetroVirtualCockpit.Client
 
-### RetroVirtualCockpit.Client.Config
+Console app that replays commands from the web app and other controllers into the host machine
+
+### RetroVirtualCockpit.InputTester
 
 This program will output the state of any Direct Input controller changes.  Use it to identify buttons, sliders, axis etc on a controller.
 
 ### RetroVirtualCockpit.Web
 
+Web user interface that provides buttons and other controls that send commands to the client

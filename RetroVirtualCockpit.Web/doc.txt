@@ -18,3 +18,5 @@ npm run build
 npx webpack --config webpack.config.js  <-- build using the webpack config file
 
 npm run watch <--- automatically build when you change a dependancy file
+
+Webapp can be seen by browsing to: file:///D:/Source/Repos/RetroVirtualCockpit/RetroVirtualCockpit.Web/index.html#

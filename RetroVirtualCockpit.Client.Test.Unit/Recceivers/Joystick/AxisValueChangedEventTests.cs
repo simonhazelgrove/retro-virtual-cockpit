@@ -1,16 +1,15 @@
-﻿using NUnit.Framework;
-using RetroVirtualCockpit.Client.Receivers.Joystick;
+﻿using RetroVirtualCockpit.Client.Receivers.Joystick;
 using SharpDX.DirectInput;
 using Shouldly;
+using Xunit;
 
 namespace RetroVirtualCockpit.Client.Test.Unit.Recceivers.Joystick
 {
-    [TestFixture]
     public class AxisValueChangedEventTests
     {
         private AxisValueChangedEvent _event;
 
-        [Test]
+        [Fact]
         public void Evaluate_ShouldReturnMessageWhenValueChanges()
         {
             _event = new AxisValueChangedEvent(Axis.Z, 10, "ValueTest");

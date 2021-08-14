@@ -10,25 +10,28 @@ pool:
   vmImage: 'windows-latest'
 
 variables:
-  solution: '**/*.sln'
-  project: '**.*proj'
-  buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
 
 steps:
-- task: NuGetToolInstaller@1
-
-- task: NuGetCommand@2
+- task: DotNetCoreCLI@2
   inputs:
-    restoreSolution: '$(solution)'
+    command: 'build'
+    projects: '**/RetroVirtualCockpit.Client/*.csproj'
+    arguments: '--configuration $(buildConfiguration)'
+  displayName: 'dotnet build'
 
-- task: MSBuild@1
+- task: DotNetCoreCLI@2
   inputs:
-    project: '$(project)'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+    command: test
+    projects: '**/*.Test.*/*.csproj'
+    arguments: '--configuration $(buildConfiguration) --collect "Code coverage"'
+  displayName: 'dotnet test'
 
-- task: VSTest@2
+- task: DotNetCoreCLI@2
   inputs:
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+    command: publish
+    projects: '**/RetroVirtualCockpit.Client/*.csproj'
+    arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+    zipAfterPublish: True
+    publishWebProjects: False
+  displayName: 'dotnet publish'
