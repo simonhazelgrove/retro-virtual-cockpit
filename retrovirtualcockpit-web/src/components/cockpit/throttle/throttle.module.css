@@ -1,0 +1,33 @@
+.throttle {
+  width: 210px;
+  height: 322px;
+}
+
+.throttleBase {
+  background-image: url('../../../images/throttle-base.png');
+  background-repeat: no-repeat;
+  background-position: center center;
+  width: 100px;
+  height: 322px;
+  z-index: 1;
+}
+
+.night .throttleBase {
+  background-image: url('../../../images/throttle-base-night.png');
+}
+
+.throttleHandle {
+  background-image: url('../../../images/throttle-handle.png');
+  background-repeat: no-repeat;
+  background-position: center center;
+  width: 210px;
+  height: 266px;
+  position: absolute;
+  left: -30px;
+  top: 0px;
+  z-index: 10;
+}
+
+.night .throttleHandle {
+  background-image: url('../../../images/throttle-handle-night.png');
+}

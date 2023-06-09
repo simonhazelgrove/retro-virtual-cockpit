@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.105
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RetroVirtualCockpit.Client", "RetroVirtualCockpit.Client\RetroVirtualCockpit.Client.csproj", "{A0EC1796-ACCF-4E33-B403-2D53FF525922}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RetroVirtualCockpit.Client.Test.Unit", "RetroVirtualCockpit.Client.Test.Unit\RetroVirtualCockpit.Client.Test.Unit.csproj", "{04FC608E-E60F-4F32-A356-5A6FB202AF92}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RetroVirtualCockpit.InputTester", "RetroVirtualCockpit.InputTester\RetroVirtualCockpit.InputTester.csproj", "{9F33F983-8BE1-4A9E-A1D4-95A176436B22}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A0EC1796-ACCF-4E33-B403-2D53FF525922}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0EC1796-ACCF-4E33-B403-2D53FF525922}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0EC1796-ACCF-4E33-B403-2D53FF525922}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0EC1796-ACCF-4E33-B403-2D53FF525922}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04FC608E-E60F-4F32-A356-5A6FB202AF92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04FC608E-E60F-4F32-A356-5A6FB202AF92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04FC608E-E60F-4F32-A356-5A6FB202AF92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04FC608E-E60F-4F32-A356-5A6FB202AF92}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F33F983-8BE1-4A9E-A1D4-95A176436B22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F33F983-8BE1-4A9E-A1D4-95A176436B22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F33F983-8BE1-4A9E-A1D4-95A176436B22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F33F983-8BE1-4A9E-A1D4-95A176436B22}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

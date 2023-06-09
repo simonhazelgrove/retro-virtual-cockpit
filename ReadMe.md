@@ -22,3 +22,8 @@ This program will output the state of any Direct Input controller changes.  Use 
 ### RetroVirtualCockpit.Web
 
 Web user interface that provides buttons and other controls that send commands to the client
+
+
+## Attributions
+
+- lever.wav - modified from https://freesound.org/people/BMacZero/sounds/94120/

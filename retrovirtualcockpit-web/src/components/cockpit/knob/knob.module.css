@@ -1,0 +1,14 @@
+.knob {
+  background-image: url('../../../images/knob.png');
+  background-repeat: no-repeat;
+  background-position: center center;
+  width: 46px;
+  height: 50px;
+  margin-left: 10px;
+  transform-origin: 23px 23px;
+  transition: 'transform 150ms ease';
+}
+
+.night .knob {
+  background-image: url('../../../images/knob-night.png');
+}

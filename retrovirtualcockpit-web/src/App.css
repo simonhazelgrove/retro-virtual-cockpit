@@ -1,0 +1,568 @@
+body {
+  background-color: #272b30 !important;
+  vertical-align: top;
+  width: 100%;
+}
+
+body.night {
+  background-color: #000 !important;
+  color: #599;
+}
+
+.fullscreen body {
+  padding: 0px;
+}
+
+.fullscreen .navbar {
+  display: none;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.dark-well {
+  min-height: 20px;
+  padding: 10px 0;
+  background-color: #1c1e22;
+  border: 1px solid #0c0d0e;
+  border-radius: 4px;
+}
+
+#connected-icon {
+  margin-top: 0.25em;
+  margin-bottom: 0.25em;
+  margin-right: 0.5em;
+}
+
+#back-button {
+  display: none;
+  margin-top: 0.75em;
+  font-size: 300%;
+}
+
+.single-panel #back-button {
+  display: inline-block;
+}
+
+.single-panel #virtual-cockpit {
+  margin-left: 3em;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+  max-width: 280px;
+}
+
+.error {
+  color: #CC3333;
+  display: block !important;
+}
+
+.large-icon {
+  font-size: 200%;
+}
+
+.dropdown-item {
+  font-size: 150%;
+  color: #999;
+}
+
+.dropdown-item span.fas {
+  font-size: 80%;
+}
+
+/* Virtual cockpit controls */
+
+#virtual-cockpit {
+  -webkit-user-select: none;
+  -moz-user-select: none;   
+  -ms-user-select: none;
+  user-select: none;
+  transform: scale(1, 1);
+  transform-origin: center top;
+  color: #c8c8c8;
+  cursor: pointer;
+}
+
+.night #virtual-cockpit  {
+  color: #448888;
+  text-shadow: #448888 0 0 5px;
+  background-color: black;
+}
+
+.night h1 {
+  color: #144;
+}
+
+.control-panel-row {
+  text-align: center;
+}
+
+.control-panel {
+  position: relative;
+  text-transform: uppercase;
+  background: black;
+  margin: 10px;
+  padding: 20px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.control-panel.vertical>.control-panel {
+  padding: 0;
+  margin: 0;
+  display: block;
+}
+
+.control-panel.bottom {
+  vertical-align: bottom;
+}
+
+.control-panel.right {
+  float: right;
+}
+
+.control-panel.left {
+  float: left;
+}
+
+.single-panel .control-panel.right,
+.single-panel .control-panel.left {
+  float: none;
+}
+
+.control-panel .screw {
+  content: url('images/screw.png');
+  position: absolute;
+}
+
+.night .control-panel .screw {
+  opacity: 0.15;
+}
+
+.control-panel .screw.top-left {
+  top: 0px;
+  left: 0px;
+  transform: rotate(40deg); 
+}
+
+.control-panel .screw.bottom-left {
+  bottom: 0px;
+  left: 0px;
+  transform: rotate(17deg); 
+}
+
+.control-panel .screw.top-right {
+  top: 0px;
+  right: 0px;
+  transform: rotate(8deg); 
+}
+
+.control-panel .screw.bottom-right {
+  bottom: 0px;
+  right: 0px;
+  transform: rotate(30deg); 
+}
+
+.control-panel h1 {
+  font-size: 20px;
+  font-weight: lighter;
+  position: relative;
+  top: -1em;
+  text-align: center;
+  margin-bottom: 0;
+}
+
+.control-slot {
+  text-align: center;
+  display: inline-block;
+  vertical-align: bottom;
+  min-width: 60px;
+  margin: 5px;
+  margin-top: -20px;
+  position: relative;
+}
+
+.control-panel.vertical>.control-slot {
+  display: block;
+}
+
+.minimised .control-panel {
+  padding-bottom: 0;
+}
+
+.minimised .control-panel h1 {
+  margin-top: 1em;
+}
+
+.minimised .control-slot,
+.minimised .control-panel.vertical>.control-slot {
+  display: none;
+}
+
+.control {
+  position: relative;
+  cursor: pointer;
+  cursor: hand;
+  cursor: grab;
+  cursor: -webkit-grab;
+}
+
+.control img {
+  -webkit-user-drag: none;
+}
+
+.control-slot p {
+  position: relative;
+  bottom: -10px;
+  margin: 0;
+}
+
+.control-panel.vertical .control-slot {
+  margin-top: 10px;
+}
+
+.control-panel.vertical .control-slot p {
+  bottom: 0px;
+  margin-bottom: 10px;
+}
+
+.control-slot.centered {
+  vertical-align: middle;
+  margin: 0;
+  padding: 10px;
+}
+
+.control-slot.large {
+  font-size: 150%;
+}
+
+.control-slot.hazard {
+background: repeating-linear-gradient(
+  -45deg,
+  black,
+  black 10px,
+  #FFCC00 10px,
+  #FFCC00 20px
+);
+}
+
+.night .control-slot.hazard {
+background: repeating-linear-gradient(
+  -45deg,
+  black,
+  black 10px,
+  #110C00 10px,
+  #110C00 20px
+);
+}
+
+.control-slot.hazard p {
+  background: black;
+  position: relative;
+
+}
+
+.control-slot.hazard.large p {
+  background: black;
+  padding: 5px 10px;
+  position: relative;
+  bottom: 0;
+}
+
+.control-panel hr {
+  border-top-color: white;
+}
+
+.control.label {
+  width: 100%;
+  min-width: 40px;
+  height: 50px;
+}
+
+.control.button {
+  background-image: Url('images/button.png');
+  background-repeat: no-repeat;
+  background-position: center center;
+  width: 100%;
+  min-width: 40px;
+  height: 50px;
+}
+
+.inner-control-column {
+  display: inline-block;
+}
+
+.inner-control-column ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 80%;
+}
+
+.night .control.button {
+  background-image: Url('images/button-night.png');
+}
+
+.control.button-red {
+  background-image: Url('images/button-red.png');
+  background-repeat: no-repeat;
+  background-position: center center;
+  width: 100%;
+  min-width: 41px;
+  height: 50px;
+}
+
+.night .control.button-red {
+  background-image: Url('images/button-red-night.png');
+}
+
+.control.button-h {
+  background-image: Url('images/button-h.png');
+  background-repeat: no-repeat;
+  background-position: center center;
+  width: 100%;
+  min-width: 96px;
+  height: 50px;
+}
+
+.night .control.button-h {
+  background-image: Url('images/button-h-night.png');
+}
+
+.control.button-v {
+  background-image: Url('images/button-v.png');
+  background-repeat: no-repeat;
+  background-position: center center;
+  width: 100%;
+  min-width: 50px;
+  height: 96px;
+}
+
+.night .control.button-v {
+  background-image: Url('images/button-v-night.png');
+}
+
+.control.button-dpad {
+  background-image: Url('images/button-dpad.png');
+  background-repeat: no-repeat;
+  background-position: center top;
+  width: 100%;
+  min-width: 109px;
+  height: 109px;
+}
+
+.night .control.button-dpad {
+  background-image: Url('images/button-dpad-night.png');
+}
+
+.control.switch, .control.switch.off {
+  background-image: Url('images/switch-off.png');
+  background-repeat: no-repeat;
+  background-position: center center;
+  width: 100%;
+  min-width: 50px;
+  height: 50px;
+}
+
+.night .control.switch, .night .control.switch.off {
+  background-image: Url('images/switch-off-night.png');
+}
+
+.control.switch.on {
+  background-image: Url('images/switch-on.png');
+}
+
+.night .control.switch.on {
+  background-image: Url('images/switch-on-night.png');
+}
+
+.control.wheel-h {
+  background-image: Url('images/wheel-h.png');
+  background-repeat: no-repeat;
+  background-position: center center;
+  width: 100%;
+  min-width: 111px;
+  height: 50px;
+}
+
+.night .control.wheel-h {
+  background-image: Url('images/wheel-h-night.png');
+}
+
+.control.wheel-v {
+  background-image: Url('images/wheel-v.png');
+  background-repeat: no-repeat;
+  background-position: center center;
+  width: 100%;
+  min-width: 111px;
+  height: 50px;
+}
+
+.night .control.wheel-v {
+  background-image: Url('images/wheel-v-night.png');
+}
+
+.control.knob {
+  background-image: Url('images/knob.png');
+  background-repeat: no-repeat;
+  background-position: center center;
+  width: 46px;
+  height: 50px;
+  margin-left: 10px;
+  transform-origin: 23px 23px;
+}
+
+.night .control.knob {
+  background-image: Url('images/knob-night.png');
+}
+
+.control.throttle {
+  width: 210px;
+  height: 322px;
+}
+
+.control.throttle .throttle-base {
+  background-image: Url('images/throttle-base.png');
+  background-repeat: no-repeat;
+  background-position: center center;
+  width: 100px;
+  height: 322px;
+  z-index: 1;
+}
+
+.night .control.throttle .throttle-base {
+  background-image: Url('images/throttle-base-night.png');
+}
+
+.control.throttle .throttle-handle {
+  background-image: Url('images/throttle-handle.png');
+  background-repeat: no-repeat;
+  background-position: center center;
+  width: 210px;
+  height: 266px;
+  position: absolute;
+  left: -30px;
+  top: 0px;
+  z-index: 10;
+}
+
+.night .control.throttle .throttle-handle {
+  background-image: Url('images/throttle-handle-night.png');
+}
+
+.control.lever {
+  width: 45px;
+  height: 200px;
+}
+
+.control.lever .lever-base {
+  background-image: Url('images/lever-base.png');
+  background-repeat: no-repeat;
+  background-position: center center;
+  width: 45px;
+  height: 200px;
+  z-index: 1;
+}
+
+.night .control.lever .lever-base {
+  background-image: Url('images/lever-base-night.png');
+}
+
+.control.lever .lever-handle {
+  background-image: Url('images/lever-grey.png');
+  background-repeat: no-repeat;
+  background-position: center center;
+  width: 45px;
+  height: 146px;
+  position: absolute;
+  top: 54px;
+  z-index: 10;
+}
+
+.control.lever .lever-handle.start-in-up-pos {
+  top: 0px;
+}
+
+.control.lever.multistage .lever-handle {
+  top: 27px;
+}
+
+.night .control.lever .lever-handle {
+  background-image: Url('images/lever-grey-night.png');
+}
+
+.control.lever.alt-color .lever-handle {
+  background-image: Url('images/lever-cyan.png');
+}
+
+.night .control.lever.alt-color .lever-handle {
+  background-image: Url('images/lever-cyan-night.png');
+}
+
+/* Bootstrap overrides */
+
+.container.body-content {
+  width: 100%;
+}
+
+.container {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.night .navbar, .night .navbar-brand {
+  background: #1c1e22;
+  background-color: #1c1e22 !important;
+  color: #555 !important;
+}
+
+.night .dark-well {
+  background: #0c0e0f;
+}
+
+.night .form-control, .night .form-control:focus {
+  background-color: #599;
+}
+
+.night .btn, .night .text-muted, .night .form-check-input:checked {
+  color: #599 !important;
+}
+
+.night .form-check-input {
+  background-color: #626668;
+}
+
+.night .form-check-input:checked {
+  background-color: #599;
+}
+
+#cockpit-settings .dropdown-toggle::after {
+  display:none;
+}
+
+.dropdown-menu {
+  color: #bbb;
+  background-color: #222628;
+}
+.dropdown-menu a:hover
+{
+  color: #fff;
+  background-color: #333;
+}
+.night .switch input:checked + label::before {
+  background-color: #599;
+}
+
+.pull-left {
+  float: left;
+}
+
+.pull-right {
+  float: right;
+}

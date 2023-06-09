@@ -1,0 +1,13 @@
+.toastContainer {
+  pointer-events: none;
+}
+
+.toast {
+  pointer-events: none;
+}
+
+.toastBody {
+  color: white;
+  background-color: black;
+  opacity: 0.75;
+}

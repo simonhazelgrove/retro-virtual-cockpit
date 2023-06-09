@@ -23,6 +23,8 @@ namespace RetroVirtualCockpit.Client.Dispatchers
 
             var modifier = VirtualKeyCode.NONAME;
             var key = VirtualKeyCode.NONAME;
+            var keyDirection = message.Direction;
+            var keyDownOnly = false;
 
             if (SelectedGameConfig.KeyMappings.TryGetValue(message.MessageText, out var keyMapping))
             {
@@ -32,9 +34,19 @@ namespace RetroVirtualCockpit.Client.Dispatchers
                 {
                     modifier = keyMapping.ModifierKeyCode.Value;
                 }
+
+                if (keyMapping.KeyAction == KeyAction.Up)
+                {
+                    keyDirection = KeyDirection.Up;
+                }
+
+                if (keyMapping.KeyAction == KeyAction.Down)
+                {
+                    keyDownOnly = true;
+                }
             }
 
-            if (message.Direction == KeyDirection.Up)
+            if (keyDirection == KeyDirection.Up)
             {
                 KeyUp(modifier, key);
             }
@@ -42,7 +54,7 @@ namespace RetroVirtualCockpit.Client.Dispatchers
             {
                 KeyDown(modifier, key);
 
-                if (message.DelayUntilKeyUp.HasValue)
+                if (!keyDownOnly && message.DelayUntilKeyUp.HasValue)
                 {
                     SetupKeyUpTimer(message, modifier, key);
                 }
