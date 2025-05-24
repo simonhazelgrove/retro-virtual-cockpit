@@ -1,0 +1,210 @@
+using RetroVirtualCockpit.Server.Messages;
+using WindowsInput.Native;
+
+namespace RetroVirtualCockpit.Server.Dispatchers
+{
+
+    // Converts internal KeyCodes to MS VirtualKeyCodes (https://learn.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes)
+    public static class KeyCodeConverter
+    {
+        public static VirtualKeyCode ToVirtualKeyCode(KeyCode? keyCode)
+        {
+            if (keyCode == null)
+            {
+                return VirtualKeyCode.NONAME;
+            }
+
+            switch(keyCode) 
+            {
+                case KeyCode.F1:
+                    return VirtualKeyCode.F1;
+                case KeyCode.F2:
+                    return VirtualKeyCode.F2;
+                case KeyCode.F3:
+                    return VirtualKeyCode.F3;
+                case KeyCode.F4:
+                    return VirtualKeyCode.F4;
+                case KeyCode.F5:
+                    return VirtualKeyCode.F5;
+                case KeyCode.F6:
+                    return VirtualKeyCode.F6;
+                case KeyCode.F7:
+                    return VirtualKeyCode.F7;
+                case KeyCode.F8:
+                    return VirtualKeyCode.F8;
+                case KeyCode.F9:
+                    return VirtualKeyCode.F9;
+                case KeyCode.F10:
+                    return VirtualKeyCode.F10;
+                case KeyCode.F11:
+                    return VirtualKeyCode.F11;
+                case KeyCode.F12:
+                    return VirtualKeyCode.F12;
+                case KeyCode._0:
+                    return VirtualKeyCode.VK_0;
+                case KeyCode._1:
+                    return VirtualKeyCode.VK_1;
+                case KeyCode._2:
+                    return VirtualKeyCode.VK_2;
+                case KeyCode._3:
+                    return VirtualKeyCode.VK_3;
+                case KeyCode._4:
+                    return VirtualKeyCode.VK_4;
+                case KeyCode._5:
+                    return VirtualKeyCode.VK_5;
+                case KeyCode._6:
+                    return VirtualKeyCode.VK_6;
+                case KeyCode._7:
+                    return VirtualKeyCode.VK_7;
+                case KeyCode._8:
+                    return VirtualKeyCode.VK_8;
+                case KeyCode._9:
+                    return VirtualKeyCode.VK_9;
+                case KeyCode.Minus:
+                    return VirtualKeyCode.OEM_MINUS;
+                case KeyCode.Equals:
+                    return VirtualKeyCode.OEM_PLUS;
+                case KeyCode.A:
+                    return VirtualKeyCode.VK_A;
+                case KeyCode.B:
+                    return VirtualKeyCode.VK_B;
+                case KeyCode.C:
+                    return VirtualKeyCode.VK_C;
+                case KeyCode.D:
+                    return VirtualKeyCode.VK_D;
+                case KeyCode.E:
+                    return VirtualKeyCode.VK_E;
+                case KeyCode.F:
+                    return VirtualKeyCode.VK_F;
+                case KeyCode.G:
+                    return VirtualKeyCode.VK_G;
+                case KeyCode.H:
+                    return VirtualKeyCode.VK_H;
+                case KeyCode.I:
+                    return VirtualKeyCode.VK_I;
+                case KeyCode.J:
+                    return VirtualKeyCode.VK_J;
+                case KeyCode.K:
+                    return VirtualKeyCode.VK_K;
+                case KeyCode.L:
+                    return VirtualKeyCode.VK_L;
+                case KeyCode.M:
+                    return VirtualKeyCode.VK_M;
+                case KeyCode.N:
+                    return VirtualKeyCode.VK_N;
+                case KeyCode.O:
+                    return VirtualKeyCode.VK_O;
+                case KeyCode.P:
+                    return VirtualKeyCode.VK_P;
+                case KeyCode.Q:
+                    return VirtualKeyCode.VK_Q;
+                case KeyCode.R:
+                    return VirtualKeyCode.VK_R;
+                case KeyCode.S:
+                    return VirtualKeyCode.VK_S;
+                case KeyCode.T:
+                    return VirtualKeyCode.VK_T;
+                case KeyCode.U:
+                    return VirtualKeyCode.VK_U;
+                case KeyCode.V:
+                    return VirtualKeyCode.VK_V;
+                case KeyCode.W:
+                    return VirtualKeyCode.VK_W;
+                case KeyCode.X:
+                    return VirtualKeyCode.VK_X;
+                case KeyCode.Y:
+                    return VirtualKeyCode.VK_Y;
+                case KeyCode.Z:
+                    return VirtualKeyCode.VK_Z;
+                case KeyCode.Escape:
+                    return VirtualKeyCode.ESCAPE;
+                case KeyCode.LeftShift:
+                    return VirtualKeyCode.LSHIFT;
+                case KeyCode.RightShift:
+                    return VirtualKeyCode.RSHIFT;
+                case KeyCode.Enter:
+                    return VirtualKeyCode.RETURN;
+                case KeyCode.Control:
+                    return VirtualKeyCode.CONTROL;
+                case KeyCode.Alt:
+                    return VirtualKeyCode.MENU;
+                case KeyCode.Backspace:
+                    return VirtualKeyCode.BACK;
+                case KeyCode.Tab:
+                    return VirtualKeyCode.TAB;
+                case KeyCode.Space:
+                    return VirtualKeyCode.SPACE;
+                case KeyCode.Comma:
+                    return VirtualKeyCode.OEM_COMMA;
+                case KeyCode.Period:
+                    return VirtualKeyCode.OEM_PERIOD;
+                case KeyCode.BackQuote:
+                    return VirtualKeyCode.OEM_3;
+                case KeyCode.Slash:
+                    return VirtualKeyCode.OEM_2;
+                case KeyCode.Backslash:
+                    return VirtualKeyCode.OEM_102;
+                case KeyCode.SemiColon:
+                    return VirtualKeyCode.OEM_1;
+                case KeyCode.Quote:
+                    return VirtualKeyCode.OEM_7;
+                case KeyCode.OpenSquareBracket:
+                    return VirtualKeyCode.OEM_4;
+                case KeyCode.CloseSquareBracket:
+                    return VirtualKeyCode.OEM_6;
+                case KeyCode.Insert:
+                    return VirtualKeyCode.INSERT;
+                case KeyCode.Delete:
+                    return VirtualKeyCode.DELETE;
+                case KeyCode.Home:
+                    return VirtualKeyCode.HOME;
+                case KeyCode.End:
+                    return VirtualKeyCode.END;
+                case KeyCode.PageUp:
+                    return VirtualKeyCode.PRIOR;
+                case KeyCode.PageDown:
+                    return VirtualKeyCode.NEXT;
+                case KeyCode.Up:
+                    return VirtualKeyCode.UP;
+                case KeyCode.Down:
+                    return VirtualKeyCode.DOWN;
+                case KeyCode.Left:
+                    return VirtualKeyCode.LEFT;
+                case KeyCode.Right:
+                    return VirtualKeyCode.RIGHT;
+                case KeyCode.NumPad0:
+                    return VirtualKeyCode.NUMPAD0;
+                case KeyCode.NumPad1:
+                    return VirtualKeyCode.NUMPAD1;
+                case KeyCode.NumPad2:
+                    return VirtualKeyCode.NUMPAD2;
+                case KeyCode.NumPad3:
+                    return VirtualKeyCode.NUMPAD3;
+                case KeyCode.NumPad4:
+                    return VirtualKeyCode.NUMPAD4;
+                case KeyCode.NumPad5:
+                    return VirtualKeyCode.NUMPAD5;
+                case KeyCode.NumPad6:
+                    return VirtualKeyCode.NUMPAD6;
+                case KeyCode.NumPad7:
+                    return VirtualKeyCode.NUMPAD7;
+                case KeyCode.NumPad8:
+                    return VirtualKeyCode.NUMPAD8;
+                case KeyCode.NumPad9:
+                    return VirtualKeyCode.NUMPAD9;
+                case KeyCode.NumPadPeriod:
+                    return VirtualKeyCode.DECIMAL;
+                case KeyCode.NumPadSlash:
+                    return VirtualKeyCode.DIVIDE;
+                case KeyCode.NumPadAsterisk:
+                    return VirtualKeyCode.MULTIPLY;
+                case KeyCode.NumPadMinus:
+                    return VirtualKeyCode.SUBTRACT;
+                case KeyCode.NumPadPlus:
+                    return VirtualKeyCode.ADD;
+            }
+
+            return VirtualKeyCode.NONAME;
+        }
+    }
+}

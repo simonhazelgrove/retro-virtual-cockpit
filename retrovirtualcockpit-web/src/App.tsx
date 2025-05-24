@@ -15,7 +15,6 @@ function App() {
   const [nightMode, setNightMode] = useState(false)
   const [debugMessages, setDebugMessages] = useState<string[]>([])
 
-
   const onConfigChanged = (selectedConfig: CockpitConfig) => {
     setConfig(selectedConfig)
     onSendMessage("SetConfig:" + selectedConfig.title)
@@ -35,6 +34,18 @@ function App() {
   }
 
   const toggleFullscreen = () => {
+
+    var doc = window.document;
+    var docEl = doc.documentElement;
+
+    var requestFullScreen = docEl.requestFullscreen
+    var cancelFullScreen = doc.exitFullscreen
+ 
+    if(!doc.fullscreenElement) {
+        requestFullScreen.call(docEl)
+    } else {
+        cancelFullScreen.call(doc)
+    }
   }
 
   const toggleNightMode = () => {

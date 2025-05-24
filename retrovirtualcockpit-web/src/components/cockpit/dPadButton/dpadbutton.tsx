@@ -12,10 +12,12 @@ export const DPadButton: React.FC<DPadButtonProps> = (props: DPadButtonProps) =>
 
   const click = (e: MouseEvent<HTMLDivElement>) => {
     const currentTargetRect = e.currentTarget.getBoundingClientRect()
-    const clickX = e.pageX - currentTargetRect.left
-    const clickY = e.pageY - currentTargetRect.top
+    const clickX = e.pageX - window.scrollX - currentTargetRect.left
+    const clickY = e.pageY - window.scrollY - currentTargetRect.top
+
     const thirdX = e.currentTarget.clientWidth / 3
     const thirdY = e.currentTarget.clientHeight / 3
+
     const posX = Math.floor(clickX / thirdX)
     const posY = Math.floor(clickY / thirdY)
 

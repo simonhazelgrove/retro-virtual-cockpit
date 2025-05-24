@@ -11,17 +11,43 @@ The different sources of input include:
 
 ## Repo Items
 
-### RetroVirtualCockpit.Client
+### RetroVirtualCockpit.Server
 
-Console app that replays commands from the web app and other controllers into the host machine
+Console app that reads messages from receivers (e.g. client web app, mouse, joystick) translates them into GameActions, and replays commands into the host machine via either keyboard or mouse actions.
+
+#### Architecture
+
+Diagram created in https://asciiflow.com/#/local/RetroVirtualCockpit
+
+                 ┌───────────────────┐
+            ┌────┤ WebClientReceiver │
+            │    └──┬────────────────┴─┐
+Receives    ├───────┤ JoystickReceiver │
+ event      │       └──┬───────────────┤
+messages    ├──────────┤ MouseReceiver │
+            │          └───────────────┘
+            │    ┌───────────────────────────┐
+            └───►│ RetroVirtualCockpitServer | Translates received messages into GameActions:
+                 └─────┬─────────────────────┘ sequences of messages for keyboard & mouse
+                       ▼        
+             ┌───────────────────┐
+             │ MessageDispatcher ├────────┐
+             └───────────────────┘        │  Sends
+                                          │ messages
+             ┌────────────────────┐       │
+             │ KeyboardDispatcher │◄──────┤
+             └──┬─────────────────┤       │
+                │ MouseDispatcher │◄──────┘
+                └─────────────────┘
+
 
 ### RetroVirtualCockpit.InputTester
 
 This program will output the state of any Direct Input controller changes.  Use it to identify buttons, sliders, axis etc on a controller.
 
-### RetroVirtualCockpit.Web
+### retrovirtualcockpit-web
 
-Web user interface that provides buttons and other controls that send commands to the client
+Web SPA client that provides buttons and other controls that send commands to the server
 
 
 ## Attributions

@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from 'react';
 import { 
   Control, 
   Panel as PanelType, 
@@ -28,6 +29,9 @@ interface PanelProps {
 }
 
 export const Panel: React.FC<PanelProps> = (props: PanelProps) => {
+
+  const [showPanel, setShowPanel] = useState<Boolean>(true)
+
   const generateControls = (controls: Control[], panelId: string) => controls.map((control: Control, id: number) => {
     const controlId = `${panelId}Control${id}`
     switch (control.type) {
@@ -61,6 +65,10 @@ export const Panel: React.FC<PanelProps> = (props: PanelProps) => {
 
   const controls = generateControls(props.panel.controls, props.panel.id)
 
+  const panelDoubleClick = () => {
+    setShowPanel(!showPanel)
+  }
+
   var classNames = "control-panel"
   if (props.panel.orientation) {
     classNames += ` ${props.panel.orientation}`
@@ -72,17 +80,17 @@ export const Panel: React.FC<PanelProps> = (props: PanelProps) => {
   return <div className={classNames}>
     {(!props.panel.decoration || props.panel.decoration !== "none") && 
       <>
-        <span className="screw top-left"></span>
-        <span className="screw bottom-left"></span>
+        <span className="screw top-left" onDoubleClick={panelDoubleClick}></span>
+        <span className="screw bottom-left" onDoubleClick={panelDoubleClick}></span>
       </>
     }
-    {props.panel.title && <h1>{props.panel.title}</h1>
+    {props.panel.title && <h1 onDoubleClick={panelDoubleClick}>{props.panel.title}</h1>
     }    
-    {controls}
+    {showPanel && controls}
     {(!props.panel.decoration || props.panel.decoration !== "none") && 
       <>
-        <span className="screw top-right"></span>
-        <span className="screw bottom-right"></span>
+        <span className="screw top-right" onDoubleClick={panelDoubleClick}></span>
+        <span className="screw bottom-right" onDoubleClick={panelDoubleClick}></span>
       </>
     }
   </div>

@@ -18,6 +18,7 @@ export interface MenuProps {
 export const Menu: React.FC<MenuProps> = (props: MenuProps) => {
   const configs = cockpit_configs()
   const [config, setConfig] = useState<CockpitConfig>()
+  const [halfScale, setHalfScale] = useState(false)
 
   const getConnectedIconClass = ():string => {
     if (props.isConnected) {
@@ -41,6 +42,23 @@ export const Menu: React.FC<MenuProps> = (props: MenuProps) => {
   const configOptions = configs.map((config: CockpitConfig, id: number) => <option value={config.title} key={id}>{config.title}</option>)
 
   const connectionClick = () => props.isConnected && props.onToggleConnector()
+
+  const clickHalfScale = () => {
+    let viewport:HTMLElement|null = document.querySelector("meta[name=viewport]");
+    if (!viewport) {
+        // in case there is no view port meta tag creates one and add it to the head
+        viewport = document.createElement('meta')
+        viewport.setAttribute("name", "viewport")
+        document.getElementsByTagName("head")[0].appendChild(viewport)
+    }
+    
+    const content = halfScale 
+      ? 'width=device-width, initial-scale=1'
+      : 'width=device-width, initial-scale=0.75, maximum-scale=0.75, minimum-scale=0.75'
+    // this is where the magic happens by changing the vewport meta tag
+    viewport.setAttribute("content", content)
+    setHalfScale(!halfScale)
+  }
 
   return <div className="row dark-well">
     <div className="col-1">
@@ -73,6 +91,10 @@ export const Menu: React.FC<MenuProps> = (props: MenuProps) => {
           <Dropdown.Item href="#/nightmode" className="text-muted">
             <MoonFill />&nbsp; 
             <Form.Check inline type="switch" label="Night Mode" id="nightModeToggle" onClick={props.onToggleNightMode} />
+          </Dropdown.Item>
+          <Dropdown.Item href="#/halfscale" className="text-muted">
+            <MoonFill />&nbsp; 
+            <Form.Check inline type="switch" label="Half Scale" id="halfScale" onClick={clickHalfScale} />
           </Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>

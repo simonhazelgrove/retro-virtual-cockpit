@@ -83,7 +83,7 @@ textarea {
   -moz-user-select: none;   
   -ms-user-select: none;
   user-select: none;
-  transform: scale(1, 1);
+  transform: scale(1);
   transform-origin: center top;
   color: #c8c8c8;
   cursor: pointer;

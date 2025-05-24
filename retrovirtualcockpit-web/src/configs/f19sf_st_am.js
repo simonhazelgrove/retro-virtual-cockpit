@@ -5,11 +5,14 @@ export default function f19sf_st_am() {
             {
                 panels: [
                     {
-                        id: "hud",
-                        title: "HUD",
+                        id: "control",
+                        title: "Control",
                         controls: [
-                            { type: "knob", label: "Mode", turn: "HUD.Mode" },
-                            { type: "switch", label: "ILS", flip: "HUD.ILS" }
+                            { type: "switch", label: "Gear", flip: "Controls.Gear" },
+                            { type: "switch", label: "Auto Pilot", flip: "Controls.AutoPilot" },
+                            { type: "switch", label: "Flaps", flip: "Controls.Flaps" },
+                            { type: "switch", label: "Brakes", flip: "Controls.Brakes" },
+                            { type: "button", label: "Stick", press: "Controls.StickSensitivity" }
                         ]
                     },
                     {
@@ -21,27 +24,24 @@ export default function f19sf_st_am() {
                         ]
                     },
                     {
+                        id: "hud",
+                        title: "HUD",
+                        controls: [
+                            { type: "knob", label: "Mode", turn: "HUD.Mode" },
+                            { type: "switch", label: "ILS", flip: "HUD.ILS" }
+                        ]
+                    },                    
+                    {
                         id: "right-mfd",
                         title: "Right MFD",
                         controls: [
-                            { type: "button", label: "Data", press: "MFD.R.Data" },
+                            { type: "button", label: "Tgt", press: "MFD.R.Data" },
                             { type: "button", label: "Ord", press: "MFD.R.Ordnance" },
                             { type: "button", label: "Dmg", press: "MFD.R.Damage" },
-                            { type: "button", label: "Way p", press: "MFD.R.Waypoints" },
-                            { type: "button", label: "Miss", press: "MFD.R.Mission" }
+                            { type: "button", label: "Nav", press: "MFD.R.Waypoints" },
+                            { type: "button", label: "Msn", press: "MFD.R.Mission" }
                         ]
                     },
-                    {
-                        id: "countermeasures",
-                        title: "Countermeasures",
-                        controls: [
-                            { type: "button", label: "Flare", press: "Defence.Flare" },
-                            { type: "button", label: "Chaff", press: "Defence.Chaff" },
-                            { type: "switch", label: "IR Jam", flip: "Defence.IRJam" },
-                            { type: "switch", label: "ECM", flip: "Defence.ECM" },
-                            { type: "button", label: "Decoy", press: "Defence.Decoy" }
-                        ]
-                    }
                 ]
             },
             {
@@ -54,14 +54,14 @@ export default function f19sf_st_am() {
                         ]
                     },
                     {
-                        id: "control",
-                        title: "Control",
+                        id: "countermeasures",
+                        title: "Countermeasures",
                         controls: [
-                            { type: "switch", label: "Gear", flip: "Controls.Gear" },
-                            { type: "switch", label: "Auto Pilot", flip: "Controls.AutoPilot" },
-                            { type: "switch", label: "Flaps", flip: "Controls.Flaps" },
-                            { type: "switch", label: "Brakes", flip: "Controls.Brakes" },
-                            { type: "button", label: "Stick", press: "Controls.StickSensitivity" }
+                            { type: "button", label: "Flare", press: "Defence.Flare" },
+                            { type: "button", label: "Chaff", press: "Defence.Chaff" },
+                            { type: "switch", label: "IR Jam", flip: "Defence.IRJam" },
+                            { type: "switch", label: "ECM", flip: "Defence.ECM" },
+                            { type: "button", label: "Decoy", press: "Defence.Decoy" }
                         ]
                     },
                     {
@@ -80,13 +80,6 @@ export default function f19sf_st_am() {
                             { type: "button-red", label: "Pickle", press: "Weapon.Drop", decoration: "hazard" },
                             { type: "button-red", label: "Gun", press: "Weapon.FireGun", decoration: "hazard" },
                             { type: "switch", label: "Bay", flip: "Weapon.Bay" }
-                        ]
-                    },
-                    {
-                        id: "camera",
-                        title: "Camera",
-                        controls: [
-                            { type: "button-dpad", up: "Camera.Front", down: "Camera.Rear", left: "Camera.Left", right: "Camera.Right" },
                         ]
                     },
                     {
@@ -111,6 +104,16 @@ export default function f19sf_st_am() {
             {
                 panels: [
                     {
+                        id: "game",
+                        title: "Game",
+                        controls: [
+                            { type: "button", label: "Quit", press: "Game.Quit", decoration: "hazard" },
+                            { type: "button", label: "Resupply", press: "Game.Resupply" },
+                            { type: "button", label: "Pause", press: "Game.Pause" },
+                            { type: "switch", label: "Accel", on: "Game.Time.Accelerate", off: "Game.Time.Normal" }
+                        ]
+                    },
+                    {
                         id: "eject",
                         decoration: "none",
                         controls: [
@@ -121,16 +124,6 @@ export default function f19sf_st_am() {
             },
             {
                 panels: [
-                    {
-                        id: "game",
-                        title: "Game",
-                        controls: [
-                            { type: "button", label: "Quit", press: "Game.Quit" },
-                            { type: "button", label: "Resupply", press: "Game.Resupply" },
-                            { type: "button", label: "Pause", press: "Game.Pause" },
-                            { type: "switch", label: "Accel", on: "Game.Time.Accelerate", off: "Game.Time.Normal" }
-                        ]
-                    },
                     {
                         id: "view",
                         title: "View",
@@ -149,9 +142,16 @@ export default function f19sf_st_am() {
                         id: "head",
                         title: "Head",
                         controls: [
-                            { type: "button-dpad", label: "Head", up: "View.Head.Front", down: "View.Head.Rear", left: "View.Head.Left", right: "View.Head.Right" }
+                            { type: "button-dpad", up: "View.Head.Front", down: "View.Head.Rear", left: "View.Head.Left", right: "View.Head.Right" }
                         ]
-                    }
+                    },
+                    {
+                        id: "camera",
+                        title: "Camera",
+                        controls: [
+                            { type: "button-dpad", up: "Camera.Front", down: "Camera.Rear", left: "Camera.Left", right: "Camera.Right" },
+                        ]
+                    },
                 ]
             }
         ]
