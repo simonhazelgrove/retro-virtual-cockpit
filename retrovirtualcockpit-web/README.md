@@ -44,3 +44,11 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+### `npm run deploy`
+
+This command will create a production build and deploy it to github pages using the gh-pages package.  
+
+It pushes the build folder to the gh-pages branch, which is used to serve the app.  
+
+It uses the homepage setting in packages.json to determine the url to deploy to - currently https://simonhazelgrove.github.io/retro-virtual-cockpit/
