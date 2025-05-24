@@ -1,5 +1,6 @@
 import React from "react";
 import { Button as ButtonType } from '../../../configs'
+import bump from '../../../sounds/bump.wav'
 
 interface ButtonProps {
   button: ButtonType,
@@ -11,7 +12,7 @@ export const Button: React.FC<ButtonProps> = (props: ButtonProps) => {
   var buttonClassNames = "control"
   const press = () => {
     props.onSendMessage(props.button.press)
-    new Audio("sounds/bump.wav").play()
+    new Audio(bump).play()
   }
   if (props.button.decoration === "hazard") {
     slotClassNames += ` ${props.button.decoration}`

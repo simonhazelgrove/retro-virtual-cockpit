@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Knob as KnobType } from '../../../configs'
+import knob from '../../../sounds/knob.wav'
 
 interface KnobProps {
   knob: KnobType,
@@ -80,7 +81,7 @@ export const Knob: React.FC<KnobProps> = (props: KnobProps) => {
       setRotation(rotation + 20)
     }
 
-    new Audio("sounds/knob.wav").play()
+    new Audio(knob).play()
   }
 
   if (props.knob.decoration === "hazard") {

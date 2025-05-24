@@ -1,5 +1,7 @@
 import React, { MouseEvent } from "react"
 import { DoubleButton as DoubleButtonType } from '../../../configs'
+import bump from '../../../sounds/bump.wav'
+
 interface DoubleButtonProps {
   button: DoubleButtonType,
   orientation: string,
@@ -32,7 +34,7 @@ export const DoubleButton: React.FC<DoubleButtonProps> = (props: DoubleButtonPro
         props.onSendMessage(props.button.up)
       }   
     }
-    new Audio("sounds/bump.wav").play()
+    new Audio(bump).play()
   }
 
   if (props.button.decoration === "hazard") {

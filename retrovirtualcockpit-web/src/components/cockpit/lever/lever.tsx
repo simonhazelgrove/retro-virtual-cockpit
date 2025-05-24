@@ -1,6 +1,7 @@
 import React from "react";
 import { Lever as LeverType } from '../../../configs'
 import { motion, useAnimation } from "framer-motion"
+import lever from '../../../sounds/lever.wav'
 
 interface LeverProps {
   lever: LeverType,
@@ -38,10 +39,10 @@ export const Lever: React.FC<LeverProps> = (props: LeverProps) => {
     const swipe = async (swipeY: number) => {
         if(swipeY >= maxHandleMove) {
             props.onSendMessage(props.lever.down)
-            new Audio("sounds/lever.wav").play()
+            new Audio(lever).play()
         } else if (swipeY <= -maxHandleMove) {
             props.onSendMessage(props.lever.up)
-            new Audio("sounds/lever.wav").play()
+            new Audio(lever).play()
         }
 
         if (props.lever.multistage) {
