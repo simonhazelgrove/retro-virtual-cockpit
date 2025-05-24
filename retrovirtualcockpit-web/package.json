@@ -2,6 +2,8 @@
   "name": "retrovirtualcockpit-web",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://simonhazelgrove.github.io/retro-virtual-cockpit",
+  "description": "A web-based virtual cockpit for retro flight simulators.",
   "dependencies": {
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
@@ -22,7 +24,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
