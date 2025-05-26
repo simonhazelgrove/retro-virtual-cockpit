@@ -12,3 +12,29 @@ dotnet run
 
 dotnet publish RetroVirtualCockpit.Server.csproj -c Release --output artifacts/vX.X.X
 
+# Architecture
+
+Diagram created in https://asciiflow.com/#/local/RetroVirtualCockpit
+
+```
+                 ┌───────────────────┐
+            ┌────┤ WebClientReceiver │
+            │    └──┬────────────────┴─┐
+Receives    ├───────┤ JoystickReceiver │
+ event      │       └──┬───────────────┤
+messages    ├──────────┤ MouseReceiver │
+            │          └───────────────┘
+            │    ┌───────────────────────────┐
+            └───►│ RetroVirtualCockpitServer | Translates received messages into GameActions:
+                 └─────┬─────────────────────┘ sequences of messages for keyboard & mouse
+                       ▼        
+             ┌───────────────────┐
+             │ MessageDispatcher ├────────┐
+             └───────────────────┘        │  Sends
+                                          │ messages
+             ┌────────────────────┐       │
+             │ KeyboardDispatcher │◄──────┤
+             └──┬─────────────────┤       │
+                │ MouseDispatcher │◄──────┘
+                └─────────────────┘
+```
