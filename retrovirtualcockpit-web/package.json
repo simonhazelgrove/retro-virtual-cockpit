@@ -2,7 +2,7 @@
   "name": "retrovirtualcockpit-web",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://simonhazelgrove.github.io/retro-virtual-cockpit",
+  "homepage": "http://xbattlestation.com/retrovirtualcockpit",
   "description": "A web-based virtual cockpit for retro flight simulators.",
   "dependencies": {
     "@testing-library/jest-dom": "^5.14.1",
