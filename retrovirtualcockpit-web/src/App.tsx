@@ -6,6 +6,7 @@ import { Cockpit } from './components/cockpit'
 import { Header } from './components/header'
 import { Connector } from './components/connector'
 import { DebugConsole } from './components/debugConsole'
+import Download from './components/download/download';
 
 function App() {
   const [config, setConfig] = useState<CockpitConfig>()
@@ -77,7 +78,6 @@ function App() {
 
   return (
     <div className="App">
-      {showConnector && <Connector onConnect={onConnect} />}
       <Header 
         isConnected={connection !== undefined} 
         isNightMode={nightMode}
@@ -86,7 +86,9 @@ function App() {
         onToggleDebug={toggleDebug}
         onToggleFullscreen={toggleFullscreen}
         onToggleNightMode={toggleNightMode} />
+      {showConnector && <Connector onConnect={onConnect} />}
       {config && <Cockpit config={config} onSendMessage={onSendMessage } />}
+      {!config && <Download />}
       <DebugConsole messages={debugMessages} />
     </div>
   );

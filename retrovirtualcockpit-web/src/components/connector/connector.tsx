@@ -43,7 +43,6 @@ export const Connector: React.FC<ConnectorProps> = (props: ConnectorProps) => {
 
   return <div className="row dark-well">
     <div className="col-md-12 centered">
-      <p>Run the Retro Virtual Cockpit client on your computer, and enter the connection key here to connect:</p>
       <Row>
         <Col md="auto">
           <Form.Group>
