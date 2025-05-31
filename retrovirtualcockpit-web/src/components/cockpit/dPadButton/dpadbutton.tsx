@@ -1,5 +1,6 @@
 import React, { MouseEvent } from "react"
 import { DPadButton as DPadButtonType } from '../../../configs'
+import bump from '../../../sounds/bump.wav'
 
 interface DPadButtonProps {
   button: DPadButtonType,
@@ -31,7 +32,7 @@ export const DPadButton: React.FC<DPadButtonProps> = (props: DPadButtonProps) =>
     } else if (posX === 2 && props.button.right) {
       props.onSendMessage(props.button.right);
     }
-    new Audio("sounds/bump.wav").play()
+    new Audio(bump).play()
   }
 
   if (props.button.decoration === "hazard") {

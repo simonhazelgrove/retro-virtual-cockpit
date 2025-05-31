@@ -2,6 +2,8 @@
   "name": "retrovirtualcockpit-web",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://xbattlestation.com/retrovirtualcockpit",
+  "description": "A web-based virtual cockpit for retro flight simulators.",
   "dependencies": {
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
@@ -14,8 +16,9 @@
     "react": "^17.0.2",
     "react-bootstrap-icons": "^1.5.0",
     "react-dom": "^17.0.2",
-    "react-scripts": "4.0.3",
+    "react-scripts": "^5.0.1",
     "typescript": "^4.3.5",
+    "use-sound": "^5.0.0",
     "web-vitals": "^1.1.2"
   },
   "scripts": {

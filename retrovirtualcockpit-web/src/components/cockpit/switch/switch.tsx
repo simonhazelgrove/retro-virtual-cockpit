@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Switch as SwitchType } from '../../../configs'
+import switchSound from '../../../sounds/switch.wav'
 
 interface SwitchProps {
   switch: SwitchType
@@ -25,7 +26,7 @@ export const Switch: React.FC<SwitchProps> = (props: SwitchProps) => {
       props.onSendMessage(props.switch.off)
     }
 
-    new Audio("sounds/switch.wav").play()
+    new Audio(switchSound).play()
   }
 
   if (props.switch.decoration === "hazard") {

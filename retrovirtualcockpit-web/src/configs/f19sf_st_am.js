@@ -35,7 +35,7 @@ export default function f19sf_st_am() {
                         id: "right-mfd",
                         title: "Right MFD",
                         controls: [
-                            { type: "button", label: "Tgt", press: "MFD.R.Data" },
+                            { type: "button", label: "TGT INF", press: "MFD.R.Data" },
                             { type: "button", label: "Ord", press: "MFD.R.Ordnance" },
                             { type: "button", label: "Dmg", press: "MFD.R.Damage" },
                             { type: "button", label: "Nav", press: "MFD.R.Waypoints" },
@@ -109,7 +109,7 @@ export default function f19sf_st_am() {
                         controls: [
                             { type: "button", label: "Quit", press: "Game.Quit", decoration: "hazard" },
                             { type: "button", label: "Resupply", press: "Game.Resupply" },
-                            { type: "button", label: "Pause", press: "Game.Pause" },
+                            { type: "switch", label: "Pause", on: "Game.Pause", off: "Game.Unpause" },
                             { type: "switch", label: "Accel", on: "Game.Time.Accelerate", off: "Game.Time.Normal" }
                         ]
                     },

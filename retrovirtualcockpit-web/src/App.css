@@ -23,6 +23,63 @@ body.night {
   padding-right: 15px;
 }
 
+a {
+  color: cornflowerblue;
+}
+
+a:hover {
+  color: skyblue;
+}
+
+button.button {
+  background-color: #272b30;
+  color: lightgray;
+  border-radius: 5px;
+  border: 1px solid gray;
+  margin: 0.5em;
+  padding: 0.5em;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.instructions {
+  margin: auto;
+  margin-top: 1em;
+  width: 50%;
+  min-width: 400px;
+  padding: 10px;
+}
+
+.instructions img#whatisthis {
+  margin: auto;
+  text-align: center;
+  display: block;
+}
+
+.emoji {
+  color: white;
+}
+
+.console {
+  padding: 1em;
+  background-color: black;
+  border-radius: 5px;
+  border: 1px solid gray;
+  margin-top: -1em;
+  margin-bottom: 1em;
+}
+
+.console code {
+  color: lightgray;
+}
+
+.console code mark {
+  color: black;
+  background-color: olive;
+}
+
 .dark-well {
   min-height: 20px;
   padding: 10px 0;
