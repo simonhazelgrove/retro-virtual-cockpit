@@ -58,37 +58,6 @@ button.button {
   color: white;
 }
 
-.accordion {
-  color: lightgray !important;
-  padding: 2px;  
-  border-radius: 5px;
-  background-color: darkslateblue !important;
-  margin-bottom: 1em;
-}
-
-.accordion-item {
-  background-color: darkslateblue !important;
-}
-
-.accordion-button {
-  color: lightgray !important;
-  padding: 0.5em;  
-  border-radius: 5px;
-  background-color: darkslateblue !important;
-}
-
-.accordion-button:focus {
-  box-shadow: none;
-}
-
-.accordion-button:not(.collapsed) {
-  color: #212529;
-}
-
-.accordion-body {
-  background-color: #272b30 !important;
-}
-
 .console {
   padding: 1em;
   background-color: black;
