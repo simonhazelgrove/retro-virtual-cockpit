@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 import { useState } from "react";
 import { useCookies } from 'react-cookie';
 import connectKey from '../../utils/connectKey'
@@ -9,8 +9,11 @@ export interface ConnectorProps {
 }
 
 export const Connector: React.FC<ConnectorProps> = (props: ConnectorProps) => {
-  const [key, setKey] = useState("")
   const [cookies, setCookie] = useCookies(["connect-key"]);
+  const cookieKey = cookies["connect-key"]
+
+  const [key, setKey] = useState(cookieKey)
+  const [submitEnabled, setSubmitEnabled] = useState(isKeyValid(cookieKey))
 
   const connectClick = () => {
     setCookie("connect-key", key)
@@ -19,27 +22,18 @@ export const Connector: React.FC<ConnectorProps> = (props: ConnectorProps) => {
 
     connection.onopen = function () {
       props.onConnect(connection)
-      // $("#connect-panel").slideToggle(1000);
-      // $("#connected-icon").toggleClass("text-muted");
-      // $("#connected-icon").toggleClass("text-warning");
-      // $("#error-text").text("");
     };
-
-    // // Log errors
-    // this.connection.onerror = function (error) {
-    //     log().logError("Connection error - is the client running?");
-    // };
-
-    // // Log messages from the server
-    // this.connection.onmessage = function (e) {
-    //     log().logError("Server: " + e.data);
-    // };
   }
 
-  const cookieKey = cookies["connect-key"]
-  if (cookieKey && !key) {
-    setKey(cookieKey)
+  function isKeyValid(newKey: string): boolean {
+    return newKey !== undefined && newKey.length === 8 && /^[A-Z0-9]+$/.test(newKey);
   }
+
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    var newKey = event.target.value.toUpperCase()
+    setKey(newKey)
+    setSubmitEnabled(isKeyValid(newKey))
+  };
 
   return <div className="row dark-well">
     <div className="col-md-12 centered">
@@ -47,11 +41,11 @@ export const Connector: React.FC<ConnectorProps> = (props: ConnectorProps) => {
         <Col md="auto">
           <Form.Group>
             <Form.Label visuallyHidden>Connection Key:</Form.Label>
-            <Form.Control type="text" placeholder="XXXXXXXX" className="uppercase" size="lg" value={key} onChange={e => setKey(e.target.value)}/>
+            <Form.Control required type="text" placeholder="XXXXXXXX" size="lg" defaultValue={cookieKey} onChange={handleChange} className="uppercase"/>
           </Form.Group>
         </Col>
         <Col md="auto">
-          <Button variant="dark" size="lg" type="submit" onClick={connectClick}>Connect</Button>
+          <Button variant="dark" size="lg" type="submit" disabled={!submitEnabled} onClick={connectClick}>Connect</Button>
         </Col>
       </Row>
     </div>
