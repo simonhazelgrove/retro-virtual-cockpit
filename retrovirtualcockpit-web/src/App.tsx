@@ -67,9 +67,14 @@ function App() {
     }
   })
 
-  const onSendMessage = (message: string) => {
+  const onSendMessage = (message: any) => {
     if (connection) {
-      connection.send(message)
+      if (typeof message === 'string' || message instanceof String) {
+        connection.send(message.toString())
+      }
+      else {
+        connection.send(JSON.stringify(message))
+      }
     }
     if (showDebug) {
       setDebugMessages([...debugMessages, message])
