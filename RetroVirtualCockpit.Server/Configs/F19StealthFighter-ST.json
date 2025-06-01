@@ -1,5 +1,5 @@
 {
-    "Title":"F-19 Stealth Fighter [ST/Amiga]",
+    "Title":"F-19 Stealth Fighter [PC/ST/Amiga]",
     "GameActionMappings":
     {
         "HUD.Mode":[{"Key":"F2","Action":"Down","DelayUntilKeyUp":200}],

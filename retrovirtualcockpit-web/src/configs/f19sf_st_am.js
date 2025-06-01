@@ -1,6 +1,6 @@
 export default function f19sf_st_am() {
     return {
-        title: "F-19 Stealth Fighter [ST/Amiga]",
+        title: "F-19 Stealth Fighter [PC/ST/Amiga]",
         panelRows: [
             {
                 panels: [
@@ -8,38 +8,38 @@ export default function f19sf_st_am() {
                         id: "control",
                         title: "Control",
                         controls: [
-                            { type: "switch", label: "Gear", flip: "Controls.Gear" },
-                            { type: "switch", label: "Auto Pilot", flip: "Controls.AutoPilot" },
-                            { type: "switch", label: "Flaps", flip: "Controls.Flaps" },
-                            { type: "switch", label: "Brakes", flip: "Controls.Brakes" },
-                            { type: "button", label: "Stick", press: "Controls.StickSensitivity" }
+                            { type: "switch", label: "Gear", flip: [{"Key":"_6"}] },
+                            { type: "switch", label: "Auto Pilot", flip: [{"Key":"_7"}] },
+                            { type: "switch", label: "Flaps", flip: [{"Key":"_9"}] },
+                            { type: "switch", label: "Brakes", flip: [{"Key":"_0"}] },
+                            { type: "button", label: "Stick", press: [{"Key":"Insert"}] }
                         ]
                     },
                     {
                         id: "left-mfd",
                         title: "Left MFD",
                         controls: [
-                            { type: "button", label: "Mode", press: "MFD.L.Change" },
-                            { type: "button-h", label: "Zoom", left: "MFD.L.Zoom.In", right: "MFD.L.Zoom.Out" }
+                            { type: "button", label: "Mode", press: [{"Key":"F3"}] },
+                            { type: "button-h", label: "Zoom", left: [{"Key":"Z"}], right: [{"Key":"X"}] }
                         ]
                     },
                     {
                         id: "hud",
                         title: "HUD",
                         controls: [
-                            { type: "knob", label: "Mode", turn: "HUD.Mode" },
-                            { type: "switch", label: "ILS", flip: "HUD.ILS" }
+                            { type: "knob", label: "Mode", turn: [{"Key":"F2"}] },
+                            { type: "switch", label: "ILS", flip: [{"Key":"F9"}] }
                         ]
                     },                    
                     {
                         id: "right-mfd",
                         title: "Right MFD",
                         controls: [
-                            { type: "button", label: "TGT INF", press: "MFD.R.Data" },
-                            { type: "button", label: "Ord", press: "MFD.R.Ordnance" },
-                            { type: "button", label: "Dmg", press: "MFD.R.Damage" },
-                            { type: "button", label: "Nav", press: "MFD.R.Waypoints" },
-                            { type: "button", label: "Msn", press: "MFD.R.Mission" }
+                            { type: "button", label: "TGT INF", press: [{"Key":"F4"}] },
+                            { type: "button", label: "Ord", press: [{"Key":"F5"}] },
+                            { type: "button", label: "Dmg", press: [{"Key":"F6"}] },
+                            { type: "button", label: "Nav", press: [{"Key":"F7"}] },
+                            { type: "button", label: "Msn", press: [{"Key":"F10"}] }
                         ]
                     },
                 ]
@@ -50,36 +50,36 @@ export default function f19sf_st_am() {
                         id: "throttle",
                         align: "left",
                         controls: [
-                            { type: "throttle", up: "Controls.Throttle.Up", down: "Controls.Throttle.Down", max: "Controls.Throttle.Max", min: "Controls.Throttle.Min" }
+                            { type: "throttle", up: [{"Key":"Equals"}], down: [{"Key":"Minus"}], max: [{"Key":"Equals","Modifier":"LeftShift"}], min: [{"Key":"Minus","Modifier":"LeftShift"}] }
                         ]
                     },
                     {
                         id: "countermeasures",
                         title: "Countermeasures",
                         controls: [
-                            { type: "button", label: "Flare", press: "Defence.Flare" },
-                            { type: "button", label: "Chaff", press: "Defence.Chaff" },
-                            { type: "switch", label: "IR Jam", flip: "Defence.IRJam" },
-                            { type: "switch", label: "ECM", flip: "Defence.ECM" },
-                            { type: "button", label: "Decoy", press: "Defence.Decoy" }
+                            { type: "button", label: "Flare", press: [{"Key":"_1"}] },
+                            { type: "button", label: "Chaff", press: [{"Key":"_2"}] },
+                            { type: "switch", label: "IR Jam", flip: [{"Key":"_3"}] },
+                            { type: "switch", label: "ECM", flip: [{"Key":"_4"}] },
+                            { type: "button", label: "Decoy", press: [{"Key":"_5"}] }
                         ]
                     },
                     {
                         id: "target",
                         title: "Target",
                         controls: [
-                            { type: "button", label: "Select", press: "Target.Select" },
-                            { type: "button", label: "Des", press: "Target.Designate" }
+                            { type: "button", label: "Select", press: [{"Key":"B"}] },
+                            { type: "button", label: "Des", press: [{"Key":"N"}] }
                         ]
                     },
                     {
                         id: "weapons",
                         title: "Weapons",
                         controls: [
-                            { type: "knob", label: "Select", turn: "Weapon.Select" },
-                            { type: "button-red", label: "Pickle", press: "Weapon.Drop", decoration: "hazard" },
-                            { type: "button-red", label: "Gun", press: "Weapon.FireGun", decoration: "hazard" },
-                            { type: "switch", label: "Bay", flip: "Weapon.Bay" }
+                            { type: "knob", label: "Select", turn: [{"Key":"Space"}] },
+                            { type: "button-red", label: "Pickle", press: [{"Key":"Enter"}], decoration: "hazard" },
+                            { type: "button-red", label: "Gun", press: [{"Key":"Backspace"}], decoration: "hazard" },
+                            { type: "switch", label: "Bay", flip: [{"Key":"_8"}] }
                         ]
                     },
                     {
@@ -91,12 +91,12 @@ export default function f19sf_st_am() {
                             {
                                 type: "subpanel",
                                 controls: [
-                                    { type: "button", label: "Edit", press: "Waypoint.Edit" },
-                                    { type: "button", label: "Reset", press: "Waypoint.Reset" }
+                                    { type: "button", label: "Edit", press: [{"Key":"F8"}] },
+                                    { type: "button", label: "Reset", press: [{"Key":"F8","Modifier":"LeftShift"}] }
                                 ]
                             },
-                            { type: "button-h", label: "Select", left: "Waypoint.Select.Previous", right: "Waypoint.Select.Next" },
-                            { type: "button-dpad", label: "Move", up: "Waypoint.Move.Up", down: "Waypoint.Move.Down", left: "Waypoint.Move.Left", right: "Waypoint.Move.Right" }
+                            { type: "button-h", label: "Select", left: [{"Key":"NumPad9"}], right: [{"Key":"NumPad3"}] },
+                            { type: "button-dpad", label: "Move", up: [{"Key":"NumPad8"}], down: [{"Key":"NumPad2"}], left: [{"Key":"NumPad4"}], right: [{"Key":"NumPad6"}] }
                         ]
                     }
                 ]
@@ -107,17 +107,17 @@ export default function f19sf_st_am() {
                         id: "game",
                         title: "Game",
                         controls: [
-                            { type: "button", label: "Quit", press: "Game.Quit", decoration: "hazard" },
-                            { type: "button", label: "Resupply", press: "Game.Resupply" },
-                            { type: "switch", label: "Pause", on: "Game.Pause", off: "Game.Unpause" },
-                            { type: "switch", label: "Accel", on: "Game.Time.Accelerate", off: "Game.Time.Normal" }
+                            { type: "button", label: "Quit", press: [{"Key":"Q","Modifier":"Alt"}], decoration: "hazard" },
+                            { type: "button", label: "Resupply", press: [{"Key":"R","Modifier":"Alt"}] },
+                            { type: "switch", label: "Pause", on: [{"Key":"P","Modifier":"Alt"}], off: [{"Key":"P"}] },
+                            { type: "switch", label: "Accel", on: [{"Key":"Z","Modifier":"LeftShift"}], off: [{"Key":"X","Modifier":"LeftShift"}] }
                         ]
                     },
                     {
                         id: "eject",
                         decoration: "none",
                         controls: [
-                            { type: "handle", label: "Pull to eject", pull: "Controls.Eject", decoration: "hazard" },
+                            { type: "handle", label: "Pull to eject", pull: [{"Key":"F10","Modifier":"LeftShift"}], decoration: "hazard" },
                         ]
                     }
                 ]
@@ -128,28 +128,28 @@ export default function f19sf_st_am() {
                         id: "view",
                         title: "View",
                         controls: [
-                            { type: "button", label: "Cockpit", press: "View.Cockpit" },
-                            { type: "button", label: "Slot", press: "View.External.Slot" },
-                            { type: "button", label: "Chase", press: "View.External.ChasePlane" },
-                            { type: "button", label: "Side", press: "View.External.Side" },
-                            { type: "button", label: "Missile", press: "View.External.Missile" },
-                            { type: "button", label: "Tac", press: "View.External.Tactical" },
-                            { type: "button", label: "Rev Tac", press: "View.External.ReverseTactical" },
-                            { type: "switch", label: "Angle", flip: "View.Angle" }
+                            { type: "button", label: "Cockpit", press: [{"Key":"F1"}] },
+                            { type: "button", label: "Slot", press: [{"Key":"F1","Modifier":"LeftShift"}] },
+                            { type: "button", label: "Chase", press: [{"Key":"F2","Modifier":"LeftShift"}] },
+                            { type: "button", label: "Side", press: [{"Key":"F3","Modifier":"LeftShift"}] },
+                            { type: "button", label: "Missile", press: [{"Key":"F4","Modifier":"LeftShift"}] },
+                            { type: "button", label: "Tac", press: [{"Key":"F5","Modifier":"LeftShift"}] },
+                            { type: "button", label: "Rev Tac", press: [{"Key":"F6","Modifier":"LeftShift"}] },
+                            { type: "switch", label: "Angle", flip: [{"Key":"C"}] }
                         ]
                     },
                     {
                         id: "head",
                         title: "Head",
                         controls: [
-                            { type: "button-dpad", up: "View.Head.Front", down: "View.Head.Rear", left: "View.Head.Left", right: "View.Head.Right" }
+                            { type: "button-dpad", up: [{"Key":"Slash","Modifier":"LeftShift"}], down: [{"Key":"Period","Modifier":"LeftShift"}], left: [{"Key":"M","Modifier":"LeftShift"}], right: [{"Key":"Comma","Modifier":"LeftShift"}] }
                         ]
                     },
                     {
                         id: "camera",
                         title: "Camera",
                         controls: [
-                            { type: "button-dpad", up: "Camera.Front", down: "Camera.Rear", left: "Camera.Left", right: "Camera.Right" },
+                            { type: "button-dpad", up: [{"Key":"Slash"}], down: [{"Key":"Period"}], left: [{"Key":"M"}], right: [{"Key":"Comma"}] },
                         ]
                     },
                 ]

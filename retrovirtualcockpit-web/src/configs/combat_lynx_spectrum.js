@@ -8,27 +8,27 @@ export default function f16cp_st_am() {
                         id: "map",
                         title: "Map",
                         controls: [
-                            { type: "switch", label: "View", flip: "Map.View" },
-                            { type: "button-dpad", label: "Move", up: "Map.Up", down: "Map.Down", left: "Map.Left", right: "Map.Right" },
-                            { type: "button-dpad", label: "Move Fast", up: "Map.Up.Fast", down: "Map.Down.Fast", left: "Map.Left.Fast", right: "Map.Right.Fast" },
+                            { type: "switch", label: "View", flip: [{"Key":"M"}] },
+                            { type: "button-dpad", label: "Move", up: [{"Key":"_7"}], down: [{"Key":"_6"}], left: [{"Key":"_5"}], right: [{"Key":"_8"}] },
+                            { type: "button-dpad", label: "Move Fast", up: [{"Key":"_7","Modifier":"_0"}], down: [{"Key":"_6","Modifier":"_0"}], left: [{"Key":"_5","Modifier":"_0"}], right: [{"Key":"_8","Modifier":"_0"}] },
                         ]
                     },
                     {
                         id: "loadout",
                         title: "Loadout",
                         controls: [
-                            { type: "button-h", label: "-    +", left: "Load.Less", right: "Load.More" },
-                            { type: "button", label: "Next", press: "Load.Next" },
-                            { type: "button", label: "Exit", press: "Load.Exit" },
+                            { type: "button-h", label: "-    +", left: [{"Key":"J"}], right: [{"Key":"K"}] },
+                            { type: "button", label: "Next", press: [{"Key":"Enter"}] },
+                            { type: "button", label: "Exit", press: [{"Key":"Space"}] },
                         ]
                     },
                     {
                         id: "weapons",
                         title: "Weapons",
                         controls: [
-                            { type: "button-h", label: "Select", left: "Weapon.Prev", right: "Weapon.Next" },
-                            { type: "switch", label: "Sights", flip: "Weapon.Sight" },
-                            { type: "button-red", label: "Fire", press: "Weapon.Fire", decoration: "hazard" },
+                            { type: "button-h", label: "Select", left: [{"Key":"_2"}], right: [{"Key":"_9"}] },
+                            { type: "switch", label: "Sights", flip: [{"Key":"Enter"}] },
+                            { type: "button-red", label: "Fire", press: [{"Key":"_0"}], decoration: "hazard" },
                         ]
                     }
                 ]
@@ -40,29 +40,29 @@ export default function f16cp_st_am() {
                         title: "Messages",
                         orientation: "vertical",
                         controls: [
-                            { type: "button", label: "Read", press: "Msg.Read" },
+                            { type: "button", label: "Read", press: [{"Key":"_1"}] },
                             {
                                 type: "subpanel",
                                 controls: [
                                     { type: "label", label: "Base Pos" },
-                                    { type: "button", label: "0", press: "Msg.Base.Pos.0" },
-                                    { type: "button", label: "1", press: "Msg.Base.Pos.1" },
-                                    { type: "button", label: "2", press: "Msg.Base.Pos.2" },
-                                    { type: "button", label: "3", press: "Msg.Base.Pos.3" },
-                                    { type: "button", label: "4", press: "Msg.Base.Pos.4" },
-                                    { type: "button", label: "5", press: "Msg.Base.Pos.5" },
+                                    { type: "button", label: "0", press: [{"Key":"P","Modifier":"LeftShift"}] },
+                                    { type: "button", label: "1", press: [{"Key":"Q","Modifier":"LeftShift"}] },
+                                    { type: "button", label: "2", press: [{"Key":"W","Modifier":"LeftShift"}] },
+                                    { type: "button", label: "3", press: [{"Key":"E","Modifier":"LeftShift"}] },
+                                    { type: "button", label: "4", press: [{"Key":"R","Modifier":"LeftShift"}] },
+                                    { type: "button", label: "5", press: [{"Key":"T","Modifier":"LeftShift"}] },
                                 ]
                             },
                             {
                                 type: "subpanel",
                                 controls: [
                                     { type: "label", label: "Base Stats" },
-                                    { type: "button", label: "0", press: "Msg.Base.Status.0" },
-                                    { type: "button", label: "1", press: "Msg.Base.Status.1" },
-                                    { type: "button", label: "2", press: "Msg.Base.Status.2" },
-                                    { type: "button", label: "3", press: "Msg.Base.Status.3" },
-                                    { type: "button", label: "4", press: "Msg.Base.Status.4" },
-                                    { type: "button", label: "5", press: "Msg.Base.Status.5" },
+                                    { type: "button", label: "0", press: [{"Key":"P","Modifier":"RightShift"}] },
+                                    { type: "button", label: "1", press: [{"Key":"Q","Modifier":"RightShift"}] },
+                                    { type: "button", label: "2", press: [{"Key":"W","Modifier":"RightShift"}] },
+                                    { type: "button", label: "3", press: [{"Key":"E","Modifier":"RightShift"}] },
+                                    { type: "button", label: "4", press: [{"Key":"R","Modifier":"RightShift"}] },
+                                    { type: "button", label: "5", press: [{"Key":"T","Modifier":"RightShift"}] },
                                 ]
                             },
                         ]
@@ -71,7 +71,7 @@ export default function f16cp_st_am() {
                         id: "game",
                         title: "Game",
                         controls: [
-                            { type: "button", label: "Pause", press: "Game.Pause" },
+                            { type: "button", label: "Pause", press: [{"Key":"H"}] },
                         ]
                     },
                 ]
