@@ -1,8 +1,11 @@
 using System;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
 using RetroVirtualCockpit.Server.Data;
 using RetroVirtualCockpit.Server.Dispatchers;
 using RetroVirtualCockpit.Server.Messages;
+using RetroVirtualCockpit.Server.Receivers.Joystick;
+using RetroVirtualCockpit.Server.Receivers.Mouse;
 using WindowsInput;
 
 namespace RetroVirtualCockpit.Server.Services
@@ -19,12 +22,21 @@ namespace RetroVirtualCockpit.Server.Services
 
         private IConfigService _configService;
 
+        private JsonConverter[] _jsonConverters;
+
         public MessageDispatcher(IConfigService configService, InputSimulator inputSimulator)
         {
             _configService = configService;
 
             _keyboardDispatcher = new KeyboardDispatcher(inputSimulator.Keyboard);
             _mouseDispatcher = new MouseDispatcher(inputSimulator.Mouse);
+
+            _jsonConverters =
+            [
+                new JoystickEventJsonConverter(),
+                new MouseEventJsonConverter(),
+                new MessageJsonConverter()
+            ];
         }
 
         public void Dispatch(string message, Action<GameConfig> setSelectedGameConfig)
@@ -61,13 +73,35 @@ namespace RetroVirtualCockpit.Server.Services
                 var amount = int.Parse(gameAction.Substring(gameAction.LastIndexOf(".") + 1));
                 _mouseDispatcher.HandleStickMoveY(amount);
             }
-            else 
+            if (gameAction.StartsWith("["))
+            {
+                SanatizeGameAction(ref gameAction);
+
+                try
+                {
+                    var messages = JsonConvert.DeserializeObject<Message[]>(gameAction, _jsonConverters);
+
+                    foreach (var message in messages)
+                    {
+                        if (message != null)
+                        {
+                            ApplyDefaultAction(message);
+                            Dispatch(message);
+                        }
+                    }
+                }
+                catch (JsonException ex)
+                {
+                    Console.WriteLine($"Error parsing JSON message '{gameAction}': {ex.Message}");
+                }
+            }
+            else
             {
                 if (_selectedGameConfig.GameActionMappings.TryGetValue(gameAction, out var messages))
                 {
                     Console.WriteLine($"GameAction: '{gameAction}'");
 
-                    foreach(var message in messages)
+                    foreach (var message in messages)
                     {
                         Dispatch(message);
                     }
@@ -75,6 +109,37 @@ namespace RetroVirtualCockpit.Server.Services
                 else
                 {
                     Console.WriteLine($"Unknown GameAction '{gameAction}'");
+                }
+            }
+        }
+
+        private void ApplyDefaultAction(Message message)
+        {
+            if (message is KeyboardMessage keyboardMessage)
+            {
+                if (keyboardMessage.Action == ButtonAction.None)
+                {
+                    if (keyboardMessage.Modifier != null)
+                    {
+                        keyboardMessage.Action = ButtonAction.Down;
+                        keyboardMessage.DelayUntilKeyUp = 100; 
+                    }
+                    else
+                    {
+                        keyboardMessage.Action = ButtonAction.Press;
+                    }
+                }
+            }
+        }
+
+        private void SanatizeGameAction(ref string gameAction)
+        {
+            for(var i = 0; i < gameAction.Length; i++)
+            {
+                if (gameAction[i] < ' ' || gameAction[i] > '~')
+                {
+                    gameAction = gameAction.Substring(0, i);
+                    break;
                 }
             }
         }
