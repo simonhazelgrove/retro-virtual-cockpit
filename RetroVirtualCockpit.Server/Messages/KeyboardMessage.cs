@@ -14,19 +14,17 @@ namespace RetroVirtualCockpit.Server.Messages
 
         [JsonConverter(typeof(StringEnumConverter))]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public ButtonAction? Action { get; set; }
+        public ButtonAction Action { get; set; }
 
         public int? DelayUntilKeyUp { get; set; }
 
         public KeyboardMessage()
         {
-            Action = ButtonAction.Down;
         }
 
         public KeyboardMessage(KeyCode keyCode)
         {
             Key = keyCode;
-            Action = ButtonAction.Down;
         }
     }
 }
