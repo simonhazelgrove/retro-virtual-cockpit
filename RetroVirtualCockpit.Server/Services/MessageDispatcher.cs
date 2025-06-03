@@ -13,18 +13,17 @@ namespace RetroVirtualCockpit.Server.Services
 
         private GameConfig _selectedGameConfig;
 
-        private KeyboardDispatcher _keyboardDispatcher;
+        private IKeyboardDispatcher _keyboardDispatcher;
 
-        private MouseDispatcher _mouseDispatcher;
+        private IMouseDispatcher _mouseDispatcher;
 
         private IConfigService _configService;
 
-        public MessageDispatcher(IConfigService configService, InputSimulator inputSimulator)
+        public MessageDispatcher(IConfigService configService, IKeyboardDispatcher keyboardDispatcher, IMouseDispatcher mouseDispatcher)
         {
             _configService = configService;
-
-            _keyboardDispatcher = new KeyboardDispatcher(inputSimulator.Keyboard);
-            _mouseDispatcher = new MouseDispatcher(inputSimulator.Mouse);
+            _keyboardDispatcher = keyboardDispatcher;
+            _mouseDispatcher = mouseDispatcher;
         }
 
         public void Dispatch(string message, Action<GameConfig> setSelectedGameConfig)

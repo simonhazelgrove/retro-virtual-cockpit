@@ -1,21 +1,20 @@
 ﻿using NSubstitute;
-using System.Collections.Generic;
-using WindowsInput;
-using WindowsInput.Native;
-using Xunit;
+using RetroVirtualCockpit.Server.Dispatchers;
 using RetroVirtualCockpit.Server.Data;
 using RetroVirtualCockpit.Server.Messages;
 using RetroVirtualCockpit.Server.Services;
+using System.Collections.Generic;
+using Xunit;
 
 namespace RetroVirtualCockpit.Server.Test.Unit.Services
 {
     public class MessageDispatcherTests
     {
-        public readonly MessageDispatcher _messagePlayer;
+        public readonly MessageDispatcher _messageDispatcher;
 
-        private readonly InputSimulator _inputSimulator;
+        private readonly IKeyboardDispatcher _mockKeyboardDispatcher;
 
-        private readonly IKeyboardSimulator _mockKeyboardSimulator;
+        private readonly IMouseDispatcher _mockMouseDispatcher;
 
         private readonly IConfigService _mockConfigService;
 
@@ -23,18 +22,20 @@ namespace RetroVirtualCockpit.Server.Test.Unit.Services
         {
             _mockConfigService = Substitute.For<IConfigService>();
 
-            _mockKeyboardSimulator = Substitute.For<IKeyboardSimulator>();
-            _inputSimulator = new InputSimulator(_mockKeyboardSimulator, null, null);
+            _mockKeyboardDispatcher = Substitute.For<IKeyboardDispatcher>();
+            _mockMouseDispatcher = Substitute.For<IMouseDispatcher>();
 
-            _messagePlayer = new MessageDispatcher(_mockConfigService, _inputSimulator);
+            _messageDispatcher = new MessageDispatcher(_mockConfigService, _mockKeyboardDispatcher, _mockMouseDispatcher);
         }
 
         [Fact]
         public void Dispatch_DoesntProcessKeysWhenNoGameConfigIsSelected()
         {
-            _messagePlayer.Dispatch("Config1.Key1", null);
+            // Act
+            _messageDispatcher.Dispatch("Config1.Key1", null);
 
-            _mockKeyboardSimulator.DidNotReceive().KeyDown(Arg.Any<VirtualKeyCode>());
+            // Assert
+            _mockKeyboardDispatcher.DidNotReceive().Dispatch(Arg.Any<KeyboardMessage>());
         }
 
         [Fact]
@@ -50,21 +51,21 @@ namespace RetroVirtualCockpit.Server.Test.Unit.Services
                     {{ "Key1", new GameActionMapping { new KeyboardMessage { Key = KeyCode.A } } } }});
 
             // Act & Assert
-            _messagePlayer.Dispatch("SetConfig:Config1", (m) => { });
-            _mockKeyboardSimulator.DidNotReceive().KeyDown(Arg.Any<VirtualKeyCode>());
+            _messageDispatcher.Dispatch("SetConfig:Config1", (m) => { });
+            _mockKeyboardDispatcher.DidNotReceive().Dispatch(Arg.Any<KeyboardMessage>());
 
             // Act & Assert
-            _messagePlayer.Dispatch("Key1", (m) => { });
-            _mockKeyboardSimulator.Received().KeyDown(Arg.Is<VirtualKeyCode>(k => k == VirtualKeyCode.VK_1));
+            _messageDispatcher.Dispatch("Key1", (m) => { });
+            _mockKeyboardDispatcher.Received().Dispatch(Arg.Is<KeyboardMessage>(m => m.Key == KeyCode._1));
 
             // Act & Assert
-            _mockKeyboardSimulator.ClearReceivedCalls();
-            _messagePlayer.Dispatch("SetConfig:Config2", (m) => { });
-            _mockKeyboardSimulator.DidNotReceive().KeyDown(Arg.Any<VirtualKeyCode>());
+            _mockKeyboardDispatcher.ClearReceivedCalls();
+            _messageDispatcher.Dispatch("SetConfig:Config2", (m) => { });
+            _mockKeyboardDispatcher.DidNotReceive().Dispatch(Arg.Any<KeyboardMessage>());
             
             // Act & Assert
-            _messagePlayer.Dispatch("Key1", (m) => { });
-            _mockKeyboardSimulator.Received().KeyDown(Arg.Is<VirtualKeyCode>(k => k == VirtualKeyCode.VK_A));
+            _messageDispatcher.Dispatch("Key1", (m) => { });
+            _mockKeyboardDispatcher.Received().Dispatch(Arg.Is<KeyboardMessage>(m => m.Key == KeyCode.A));
         }
 
         private List<GameConfig> GetTestConfigs()

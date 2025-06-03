@@ -6,7 +6,7 @@ using WindowsInput;
 
 namespace RetroVirtualCockpit.Server.Dispatchers
 {
-    public class MouseDispatcher : IDispatch<MouseMessage>
+    public class MouseDispatcher : IMouseDispatcher
     {
         private IMouseSimulator _mouseSimulator;
 
@@ -24,9 +24,9 @@ namespace RetroVirtualCockpit.Server.Dispatchers
 
         private bool _isMouseMoved;
 
-        public MouseDispatcher(IMouseSimulator mouseSimulator)
+        public MouseDispatcher(InputSimulator inputSimulator)
         {
-            _mouseSimulator = mouseSimulator;
+            _mouseSimulator = inputSimulator.Mouse;
 
             var mouseOrigin = new Point();
             Mouse.GetCursorPos(ref mouseOrigin);
