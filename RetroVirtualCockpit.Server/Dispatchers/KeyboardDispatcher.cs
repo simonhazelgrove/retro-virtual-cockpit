@@ -5,13 +5,13 @@ using WindowsInput.Native;
 
 namespace RetroVirtualCockpit.Server.Dispatchers
 {
-    public class KeyboardDispatcher : IDispatch<KeyboardMessage>
+    public class KeyboardDispatcher : IKeyboardDispatcher
     {
         private readonly IKeyboardSimulator _keyboardSimulator;
 
-        public KeyboardDispatcher(IKeyboardSimulator keyboardSimulator)
+        public KeyboardDispatcher(InputSimulator inputSimulator)
         {
-            _keyboardSimulator = keyboardSimulator;
+            _keyboardSimulator = inputSimulator.Keyboard;
         }
 
         public void Dispatch(KeyboardMessage message)

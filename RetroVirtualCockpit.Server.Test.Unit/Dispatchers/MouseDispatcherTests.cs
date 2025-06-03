@@ -11,13 +11,16 @@ namespace RetroVirtualCockpit.Server.Test.Unit.Dispatchers
     {
         private MouseDispatcher _dispatcher;
 
-        private IMouseSimulator _mockMouseSimulator;
+        private readonly InputSimulator _inputSimulator;
+
+        private readonly IMouseSimulator _mockMouseSimulator;
 
         public MouseDispatcherTests()
         {
             _mockMouseSimulator = Substitute.For<IMouseSimulator>();
+            _inputSimulator = new InputSimulator(null, _mockMouseSimulator, null);
 
-            _dispatcher = new MouseDispatcher(_mockMouseSimulator);
+            _dispatcher = new MouseDispatcher(_inputSimulator);
         }
         
         [Fact]

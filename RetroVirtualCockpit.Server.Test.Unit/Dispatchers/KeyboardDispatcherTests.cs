@@ -14,13 +14,16 @@ namespace RetroVirtualCockpit.Server.Test.Unit.Dispatchers
     {
         private KeyboardDispatcher _dispatcher;
 
+        private readonly InputSimulator _inputSimulator;
+
         private IKeyboardSimulator _mockKeyboardSimulator;
 
         public KeyboardDispatcherTests()
         {
             _mockKeyboardSimulator = Substitute.For<IKeyboardSimulator>();
+            _inputSimulator = new InputSimulator(_mockKeyboardSimulator, null, null);
 
-            _dispatcher = new KeyboardDispatcher(_mockKeyboardSimulator);
+            _dispatcher = new KeyboardDispatcher(_inputSimulator);
         }
 
         [Fact]
