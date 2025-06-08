@@ -8,8 +8,6 @@ namespace RetroVirtualCockpit.Server.Data
     {
         public string Title { get; set; }
 
-        public Dictionary<string, GameActionMapping> GameActionMappings { get; set; }
-
         public List<IJoystickEvent> JoystickMappings { get; set; }
         
         public List<IMouseEvent> MouseMappings { get; set; }

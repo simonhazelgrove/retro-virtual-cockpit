@@ -60,7 +60,7 @@ namespace RetroVirtualCockpit.Server.Services
             }
             else
             {
-                ProcessGameActions(message);
+                ProcessHardCodedGameActions(message);
             }
         }
 
@@ -86,7 +86,7 @@ namespace RetroVirtualCockpit.Server.Services
             }
         }
 
-        private void ProcessGameActions(string gameAction)
+        private void ProcessHardCodedGameActions(string gameAction)
         {
             if (gameAction.StartsWith("Controls.Stick.Left.") || gameAction.StartsWith("Controls.Stick.Right."))
             {
@@ -97,22 +97,6 @@ namespace RetroVirtualCockpit.Server.Services
             {
                 var amount = int.Parse(gameAction.Substring(gameAction.LastIndexOf(".") + 1));
                 _mouseDispatcher.HandleStickMoveY(amount);
-            }
-            else
-            {
-                if (_selectedGameConfig.GameActionMappings.TryGetValue(gameAction, out var messages))
-                {
-                    Console.WriteLine($"GameAction: '{gameAction}'");
-
-                    foreach (var message in messages)
-                    {
-                        Dispatch(message);
-                    }
-                }
-                else
-                {
-                    Console.WriteLine($"Unknown GameAction '{gameAction}'");
-                }
             }
         }
 
