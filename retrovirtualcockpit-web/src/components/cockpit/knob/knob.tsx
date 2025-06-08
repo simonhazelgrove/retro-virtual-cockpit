@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Knob as KnobType } from '../../../configs'
+import { Knob as KnobType } from '../../../types'
 import knob from '../../../sounds/knob.wav'
 
 interface KnobProps {

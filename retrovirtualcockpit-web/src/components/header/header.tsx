@@ -1,6 +1,6 @@
 import React from "react";
 import { Menu } from "./menu"
-import { CockpitConfig } from '../../configs'
+import { CockpitConfig } from '../../types'
 
 export interface HeaderProps {
   onConfigChange: (config: CockpitConfig) => void

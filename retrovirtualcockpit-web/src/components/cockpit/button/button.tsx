@@ -1,5 +1,5 @@
 import React from "react";
-import { Button as ButtonType } from '../../../configs'
+import { Button as ButtonType } from '../../../types'
 import bump from '../../../sounds/bump.wav'
 
 interface ButtonProps {

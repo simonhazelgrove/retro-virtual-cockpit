@@ -1,5 +1,5 @@
 import React, { MouseEvent } from "react"
-import { DoubleButton as DoubleButtonType } from '../../../configs'
+import { DoubleButton as DoubleButtonType } from '../../../types'
 import bump from '../../../sounds/bump.wav'
 
 interface DoubleButtonProps {

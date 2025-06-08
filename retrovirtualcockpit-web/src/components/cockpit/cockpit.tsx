@@ -1,5 +1,5 @@
 import React from "react";
-import { CockpitConfig, Panel as PanelType, PanelRow } from '../../configs'
+import { CockpitConfig, Panel as PanelType, PanelRow } from '../../types'
 import { Panel } from "./panel"
 
 interface CockpitProps {
