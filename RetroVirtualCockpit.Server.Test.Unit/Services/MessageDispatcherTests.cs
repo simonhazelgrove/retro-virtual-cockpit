@@ -29,7 +29,54 @@ namespace RetroVirtualCockpit.Server.Test.Unit.Services
         }
 
         [Fact]
-        public void Dispatch_DoesntProcessKeysWhenNoGameConfigIsSelected()
+        public void Dispatch_ShouldHandleRawJsonMessage()
+        {
+            // Arrange
+            var rawJsonMessage = "[{\"Key\":\"Space\",\"Action\":\"Press\"}]";
+
+            // Act
+            _messageDispatcher.Dispatch(rawJsonMessage, (m) => { });
+
+            // Assert
+            _mockConfigService.DidNotReceive().GetGameConfig(Arg.Any<string>());
+            _mockKeyboardDispatcher.Received().Dispatch(Arg.Is<KeyboardMessage>(m => m.Key == KeyCode.Space && m.Action == ButtonAction.Press));
+        }
+
+        [Fact]
+        public void Dispatch_ShouldHandleMultipleRawJsonMessage()
+        {
+            // Arrange
+            var rawJsonMessage = "[{\"Key\":\"Space\",\"Action\":\"Press\"},{\"Key\":\"Enter\",\"Action\":\"Press\"}]";
+
+            // Act
+            _messageDispatcher.Dispatch(rawJsonMessage, (m) => { });
+
+            // Assert
+            Received.InOrder(() =>
+            {
+                _mockKeyboardDispatcher.Dispatch(Arg.Is<KeyboardMessage>(m => m.Key == KeyCode.Space && m.Action == ButtonAction.Press));
+                _mockKeyboardDispatcher.Dispatch(Arg.Is<KeyboardMessage>(m => m.Key == KeyCode.Enter && m.Action == ButtonAction.Press));
+            });
+        }
+
+        [Fact]
+        public void Dispatch_ShouldHandleKeyboardMessage_WhenGameConfigIsSelected()
+        {
+            // Arrange
+            _mockConfigService.GetGameConfig("Config1").Returns(
+                new GameConfig { GameActionMappings = new Dictionary<string, GameActionMapping>() 
+                    {{ "Key1", new GameActionMapping { new KeyboardMessage { Key = KeyCode._1 } } } }});
+
+            // Act
+            _messageDispatcher.Dispatch("SetConfig:Config1", (m) => { });
+            _messageDispatcher.Dispatch("Key1", (m) => { });
+
+            // Assert
+            _mockKeyboardDispatcher.Received().Dispatch(Arg.Is<KeyboardMessage>(m => m.Key == KeyCode._1));
+        }
+
+        [Fact]
+        public void Dispatch_DoesntProcessKeys_WhenNoGameConfigIsSelected()
         {
             // Act
             _messageDispatcher.Dispatch("Config1.Key1", null);

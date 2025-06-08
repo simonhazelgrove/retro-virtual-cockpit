@@ -16,7 +16,7 @@ namespace RetroVirtualCockpit.Server.Messages
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public ButtonAction Action { get; set; }
 
-        public int? DelayUntilKeyUp { get; set; }
+        public int? AutoKeyUpDelay { get; set; }
 
         public KeyboardMessage()
         {
