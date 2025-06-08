@@ -108,11 +108,25 @@ namespace RetroVirtualCockpit.Server.Services
             {
                 if (receiver is JoystickReceiver)
                 {
-                    (receiver as JoystickReceiver).SetEvents(config.JoystickMappings);
+                    if (config == null)
+                    {
+                        (receiver as JoystickReceiver).ClearEvents();
+                    }
+                    else
+                    {
+                        (receiver as JoystickReceiver).SetEvents(config.JoystickMappings);
+                    }
                 }
                 else if (receiver is MouseReceiver)
                 {
-                    (receiver as MouseReceiver).SetEvents(config.MouseMappings);
+                    if (config == null)
+                    {
+                        (receiver as MouseReceiver).ClearEvents();
+                    }
+                    else
+                    {
+                        (receiver as MouseReceiver).SetEvents(config.MouseMappings);
+                    }
                 }
             }
         }

@@ -51,7 +51,7 @@ namespace RetroVirtualCockpit.Server.Services
 
                 setSelectedGameConfig(_selectedGameConfig);
 
-                var logMessage = _selectedGameConfig == null ? $"Unknown game config {title}" : $"Selected game config {title}";
+                var logMessage = _selectedGameConfig == null ? $"No local game config {title} found" : $"Selected game config {title}";
                 Console.WriteLine(logMessage);
             }
             else if (_selectedGameConfig == null)

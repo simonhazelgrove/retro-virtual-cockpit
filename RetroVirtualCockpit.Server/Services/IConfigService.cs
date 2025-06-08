@@ -7,6 +7,6 @@ namespace RetroVirtualCockpit.Server.Services
     {
         public ServiceLifetime Lifetime { get; }
 
-        public GameConfig GetGameConfig(string configTitle);
+        public GameConfig? GetGameConfig(string configTitle);
     }
 }
