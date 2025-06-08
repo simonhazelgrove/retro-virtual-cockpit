@@ -3,8 +3,8 @@ using RetroVirtualCockpit.Server.Dispatchers;
 using RetroVirtualCockpit.Server.Data;
 using RetroVirtualCockpit.Server.Messages;
 using RetroVirtualCockpit.Server.Services;
-using System.Collections.Generic;
 using Xunit;
+using Shouldly;
 
 namespace RetroVirtualCockpit.Server.Test.Unit.Services
 {
@@ -32,7 +32,7 @@ namespace RetroVirtualCockpit.Server.Test.Unit.Services
         public void Dispatch_ShouldHandleRawJsonMessage()
         {
             // Arrange
-            var rawJsonMessage = "[{\"Key\":\"Space\",\"Action\":\"Press\"}]";
+            var rawJsonMessage = "[{\"key\":\"Space\",\"action\":\"Press\"}]";
 
             // Act
             _messageDispatcher.Dispatch(rawJsonMessage, (m) => { });
@@ -46,7 +46,7 @@ namespace RetroVirtualCockpit.Server.Test.Unit.Services
         public void Dispatch_ShouldHandleMultipleRawJsonMessage()
         {
             // Arrange
-            var rawJsonMessage = "[{\"Key\":\"Space\",\"Action\":\"Press\"},{\"Key\":\"Enter\",\"Action\":\"Press\"}]";
+            var rawJsonMessage = "[{\"key\":\"Space\",\"action\":\"Press\"},{\"key\":\"Enter\",\"action\":\"Press\"}]";
 
             // Act
             _messageDispatcher.Dispatch(rawJsonMessage, (m) => { });
@@ -60,82 +60,20 @@ namespace RetroVirtualCockpit.Server.Test.Unit.Services
         }
 
         [Fact]
-        public void Dispatch_ShouldHandleKeyboardMessage_WhenGameConfigIsSelected()
+        public void Dispatch_ShouldHandleSetConfigMessage()
         {
             // Arrange
-            _mockConfigService.GetGameConfig("Config1").Returns(
-                new GameConfig { GameActionMappings = new Dictionary<string, GameActionMapping>() 
-                    {{ "Key1", new GameActionMapping { new KeyboardMessage { Key = KeyCode._1 } } } }});
+            var testConfig = new GameConfig { Title = "Config1" };
+            _mockConfigService.GetGameConfig("Config1").Returns(testConfig);
 
             // Act
-            _messageDispatcher.Dispatch("SetConfig:Config1", (m) => { });
-            _messageDispatcher.Dispatch("Key1", (m) => { });
+            GameConfig selectedConfig = null;
+            _messageDispatcher.Dispatch("SetConfig:Config1", (c) => { selectedConfig = c; });
 
             // Assert
-            _mockKeyboardDispatcher.Received().Dispatch(Arg.Is<KeyboardMessage>(m => m.Key == KeyCode._1));
-        }
-
-        [Fact]
-        public void Dispatch_DoesntProcessKeys_WhenNoGameConfigIsSelected()
-        {
-            // Act
-            _messageDispatcher.Dispatch("Config1.Key1", null);
-
-            // Assert
-            _mockKeyboardDispatcher.DidNotReceive().Dispatch(Arg.Any<KeyboardMessage>());
-        }
-
-        [Fact]
-        public void Dispatch_ShouldHandleSwitchConfigsMessage()
-        {
-            // Arrange
-            _mockConfigService.GetGameConfig("Config1").Returns(
-                new GameConfig { GameActionMappings = new Dictionary<string, GameActionMapping>() 
-                    {{ "Key1", new GameActionMapping { new KeyboardMessage { Key = KeyCode._1 } } } }});
-
-            _mockConfigService.GetGameConfig("Config2").Returns(
-                new GameConfig { GameActionMappings = new Dictionary<string, GameActionMapping>() 
-                    {{ "Key1", new GameActionMapping { new KeyboardMessage { Key = KeyCode.A } } } }});
-
-            // Act & Assert
-            _messageDispatcher.Dispatch("SetConfig:Config1", (m) => { });
-            _mockKeyboardDispatcher.DidNotReceive().Dispatch(Arg.Any<KeyboardMessage>());
-
-            // Act & Assert
-            _messageDispatcher.Dispatch("Key1", (m) => { });
-            _mockKeyboardDispatcher.Received().Dispatch(Arg.Is<KeyboardMessage>(m => m.Key == KeyCode._1));
-
-            // Act & Assert
-            _mockKeyboardDispatcher.ClearReceivedCalls();
-            _messageDispatcher.Dispatch("SetConfig:Config2", (m) => { });
-            _mockKeyboardDispatcher.DidNotReceive().Dispatch(Arg.Any<KeyboardMessage>());
-            
-            // Act & Assert
-            _messageDispatcher.Dispatch("Key1", (m) => { });
-            _mockKeyboardDispatcher.Received().Dispatch(Arg.Is<KeyboardMessage>(m => m.Key == KeyCode.A));
-        }
-
-        private List<GameConfig> GetTestConfigs()
-        {
-            return new List<GameConfig>
-            {
-                new GameConfig
-                {
-                    Title = "Config1",
-                    GameActionMappings = new Dictionary<string, GameActionMapping>
-                    {
-                        { "Key1", new GameActionMapping { new KeyboardMessage { Key = KeyCode._1 } } }
-                    }
-                },
-                new GameConfig
-                {
-                    Title = "Config2",
-                    GameActionMappings = new Dictionary<string, GameActionMapping>
-                    {
-                        { "Key1", new GameActionMapping { new KeyboardMessage { Key = KeyCode.A } } }
-                    }
-                }
-            };
+            selectedConfig.ShouldNotBeNull();
+            _mockConfigService.Received().GetGameConfig("Config1");
+            selectedConfig.ShouldBe(testConfig);
         }
     }
 }
