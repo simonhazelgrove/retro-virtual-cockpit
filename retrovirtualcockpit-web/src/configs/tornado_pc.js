@@ -104,7 +104,7 @@ export default function tornado_pc() {
                         title: "Brakes",
                         align: "left",
                         controls: [
-                            { type: "lever", label: "Air/<br>ThrstRev", up: [{"key":"Backspace"}], down: [{"key":"Backspace","Action":"Up","DelayUntilKeyUp":200}], altColor: true },
+                            { type: "lever", label: "Air/<br>ThrstRev", up: [{"key":"Backspace"}], down: [{"key":"Backspace","action":"Up","autoKeyUpDelay":200}], altColor: true },
                             { type: "lever", label: "Wheel<br>&nbsp;", up: [{"key":"B"}], down: [{"key":"B"}], startInUpPos: true },
                         ]
                     },
