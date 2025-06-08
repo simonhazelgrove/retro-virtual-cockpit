@@ -8,7 +8,7 @@ namespace RetroVirtualCockpit.Server.Messages
     {
         protected override Message Create(Type objectType, JObject jObject)
         {
-            if (FieldExists("Key", jObject))
+            if (FieldExists("key", jObject))
             {
                 return new KeyboardMessage();
             }
