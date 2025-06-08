@@ -7,6 +7,8 @@ namespace RetroVirtualCockpit.Server.Dispatchers
 {
     public class KeyboardDispatcher : IKeyboardDispatcher
     {
+        const int DefaultDelay = 100;
+
         private readonly IKeyboardSimulator _keyboardSimulator;
 
         public KeyboardDispatcher(InputSimulator inputSimulator)
@@ -16,32 +18,59 @@ namespace RetroVirtualCockpit.Server.Dispatchers
 
         public void Dispatch(KeyboardMessage message)
         {
+            ApplyDefaultAction(message);
+
             if (message.Action == ButtonAction.Up)
             {
-                KeyUp(message.Modifier, message.Key);
+                KeyUp(message.Key);
+
+                if (message.Modifier != null)
+                {
+                    KeyUp(message.Modifier.Value);
+                }
             }
             else if (message.Action == ButtonAction.Down)
             {
                 if (message.Modifier != null)
                 {
-                    KeyDown(null, message.Modifier.Value);
-                    SetupTimer(100, () => { KeyDown(null, message.Key); });
-                    SetupTimer(200, () => { KeyUp(null, message.Key); });
-                    SetupTimer(300, () => { KeyUp(null, message.Modifier.Value); });
+                    KeyDown(message.Modifier.Value);
+                    SetupTimer(DefaultDelay, () => { KeyDown(message.Key); });
+
+                    if (message.AutoKeyUpDelay.HasValue)
+                    {
+                        SetupTimer(message.AutoKeyUpDelay.Value * 2, () => { KeyUp(message.Key); });
+                        SetupTimer(message.AutoKeyUpDelay.Value * 3, () => { KeyUp(message.Modifier.Value); });
+                    }
                 }
                 else
                 {
-                    KeyDown(null, message.Key);
+                    KeyDown(message.Key);
 
-                    if (message.Action == ButtonAction.Down && message.DelayUntilKeyUp.HasValue)
+                    if (message.AutoKeyUpDelay.HasValue)
                     {
-                        SetupKeyUpTimer(message, message.Modifier, message.Key);
+                        SetupTimer(message.AutoKeyUpDelay ?? DefaultDelay, () => { KeyUp(message.Key); });
                     }
                 }
             }
             else if (message.Action == ButtonAction.Press)
             {
-               KeyPress(message.Modifier, message.Key);
+                KeyPress(message.Modifier, message.Key);
+            }
+        }
+
+        private void ApplyDefaultAction(KeyboardMessage message)
+        {
+            if (message.Action == ButtonAction.None)
+            {
+                if (message.Modifier != null)
+                {
+                    message.Action = ButtonAction.Down;
+                    message.AutoKeyUpDelay = 100; 
+                }
+                else
+                {
+                    message.Action = ButtonAction.Press;
+                }
             }
         }
 
@@ -59,34 +88,6 @@ namespace RetroVirtualCockpit.Server.Dispatchers
             timer.Start();
         }
 
-        private void SetupKeyDownTimer(KeyboardMessage message, KeyCode? modifier, KeyCode key)
-        {
-            var timer = new System.Timers.Timer
-            {
-                Interval = message.DelayUntilKeyUp.Value
-            };
-            timer.Elapsed += (o, e) =>
-            {
-                KeyDown(modifier, key);
-                timer.Stop();
-            };
-            timer.Start();
-        }
-
-        private void SetupKeyUpTimer(KeyboardMessage message, KeyCode? modifier, KeyCode key)
-        {
-            var timer = new System.Timers.Timer
-            {
-                Interval = message.DelayUntilKeyUp.Value
-            };
-            timer.Elapsed += (o, e) =>
-            {
-                KeyUp(modifier, key);
-                timer.Stop();
-            };
-            timer.Start();
-        }
-
         private void KeyPress(KeyCode? modifier, KeyCode key)
         {
             var virtualKeyCode = KeyCodeConverter.ToVirtualKeyCode(key);
@@ -96,15 +97,14 @@ namespace RetroVirtualCockpit.Server.Dispatchers
             {
                 if (modifierVirtualKeyCode != VirtualKeyCode.NONAME)
                 {
-                    _keyboardSimulator.KeyPress(modifierVirtualKeyCode);
+                    _keyboardSimulator.ModifiedKeyStroke(modifierVirtualKeyCode, virtualKeyCode);
                     Console.WriteLine($"{modifier} {key} press");
                 }
                 else
                 {
+                    _keyboardSimulator.KeyPress(virtualKeyCode);
                     Console.WriteLine($"{key} press");
                 }
-
-                _keyboardSimulator.KeyPress(virtualKeyCode, modifierVirtualKeyCode);
             }
             else
             {
@@ -112,19 +112,12 @@ namespace RetroVirtualCockpit.Server.Dispatchers
             }
         }
 
-        private void KeyDown(KeyCode? modifier, KeyCode key)
+        private void KeyDown(KeyCode key)
         {
             var virtualKeyCode = KeyCodeConverter.ToVirtualKeyCode(key);
-            var modifierVirtualKeyCode = KeyCodeConverter.ToVirtualKeyCode(modifier);
 
             if (virtualKeyCode != VirtualKeyCode.NONAME)
             {
-                if (modifierVirtualKeyCode != VirtualKeyCode.NONAME)
-                {
-                    _keyboardSimulator.KeyDown(modifierVirtualKeyCode);
-                    Console.WriteLine($"{modifier} down");
-                }
-
                 _keyboardSimulator.KeyDown(virtualKeyCode);
                 Console.WriteLine($"{key} down");
             }
@@ -134,21 +127,14 @@ namespace RetroVirtualCockpit.Server.Dispatchers
             }
         }
 
-        private void KeyUp(KeyCode? modifier, KeyCode key)
+        private void KeyUp(KeyCode key)
         {
             var virtualKeyCode = KeyCodeConverter.ToVirtualKeyCode(key);
-            var modifierVirtualKeyCode = KeyCodeConverter.ToVirtualKeyCode(modifier);
 
             if (virtualKeyCode != VirtualKeyCode.NONAME)
             {
                 _keyboardSimulator.KeyUp(virtualKeyCode);
                 Console.WriteLine($"{key} up");
-
-                if (modifierVirtualKeyCode != VirtualKeyCode.NONAME)
-                {
-                    _keyboardSimulator.KeyUp(modifierVirtualKeyCode);
-                    Console.WriteLine($"{modifier} up");
-                }
             }
         }
     }

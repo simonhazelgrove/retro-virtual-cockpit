@@ -24,11 +24,17 @@ namespace RetroVirtualCockpit.Server.Receivers
             _messages = new List<string>();
             _lock = new object();
             _mouse = mouse;
+            _events = new List<IMouseEvent>();
         }
 
         public void SetEvents(List<IMouseEvent> events)
         {
-            _events = events;
+            _events.AddRange(events);
+        }
+
+        public void ClearEvents()
+        {
+            _events.Clear();
         }
 
         public List<string> CollectMessages()

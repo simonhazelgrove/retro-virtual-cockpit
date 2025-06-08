@@ -12,7 +12,7 @@ import {
   Throttle as ThrottleType,
   SubPanel as SubPanelType,
   Lever as LeverType
-} from '../../../configs'
+} from '../../../types'
 import { Label } from "../label"
 import { Button } from "../button"
 import { DoubleButton } from "../doubleButton"

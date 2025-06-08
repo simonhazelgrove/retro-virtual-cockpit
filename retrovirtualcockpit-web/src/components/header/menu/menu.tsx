@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { Form, Dropdown } from 'react-bootstrap'
 import { GearFill, LightningFill, Fullscreen, InfoCircleFill, MoonFill } from 'react-bootstrap-icons';
-import { CockpitConfig } from "../../../configs";
+import { CockpitConfig } from "../../../types";
 import cockpit_configs from '../../../configs/cockpit-config.js'
 
 export interface MenuProps {

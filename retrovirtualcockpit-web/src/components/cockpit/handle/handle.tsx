@@ -1,6 +1,6 @@
 import React from "react"
 import { motion, useAnimation } from "framer-motion"
-import { Handle as HandleType } from '../../../configs'
+import { Handle as HandleType } from '../../../types'
 
 interface HandleProps {
   handle: HandleType,

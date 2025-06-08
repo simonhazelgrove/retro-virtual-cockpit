@@ -1,5 +1,5 @@
 import React, { MouseEvent } from "react"
-import { DPadButton as DPadButtonType } from '../../../configs'
+import { DPadButton as DPadButtonType } from '../../../types'
 import bump from '../../../sounds/bump.wav'
 
 interface DPadButtonProps {

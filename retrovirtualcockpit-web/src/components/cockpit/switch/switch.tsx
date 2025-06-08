@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Switch as SwitchType } from '../../../configs'
+import { Switch as SwitchType } from '../../../types'
 import switchSound from '../../../sounds/switch.wav'
 
 interface SwitchProps {

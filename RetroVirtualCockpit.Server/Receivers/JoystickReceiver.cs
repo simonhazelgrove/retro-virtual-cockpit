@@ -29,11 +29,17 @@ namespace RetroVirtualCockpit.Server.Receivers
             _messages = new List<string>();
             _lock = new object();
             _joystick = joystick;
+            _events = new List<IJoystickEvent>();
         }
 
         public void SetEvents(List<IJoystickEvent> events)
         {
-            _events = events;
+            _events.AddRange(events);
+        }
+
+        public void ClearEvents()
+        {
+            _events.Clear();
         }
 
         protected void ReadJoystickState()

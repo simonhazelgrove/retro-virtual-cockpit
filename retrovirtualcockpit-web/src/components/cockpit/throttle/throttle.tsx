@@ -1,6 +1,6 @@
 import React from "react"
 import { motion, useAnimation } from "framer-motion"
-import { Throttle as ThrottleType } from '../../../configs'
+import { Throttle as ThrottleType } from '../../../types'
 
 interface ThrottleProps {
   throttle: ThrottleType,

@@ -2,8 +2,6 @@
 using Xunit;
 using RetroVirtualCockpit.Server.Dispatchers;
 using RetroVirtualCockpit.Server.Messages;
-using System;
-using System.Threading.Tasks;
 using WindowsInput;
 using WindowsInput.Native;
 using System.Threading;
@@ -27,88 +25,170 @@ namespace RetroVirtualCockpit.Server.Test.Unit.Dispatchers
         }
 
         [Fact]
-        public void Dispatch_ShouldPressAKeyDown()
+        public void Dispatch_ShouldPressAKey()
         {
-            var message = new KeyboardMessage { Key = KeyCode.Space };
+            // Arrange
+            var message = new KeyboardMessage { Key = KeyCode.Space, Action = ButtonAction.Press };
 
+            // Act
             _dispatcher.Dispatch(message);
 
+            // Assert
+            _mockKeyboardSimulator.Received(1).KeyPress(VirtualKeyCode.SPACE);
+        }
+
+        [Fact]
+        public void Dispatch_ShouldPressAKeyWithModifier()
+        {
+            // Arrange
+            var message = new KeyboardMessage { Key = KeyCode.Enter, Action = ButtonAction.Press, Modifier = KeyCode.Control };
+
+            // Act
+            _dispatcher.Dispatch(message);
+            Thread.Sleep(500);
+
+            // Assert
+            _mockKeyboardSimulator.Received(1).ModifiedKeyStroke(VirtualKeyCode.CONTROL, VirtualKeyCode.RETURN);
+            _mockKeyboardSimulator.Received(0).KeyDown(Arg.Any<VirtualKeyCode>());
+            _mockKeyboardSimulator.Received(0).KeyUp(Arg.Any<VirtualKeyCode>());
+        }
+
+        [Fact]
+        public void Dispatch_ShouldPressAKeyDown()
+        {
+            // Arrange
+            var message = new KeyboardMessage { Key = KeyCode.Space, Action = ButtonAction.Down };
+
+            // Act
+            _dispatcher.Dispatch(message);
+
+            // Assert
             _mockKeyboardSimulator.Received(1).KeyDown(VirtualKeyCode.SPACE);
         }
 
         [Fact]
         public void Dispatch_ShouldPressAKeyDownWithModifierFirst()
         {
-            var message = new KeyboardMessage { Key = KeyCode.Enter, Modifier = KeyCode.Control };
+            // Arrange
+            var message = new KeyboardMessage { Key = KeyCode.Enter, Action = ButtonAction.Down, Modifier = KeyCode.Control };
 
+            // Act
             _dispatcher.Dispatch(message);
-            Thread.Sleep(500);
-
-            _mockKeyboardSimulator.Received(2).KeyDown(Arg.Any<VirtualKeyCode>());
-            _mockKeyboardSimulator.Received(2).KeyUp(Arg.Any<VirtualKeyCode>());
-
-            Received.InOrder(() => {
-                _mockKeyboardSimulator.KeyDown(VirtualKeyCode.CONTROL);
-                _mockKeyboardSimulator.KeyDown(VirtualKeyCode.RETURN);
-                _mockKeyboardSimulator.KeyUp(VirtualKeyCode.RETURN);
-                _mockKeyboardSimulator.KeyUp(VirtualKeyCode.CONTROL);
-            });
-        }
-
-        [Fact]
-        public void Dispatch_ShouldPressAKeyUp()
-        {
-            var message = new KeyboardMessage { Key = KeyCode.Space, Action = ButtonAction.Up };
-
-            _dispatcher.Dispatch(message);
-
-            _mockKeyboardSimulator.Received(1).KeyUp(VirtualKeyCode.SPACE);
-        }
-
-        [Fact]
-        public void Dispatch_ShouldPressAKeyUpWithModifierLast()
-        {
-            var message = new KeyboardMessage { Key = KeyCode.Enter, Modifier = KeyCode.Control, Action = ButtonAction.Up };
-
-            _dispatcher.Dispatch(message);
-
-            _mockKeyboardSimulator.Received(2).KeyUp(Arg.Any<VirtualKeyCode>());
-
-            Received.InOrder(() => {
-                _mockKeyboardSimulator.KeyUp(VirtualKeyCode.RETURN);
-                _mockKeyboardSimulator.KeyUp(VirtualKeyCode.CONTROL);
-            });
-        }
-
-        [Fact]
-        public void Dispatch_ShouldPressAKeyUpAfterSomeTime()
-        {
-            var message = new KeyboardMessage { Key = KeyCode.Space, DelayUntilKeyUp = 200 };
-
-            _dispatcher.Dispatch(message);
-
             Thread.Sleep(300);
 
+            // Assert
+            _mockKeyboardSimulator.Received(2).KeyDown(Arg.Any<VirtualKeyCode>());
+
+            Received.InOrder(() =>
+            {
+                _mockKeyboardSimulator.KeyDown(VirtualKeyCode.CONTROL);
+                _mockKeyboardSimulator.KeyDown(VirtualKeyCode.RETURN);
+            });
+        }
+
+        [Fact]
+        public void Dispatch_ShouldPressAKeyBackUpAfterSomeTime_IfAutoKeyUpDelayIsSet()
+        {
+            // Arrange
+            var message = new KeyboardMessage { Key = KeyCode.Space, Action = ButtonAction.Down, AutoKeyUpDelay = 200 };
+
+            // Act
+            _dispatcher.Dispatch(message);
+            Thread.Sleep(300);
+
+            // Assert
             _mockKeyboardSimulator.Received(1).KeyDown(Arg.Any<VirtualKeyCode>());
             _mockKeyboardSimulator.Received(1).KeyUp(Arg.Any<VirtualKeyCode>());
 
-            Received.InOrder(() => {
+            Received.InOrder(() =>
+            {
                 _mockKeyboardSimulator.KeyDown(VirtualKeyCode.SPACE);
                 _mockKeyboardSimulator.KeyUp(VirtualKeyCode.SPACE);
             });
         }
 
         [Fact]
-        public void Dispatch_ShouldNotPressAKeyUpAfterSomeTime_IfDelayUntilKeyUpIsNotSet()
+        public void Dispatch_ShouldNotPressAKeyUpAfterSomeTime_IfAutoKeyUpDelayIsNotSet()
         {
-            var message = new KeyboardMessage { Key = KeyCode.Space };
+            // Arrange
+            var message = new KeyboardMessage { Key = KeyCode.Space, Action = ButtonAction.Down };
 
+            // Act
             _dispatcher.Dispatch(message);
-
             Thread.Sleep(300);
 
-            _mockKeyboardSimulator.Received(1).KeyDown(Arg.Any<VirtualKeyCode>());
-            _mockKeyboardSimulator.Received(0).KeyUp(Arg.Any<VirtualKeyCode>());
+            // Assert
+            _mockKeyboardSimulator.Received(1).KeyDown(VirtualKeyCode.SPACE);
+            _mockKeyboardSimulator.Received(0).KeyUp(VirtualKeyCode.SPACE);
+        }
+
+        [Fact]
+        public void Dispatch_ShouldPressAKeyUp()
+        {
+            // Arrange
+            var message = new KeyboardMessage { Key = KeyCode.Space, Action = ButtonAction.Up };
+
+            // Act
+            _dispatcher.Dispatch(message);
+
+            // Assert
+            _mockKeyboardSimulator.Received(1).KeyUp(VirtualKeyCode.SPACE);
+        }
+
+        [Fact]
+        public void Dispatch_ShouldPressAKeyUpWithModifierLast()
+        {
+            // Arrange
+            var message = new KeyboardMessage { Key = KeyCode.Enter, Modifier = KeyCode.Control, Action = ButtonAction.Up };
+
+            // Act
+            _dispatcher.Dispatch(message);
+
+            // Assert
+            _mockKeyboardSimulator.Received(2).KeyUp(Arg.Any<VirtualKeyCode>());
+
+            Received.InOrder(() =>
+            {
+                _mockKeyboardSimulator.KeyUp(VirtualKeyCode.RETURN);
+                _mockKeyboardSimulator.KeyUp(VirtualKeyCode.CONTROL);
+            });
+        }
+
+        [Fact]
+        public void Dispatch_ShouldApplyDefaultActionOfPress_WhenActionIsMissingAndNoModifiers()
+        {
+            // Arrange
+            var message = new KeyboardMessage { Key = KeyCode.Space };
+
+            // Act
+            _dispatcher.Dispatch(message);
+
+            // Assert
+            Assert.Equal(ButtonAction.Press, message.Action);
+            _mockKeyboardSimulator.Received(1).KeyPress(VirtualKeyCode.SPACE);
+        }
+
+        [Fact]
+        public void Dispatch_ShouldApplyDefaultActionOfKeyDown_WhenActionIsMissingAndModifiersArePresent()
+        {
+            // Arrange
+            var message = new KeyboardMessage { Key = KeyCode.Space, Modifier = KeyCode.Control };
+
+            // Act
+            _dispatcher.Dispatch(message);
+            Thread.Sleep(300);
+
+            // Assert
+            Assert.Equal(ButtonAction.Down, message.Action);
+            Assert.Equal(100, message.AutoKeyUpDelay);
+
+            Received.InOrder(() =>
+            {
+                _mockKeyboardSimulator.KeyDown(VirtualKeyCode.CONTROL);
+                _mockKeyboardSimulator.KeyDown(VirtualKeyCode.SPACE);
+                _mockKeyboardSimulator.KeyUp(VirtualKeyCode.SPACE);
+                _mockKeyboardSimulator.KeyUp(VirtualKeyCode.CONTROL);
+            });
         }
     }
 }

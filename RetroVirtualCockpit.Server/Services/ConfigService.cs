@@ -21,8 +21,13 @@ namespace RetroVirtualCockpit.Server.Services
             LoadConfigFilenamesMap();
         }
 
-        public GameConfig GetGameConfig(string configTitle)
+        public GameConfig? GetGameConfig(string configTitle)
         {
+            if (!_configFilenamesMap.ContainsKey(configTitle))
+            {
+                return null;
+            }
+
             var config = Load(_configFilenamesMap[configTitle]);
             return config;
         }
@@ -36,7 +41,7 @@ namespace RetroVirtualCockpit.Server.Services
             {
                 var config = Load(filename.FullName);
                 _configFilenamesMap.Add(config.Title, filename.FullName);
-                Console.WriteLine($"Read config {config.Title} from {filename.FullName}");
+                Console.WriteLine($"Read local config {config.Title} from {filename.FullName}");
             }
         }
         

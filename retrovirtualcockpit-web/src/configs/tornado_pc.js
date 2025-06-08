@@ -8,30 +8,25 @@ export default function tornado_pc() {
                         id: "autopilot",
                         title: "Autopilot",
                         controls: [
-                            //{ type: "switch", label: "Autopilot", on: "Controls.AutoPilot.On", off: "Controls.AutoPilot.Off" },
                             { type: "knob", label: "Mode", values: [
-                                [ "Controls.AutoPilot.Off", "Off" ],
-                                [ "Controls.AutoPilot.Mode.AutoLand", "Lnd" ],
-                                [ "Controls.AutoPilot.Mode.Track", "Trk" ],
-                                [ "Controls.AutoPilot.Mode.AltitudeHeading", "Alt" ],
-                                [ "Controls.AutoPilot.Mode.Terrain", "Ter" ]
+                                [ [{"key":"Escape"}], "Off" ],
+                                [ [{"key":"F6"}], "Lnd" ],
+                                [ [{"key":"F7"}], "Trk" ],
+                                [ [{"key":"F8"}], "Alt" ],
+                                [ [{"key":"F9"}], "Ter" ]
                             ] },
-                            //{ type: "button", label: "Land", press: "Controls.AutoPilot.Mode.AutoLand" },
-                            //{ type: "button", label: "Track", press: "Controls.AutoPilot.Mode.Track" },
-                            //{ type: "button", label: "Alt/Hdg", press: "Controls.AutoPilot.Mode.AltitudeHeading" },
-                            //{ type: "button", label: "Terr", press: "Controls.AutoPilot.Mode.Terrain" },
-                            { type: "switch", label: "Throttle", flip: "Controls.AutoPilot.AutoThrottle" },
-                            { type: "button", label: "Nxt Way", press: "Controls.AutoPilot.NextWaypoint" },
-                            { type: "button", label: "Trim", press: "Controls.AutoPilot.AutoTrim" },
+                            { type: "switch", label: "Throttle", flip: [{"key":"F10"}] },
+                            { type: "button", label: "Nxt Way", press: [{"key":"N"}] },
+                            { type: "button", label: "Trim", press: [{"key":"NumPad5"}] },
                         ]
                     },
                     {
                         id: "hud",
                         title: "HUD",
                         controls: [
-                            { type: "knob", label: "Contrast", turn: "HUD.Contrast" },
-                            { type: "switch", label: "On/Off", flip: "HUD.OnOff" },
-                            { type: "switch", label: "Spd", flip: "HUD.AirspeedDisplay" },
+                            { type: "knob", label: "Contrast", turn: [{"key":"H"}] },
+                            { type: "switch", label: "On/Off", flip: [{"key":"H","modifier":"Control"}] },
+                            { type: "switch", label: "Spd", flip: [{"key":"H","modifier":"Alt"}] },
                         ]
                     }
                 ]
@@ -42,7 +37,7 @@ export default function tornado_pc() {
                         id: "throttle",
                         align: "left",
                         controls: [
-                            { type: "throttle", up: "Controls.Throttle.Up", down: "Controls.Throttle.Down", max: "Controls.Throttle.Max", min: "Controls.Throttle.Min" }
+                            { type: "throttle", up: [{"key":"Equals"}], down: [{"key":"Minus"}], max: [{"key":"Equals","modifier":"LeftShift"}], min: [{"key":"Minus","modifier":"LeftShift"}] }
                         ]
                     },
                     {
@@ -50,19 +45,19 @@ export default function tornado_pc() {
                         title: "Control",
                         align: "left",
                         controls: [
-                            { type: "lever", label: "Sweep", multistage: true, up: "Controls.WingSweep.Forward", down: "Controls.WingSweep.Back" },
-                            { type: "lever", label: "Flaps", multistage: true, up: "Controls.FlapsSlats.Up", down: "Controls.FlapsSlats.Down" },
-                            { type: "lever", label: "Gear", up: "Controls.Gear", down: "Controls.Gear", altColor: true },
+                            { type: "lever", label: "Sweep", multistage: true, up: [{"key":"W"}], down: [{"key":"S"}] },
+                            { type: "lever", label: "Flaps", multistage: true, up: [{"key":"A"}], down: [{"key":"Q"}] },
+                            { type: "lever", label: "Gear", up: [{"key":"U"}], down: [{"key":"U"}], altColor: true },
                         ]
                     },
                     {
                         id: "mfd",
                         title: "MFD",
                         controls: [
-                            { type: "button", label: "L Mode", press: "MFD.Left.Mode" },
-                            { type: "button", label: "C Mode", press: "MFD.Center.Mode" },
-                            { type: "button", label: "R Mode", press: "MFD.Right.Mode" },
-                            { type: "button", label: "Active", press: "MFD.Active.Switch" },
+                            { type: "button", label: "L Mode", press: [{"key":"OpenSquareBracket"}] },
+                            { type: "button", label: "C Mode", press: [{"key":"D"}] },
+                            { type: "button", label: "R Mode", press: [{"key":"CloseSquareBracket"}] },
+                            { type: "button", label: "Active", press: [{"key":"Tab"}] },
                         ]
                     },
                     {
@@ -71,10 +66,10 @@ export default function tornado_pc() {
                         align: "right",
                         orientation: "vertical",
                         controls: [
-                            { type: "button-h", label: "Rotate", left: "View.External.Track.Left", right: "View.External.Track.Right" },
-                            { type: "button-h", label: "Rotate Fst", left: "View.External.Track.LeftFast", right: "View.External.Track.RightFast" },
-                            { type: "button-h", label: "Zoom", left: "View.External.Zoom.In", right: "View.External.Zoom.Out" },
-                            { type: "button-h", label: "Zoom Fst", left: "View.External.Zoom.InFast", right: "View.External.Zoom.OutFast" },
+                            { type: "button-h", label: "Rotate", left: [{"key":"X"}], right: [{"key":"Z"}] },
+                            { type: "button-h", label: "Rotate Fst", left: [{"key":"X","modifier":"LeftShift"}], right: [{"key":"Z","modifier":"LeftShift"}] },
+                            { type: "button-h", label: "Zoom", left: [{"key":"Comma"}], right: [{"key":"Period"}] },
+                            { type: "button-h", label: "Zoom Fst", left: [{"key":"Comma","modifier":"LeftShift"}], right: [{"key":"Period","modifier":"LeftShift"}] },
                         ]
                     },
                     {
@@ -83,11 +78,11 @@ export default function tornado_pc() {
                         align: "right",
                         orientation: "vertical",
                         controls: [
-                            { type: "button", label: "Track", press: "View.External.Tracking" },
-                            { type: "button", label: "Sat", press: "View.External.Satellite" },
-                            { type: "button", label: "Rmt", press: "View.External.Remote" },
-                            { type: "button", label: "Spec", press: "View.External.Spectator" },
-                            { type: "button", label: "Drn", press: "View.External.Drone" },
+                            { type: "button", label: "Track", press: [{"key":"F1"}] },
+                            { type: "button", label: "Sat", press: [{"key":"F2"}] },
+                            { type: "button", label: "Rmt", press: [{"key":"F3"}] },
+                            { type: "button", label: "Spec", press: [{"key":"F4"}] },
+                            { type: "button", label: "Drn", press: [{"key":"F5"}] },
                         ]
                     },                    {
                         id: "internalview",
@@ -95,9 +90,9 @@ export default function tornado_pc() {
                         align: "right",
                         orientation: "vertical",
                         controls: [
-                            { type: "button-dpad", label: "Head", up: "View.Head.FrontUp", down: "View.Head.Rear", left: "View.Head.Left", right: "View.Head.Right" },
-                            { type: "button", label: "Map", press: "View.Head.Map" },
-                            { type: "button", label: "Map Orig", press: "View.Head.Map.Origin" },
+                            { type: "button-dpad", label: "Head", up: [{"key":"Home"}], down: [{"key":"PageUp"}], left: [{"key":"End","modifier":"LeftShift"}], right: [{"key":"PageDown","modifier":"LeftShift"}] },
+                            { type: "button", label: "Map", press: [{"key":"M"}] },
+                            { type: "button", label: "Map Orig", press: [{"key":"O"}] },
                         ]
                     },             
                 ]
@@ -109,15 +104,15 @@ export default function tornado_pc() {
                         title: "Brakes",
                         align: "left",
                         controls: [
-                            { type: "lever", label: "Air/<br>ThrstRev", up: "Controls.AirBrake.On", down: "Controls.AirBrake.Off", altColor: true },
-                            { type: "lever", label: "Wheel<br>&nbsp;", up: "Controls.Brake.Toggle", down: "Controls.Brake.Toggle", startInUpPos: true },
+                            { type: "lever", label: "Air/<br>ThrstRev", up: [{"key":"Backspace"}], down: [{"key":"Backspace","action":"Up","autoKeyUpDelay":200}], altColor: true },
+                            { type: "lever", label: "Wheel<br>&nbsp;", up: [{"key":"B"}], down: [{"key":"B"}], startInUpPos: true },
                         ]
                     },
                     {
                         id: "eject",
                         decoration: "none",
                         controls: [
-                            { type: "handle", label: "Pull to eject", pull: "Controls.Eject", decoration: "hazard" },
+                            { type: "handle", label: "Pull to eject", pull: [{"key":"Q","modifier":"Control"}], decoration: "hazard" },
                         ]
                     }
                 ]

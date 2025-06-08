@@ -1,5 +1,5 @@
 import React from "react";
-import { Lever as LeverType } from '../../../configs'
+import { Lever as LeverType } from '../../../types'
 import { motion, useAnimation } from "framer-motion"
 import lever from '../../../sounds/lever.wav'
 

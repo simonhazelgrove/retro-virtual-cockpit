@@ -1,5 +1,5 @@
 import React from "react";
-import { Control as ControlType } from '../../../configs'
+import { Control as ControlType } from '../../../types'
 
 interface LabelProps {
   label: ControlType

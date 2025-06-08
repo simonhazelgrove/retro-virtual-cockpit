@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import { CockpitConfig } from './configs'
+import { CockpitConfig, Message } from './types'
 import { Cockpit } from './components/cockpit'
 import { Header } from './components/header'
 import { Connector } from './components/connector'
@@ -14,7 +14,7 @@ function App() {
   const [showConnector, setShowConnector] = useState(true)
   const [showDebug, setShowDebug] = useState(false)
   const [nightMode, setNightMode] = useState(false)
-  const [debugMessages, setDebugMessages] = useState<string[]>([])
+  const [debugMessages, setDebugMessages] = useState<(string | Message)[]>([])
 
   const onConfigChanged = (selectedConfig: CockpitConfig) => {
     setConfig(selectedConfig)
@@ -67,12 +67,22 @@ function App() {
     }
   })
 
-  const onSendMessage = (message: string) => {
+  const onSendMessage = (message: string | Message[]) => {
     if (connection) {
-      connection.send(message)
+      if (typeof message === 'string' || message instanceof String) {
+        connection.send(message.toString())
+      }
+      else {
+        connection.send(JSON.stringify(message))
+      }
     }
     if (showDebug) {
-      setDebugMessages([...debugMessages, message])
+      if (typeof message === 'string') {
+        setDebugMessages([...debugMessages, message])
+      } else {
+        // If the message is an array, we assume it's a list of messages
+        setDebugMessages([...debugMessages, ...message])
+      }
     }
   }
 
